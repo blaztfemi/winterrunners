@@ -161,6 +161,37 @@ plainly. The title — its first appearance — then:
 *"Around here, we called them Winter Runners."* End near-black on a quiet
 sources link. No call to action.
 
+## 5a. The experience bar (v3 — the world engine)
+
+Reference point set by Eric: **aboutluca.com** (Luca Nardi's Awwwards
+portfolio — WebGL atmosphere, sound, cinematic chapters on a dark canvas).
+The lesson taken from it is architectural, not decorative:
+
+> **The site is not a page with effects. It is a place with documents in it.**
+
+v3 inverts the build: a full-viewport canvas world runs behind the entire
+experience — four parallax treeline layers with drifting fog *between* the
+depth planes, snow in three depth bands, faint stars, and the light itself
+rendered as a native luminous object inside the scene (it starts *behind*
+the nearest trees and clears them as it wakes). Scroll is travel: the woods
+grow taller as you approach the encounter. The cursor stirs the fog — the
+woods notice you. A cinematic cold open ("A WINTER NIGHT · HARDIN COUNTY,
+KENTUCKY") and Luca-style numbered chapter marks frame the journey.
+Procedural wind ambience (opt-in, generated in Web Audio, no assets) ducks
+to dead silence while the light watches — the loudest silence on the site.
+
+Two details carry the dread: while the light wakes it *flickers
+organically*, like something alive; the moment it watches, the flicker
+stops and it burns perfectly, unnaturally steady. And at WATCHED,
+**everything** freezes — snow mid-air, fog mid-drift, star-twinkle — the
+whole world holding its breath with you.
+
+Opus upgrade path: this engine is hand-rolled 2D canvas so the prototype
+stays dependency-free. If more atmosphere is wanted at production,
+Three.js volumetric fog and GSAP ScrollTrigger are the natural upgrades —
+the scene graph (sky / stars / 4 ridges / fog bands / light / snow) maps
+1:1 onto a WebGL scene.
+
 ## 5b. The set pieces (v2 — the swings)
 
 Restraint is the setup; these are the payoffs. Five deliberate violations

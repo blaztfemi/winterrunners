@@ -33,8 +33,8 @@
   }
   ::selection{background:var(--rust);color:var(--newsprint)}
 
-  /* ---- fixed layers ---- */
-  #snow{position:fixed;inset:0;pointer-events:none;z-index:60}
+  /* ================= fixed layers ================= */
+  #world{position:fixed;inset:0;z-index:1;pointer-events:none}
   .grain{
     position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.05;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -42,80 +42,81 @@
   #vignette{
     position:fixed;inset:0;pointer-events:none;z-index:70;opacity:0;
     background:radial-gradient(ellipse 55% 42% at 50% 46%, transparent 30%, rgba(3,8,10,.97) 82%);
-    transition:opacity .4s linear;
   }
   .progress{position:fixed;top:0;left:0;width:2px;height:0;background:var(--evidence);opacity:.18;z-index:95}
 
-  /* the pre-echo + final crossing */
-  .echo{
-    position:absolute;top:38%;left:-3%;width:4px;height:4px;border-radius:50%;
-    background:#efe6d2;box-shadow:0 0 6px 2px rgba(239,230,210,.8),0 0 16px 5px rgba(184,121,62,.25);
-    opacity:0;
+  /* chapter mark, Luca-style numbered */
+  #chapter{
+    position:fixed;top:20px;left:22px;z-index:85;font-family:var(--mono);
+    font-size:11px;letter-spacing:.16em;color:var(--evidence);opacity:0;
+    transition:opacity 1s ease;text-transform:uppercase;
   }
-  .echo.go{animation:echoCross 3.2s cubic-bezier(.4,0,.6,1) 1 forwards}
-  @keyframes echoCross{
-    0%{opacity:0;transform:translateX(0)}
-    12%{opacity:.85}
-    88%{opacity:.85}
-    100%{opacity:0;transform:translateX(106vw)}
-  }
+  #chapter.vis{opacity:.6}
 
-  /* ---- shared ---- */
-  section{position:relative}
+  /* wind toggle */
+  #wind{
+    position:fixed;bottom:20px;right:22px;z-index:85;font-family:var(--mono);
+    font-size:11px;letter-spacing:.16em;color:var(--evidence);background:none;
+    border:1px solid rgba(126,150,155,.3);padding:6px 12px;border-radius:2px;
+    cursor:pointer;opacity:.7;text-transform:uppercase;
+  }
+  #wind:hover{color:var(--newsprint);border-color:rgba(242,238,229,.4)}
+
+  /* ================= loader ================= */
+  #loader{
+    position:fixed;inset:0;background:#04090b;z-index:100;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    transition:opacity 2.4s ease;
+  }
+  #loader.gone{opacity:0;pointer-events:none}
+  #loader .mono{line-height:2.6;opacity:0;animation:loaderIn 2.6s ease .4s forwards}
+  @keyframes loaderIn{to{opacity:.8}}
+
+  /* ================= shared ================= */
+  section{position:relative;z-index:2}
   .measure{max-width:34em;margin:0 auto;padding:0 24px}
   .vh{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
-  p.narr{font-size:clamp(19px,2.2vw,24px);margin:1.4em 0}
-  .big{font-size:clamp(34px,6.5vw,88px);line-height:1.12;font-weight:300;letter-spacing:-0.01em;margin:.6em 0}
+  p.narr{font-size:clamp(19px,2.2vw,24px);margin:1.4em 0;text-shadow:0 1px 14px rgba(4,9,11,.8)}
+  .big{font-size:clamp(34px,6.5vw,88px);line-height:1.12;font-weight:300;letter-spacing:-0.01em;margin:.6em 0;text-shadow:0 2px 24px rgba(4,9,11,.85)}
   .whisper{font-size:clamp(17px,1.8vw,21px);color:var(--evidence);font-style:italic}
   .spacer-s{height:30vh}.spacer-m{height:55vh}.spacer-l{height:85vh}
   .rv{opacity:0;transform:translateY(14px);transition:opacity 1.6s ease,transform 1.6s ease}
   .rv.on{opacity:1;transform:none}
   .chip{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--evidence);
-    border:1px solid rgba(126,150,155,.35);padding:4px 10px;border-radius:2px;text-transform:uppercase}
+    border:1px solid rgba(126,150,155,.35);padding:4px 10px;border-radius:2px;text-transform:uppercase;
+    background:rgba(7,16,20,.55)}
   .mono{font-family:var(--mono);color:var(--evidence);font-size:13px;letter-spacing:.1em}
 
-  .slot{border:1px dashed rgba(126,150,155,.4);background:rgba(17,23,25,.6);
+  .slot{border:1px dashed rgba(126,150,155,.4);background:rgba(9,15,18,.72);
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:10px;padding:26px;text-align:center;border-radius:2px}
+    gap:10px;padding:26px;text-align:center;border-radius:2px;backdrop-filter:blur(2px)}
   .slot .mono{font-size:11px;line-height:1.9}
   .slot::before{content:'';width:34px;height:1px;background:rgba(126,150,155,.4)}
 
-  .treeline{position:absolute;left:0;right:0;bottom:0;width:100%;pointer-events:none;display:block}
-  .treeline path{fill:#03080a}
-
-  /* =========================================================
-     THE LIGHT — pinned reconstruction
-     ========================================================= */
+  /* ================= the light stage ================= */
   #light-outer{height:680vh;position:relative}
-  #light-stage{position:sticky;top:0;height:100vh;overflow:hidden;
-    background:linear-gradient(to bottom,#050b0e 0%,#071014 55%,#0a1216 100%)}
+  #light-stage{position:sticky;top:0;height:100vh;overflow:hidden}
   #recon-chip{position:absolute;top:22px;right:22px;z-index:5;opacity:.7}
-  .dot{position:absolute;left:24%;bottom:14%;width:7px;height:7px;border-radius:50%;
-    background:#efe6d2;
-    box-shadow:0 0 8px 2px rgba(239,230,210,.85),0 0 26px 8px rgba(184,121,62,.28);
-    opacity:0;will-change:transform,opacity;z-index:75}
-  .dot.run{transition:transform .3s cubic-bezier(.75,0,1,1),opacity .1s linear .26s}
   .light-line{position:absolute;left:0;right:0;text-align:center;z-index:76;
     font-size:clamp(26px,4.4vw,54px);font-weight:300;opacity:0;
-    transition:opacity 1.4s ease;padding:0 24px}
+    transition:opacity 1.4s ease;padding:0 24px;text-shadow:0 2px 24px rgba(4,9,11,.9)}
   .light-line.beat{font-size:clamp(44px,8vw,104px);letter-spacing:.04em;font-weight:400}
   .light-line small{display:block;font-size:clamp(16px,1.8vw,20px);font-style:italic;color:var(--evidence);margin-top:1em}
   .light-line.vis{opacity:1}
   #ll-ran{font-size:clamp(56px,11vw,150px);letter-spacing:.02em}
 
-  /* =========================================================
-     THE PAPER CENTURY — the site ages into the archive
-     ========================================================= */
+  /* ================= paper century ================= */
   #paper-era{
-    background:var(--paper);color:var(--ink);
+    background:var(--paper);color:var(--ink);position:relative;z-index:2;
     box-shadow:inset 0 40px 80px rgba(32,33,29,.25), inset 0 -40px 80px rgba(32,33,29,.25);
   }
-  #paper-era p.narr{color:var(--ink)}
+  #paper-era p.narr{color:var(--ink);text-shadow:none}
+  #paper-era .big{text-shadow:none}
   #paper-era .whisper{color:#5c5648}
   #paper-era .mono{color:#5c5648}
-  #paper-era .chip{color:#5c5648;border-color:rgba(92,86,72,.4)}
-  .era-in{height:26vh;background:linear-gradient(var(--deep),var(--paper))}
-  .era-out{height:26vh;background:linear-gradient(var(--paper),var(--deep))}
+  #paper-era .chip{color:#5c5648;border-color:rgba(92,86,72,.4);background:none}
+  .era-in{height:26vh;background:linear-gradient(rgba(216,208,193,0),var(--paper));position:relative;z-index:2}
+  .era-out{height:26vh;background:linear-gradient(var(--paper),rgba(216,208,193,0));position:relative;z-index:2}
 
   .doc{background:#efe9dc;color:var(--ink);padding:34px 30px;max-width:560px;margin:0 auto;
     box-shadow:0 24px 50px rgba(32,33,29,.35);
@@ -134,7 +135,6 @@
   .surfq .attr{display:block;font-style:normal;font-family:var(--mono);font-size:12px;
     letter-spacing:.14em;color:#5c5648;margin-top:1.6em;text-transform:uppercase}
 
-  /* ---- the verb wall ---- */
   .verbwall{display:flex;flex-wrap:wrap;gap:14px 26px;justify-content:center;
     max-width:760px;margin:0 auto;padding:0 24px;font-family:var(--mono);
     font-size:clamp(14px,1.8vw,19px);letter-spacing:.12em;text-transform:uppercase}
@@ -144,28 +144,28 @@
   .verbwall span.hot{color:var(--rust);font-weight:400}
   .verbwall.lit span.hot{color:var(--ember);text-shadow:0 0 18px rgba(184,121,62,.35)}
 
-  /* =========================================================
-     THE CONSTELLATION — pinned accumulation
-     ========================================================= */
-  #constellation-outer{height:520vh;position:relative;background:var(--deep)}
+  /* ================= constellation ================= */
+  #constellation-outer{height:520vh;position:relative;z-index:2}
   #constellation{position:sticky;top:0;height:100vh;overflow:hidden}
   .star{position:absolute;width:6px;height:6px;border-radius:50%;background:#efe6d2;
     box-shadow:0 0 7px 2px rgba(239,230,210,.8),0 0 20px 6px rgba(184,121,62,.22);
     opacity:0;transition:opacity 2s ease}
   .star .lbl{position:absolute;left:14px;top:-6px;white-space:nowrap;font-family:var(--mono);
-    font-size:11.5px;letter-spacing:.13em;color:var(--evidence);transition:opacity 1.5s ease}
+    font-size:11.5px;letter-spacing:.13em;color:var(--evidence);transition:opacity 1.5s ease;
+    text-shadow:0 1px 10px rgba(4,9,11,.9)}
   .star.on{opacity:1}
   .star.ky{background:#f4d9b8;box-shadow:0 0 9px 3px rgba(244,217,184,.9),0 0 26px 9px rgba(184,121,62,.4)}
   .star.ky .lbl{color:var(--ember)}
   #constellation.quiet .lbl{opacity:0}
   .const-line{position:absolute;left:0;right:0;text-align:center;padding:0 24px;
-    font-size:clamp(22px,3.4vw,42px);font-weight:300;opacity:0;transition:opacity 1.6s ease}
+    font-size:clamp(22px,3.4vw,42px);font-weight:300;opacity:0;transition:opacity 1.6s ease;
+    text-shadow:0 2px 20px rgba(4,9,11,.9)}
   .const-line.vis{opacity:1}
   .const-note{position:absolute;bottom:20px;right:22px;opacity:.55}
 
-  /* ---- modern retelling ---- */
+  /* ================= modern retelling ================= */
   .vidgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;max-width:820px;margin:0 auto;padding:0 24px}
-  .vidcard{background:var(--charcoal);border:1px solid rgba(126,150,155,.18);border-radius:2px;
+  .vidcard{background:rgba(17,23,25,.85);border:1px solid rgba(126,150,155,.18);border-radius:2px;
     aspect-ratio:16/10;display:flex;flex-direction:column;justify-content:flex-end;
     padding:14px;text-decoration:none}
   .vidcard .mono{font-size:10.5px;line-height:1.8}
@@ -177,55 +177,73 @@
     @keyframes drift{from{transform:translateX(-1.5%)}to{transform:translateX(1.5%)}}
   }
 
-  /* ---- idle watcher ---- */
+  /* ================= idle watcher ================= */
   #watcher{position:fixed;bottom:6vh;width:5px;height:5px;border-radius:50%;
     background:#e9dfcb;box-shadow:0 0 6px 2px rgba(233,223,203,.7),0 0 18px 6px rgba(184,121,62,.2);
     opacity:0;pointer-events:none;z-index:80;transition:opacity 6s ease}
   #watcher.gone{transition:opacity .3s ease}
   #watcher.vis{opacity:.5}
 
-  /* ---- title / end ---- */
-  .triad{font-weight:400;font-size:clamp(40px,7vw,96px);letter-spacing:.06em;line-height:1.4;text-align:center}
+  /* ================= title / finale ================= */
+  .triad{font-weight:400;font-size:clamp(40px,7vw,96px);letter-spacing:.06em;line-height:1.4;text-align:center;
+    text-shadow:0 2px 26px rgba(4,9,11,.9)}
   #thetitle{
     font-size:clamp(52px,11vw,168px);letter-spacing:.1em;font-weight:400;text-align:center;line-height:1.05;
-    color:var(--newsprint);
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"),linear-gradient(#F2EEE5,#cfc8b8);
     background-blend-mode:multiply;
     -webkit-background-clip:text;background-clip:text;
     -webkit-text-fill-color:transparent;color:transparent;
   }
-  #finale{position:relative;min-height:120vh;background:#04090b;overflow:hidden}
+  #finale{position:relative;min-height:120vh;background:#04090b;overflow:hidden;z-index:2}
+  .echo{
+    position:absolute;top:32%;left:-3%;width:4px;height:4px;border-radius:50%;
+    background:#efe6d2;box-shadow:0 0 6px 2px rgba(239,230,210,.8),0 0 16px 5px rgba(184,121,62,.25);
+    opacity:0;
+  }
+  .echo.go{animation:echoCross 3.2s cubic-bezier(.4,0,.6,1) 1 forwards}
+  @keyframes echoCross{
+    0%{opacity:0;transform:translateX(0)}
+    12%{opacity:.85}
+    88%{opacity:.85}
+    100%{opacity:0;transform:translateX(106vw)}
+  }
   .sources{font-family:var(--mono);font-size:12.5px;line-height:2.4;color:var(--evidence);letter-spacing:.05em}
   .sources a{color:var(--evidence);text-decoration:none;border-bottom:1px solid rgba(126,150,155,.3)}
   .sources a:hover{color:var(--newsprint)}
 
   @media (prefers-reduced-motion: reduce){
     .rv,.doc,.verbwall span{transition:none}
-    .dot{transition:none !important}
-    #watcher,#snow{display:none}
+    #watcher{display:none}
     .echo.go{animation:none;opacity:0}
-    #vignette{transition:none}
+    #loader{transition:none}
   }
   @media (max-width:640px){
     #light-outer{height:460vh}
     #constellation-outer{height:380vh}
     .doc{padding:24px 20px}
+    #wind{bottom:14px;right:14px}
   }
 </style>
 </head>
 <body>
-<canvas id="snow" aria-hidden="true"></canvas>
+<canvas id="world" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
 <div id="vignette" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"></div>
 <div id="watcher" aria-hidden="true"></div>
+<div id="chapter" aria-hidden="true"></div>
+<button id="wind" aria-label="Toggle wind ambience">Wind · Off</button>
+
+<div id="loader">
+  <p class="mono">A WINTER NIGHT<br>HARDIN COUNTY, KENTUCKY<br>MID-1980s</p>
+</div>
 
 <!-- ================================================================
-     COLD OPEN — darkness, then a light that crosses too early to mean anything
+     COLD OPEN
      ================================================================ -->
-<section id="coldopen" class="vh" data-beat style="min-height:130vh;overflow:hidden">
-  <div class="echo" id="echo-open"></div>
-  <div class="measure" style="text-align:center;margin-top:20vh">
+<section id="coldopen" class="vh" data-beat data-ch="" style="min-height:140vh;overflow:hidden">
+  <div class="echo" id="echo-open" style="top:30%"></div>
+  <div class="measure" style="text-align:center;margin-top:24vh">
     <p class="mono rv" style="line-height:2.6">
       OFF HIGHWAY 62<br>
       YOUNGER'S CREEK, KENTUCKY<br>
@@ -234,10 +252,8 @@
   </div>
 </section>
 
-<!-- ================================================================
-     MOVEMENT 1 · THE LAST HOUSE
-     ================================================================ -->
-<section id="house" data-beat>
+<!-- MOVEMENT 1 -->
+<section id="house" data-beat data-ch="01 · The Last House">
   <div class="measure">
     <span class="chip rv">Personal memory</span>
     <p class="narr rv">My parents designed the house themselves and built it on
@@ -276,10 +292,8 @@
   <div class="spacer-m"></div>
 </section>
 
-<!-- ================================================================
-     MOVEMENT 2 · THE HILL
-     ================================================================ -->
-<section id="hill" data-beat style="position:relative">
+<!-- MOVEMENT 2 -->
+<section id="hill" data-beat data-ch="02 · The Hill">
   <div class="measure" style="text-align:center">
     <p class="narr rv">Six inches of powder had come down that afternoon.</p>
     <div class="spacer-s"></div>
@@ -291,47 +305,33 @@
     <p class="whisper rv">The kind of quiet where you can hear the cold.</p>
   </div>
   <div class="spacer-l"></div>
-  <svg class="treeline" viewBox="0 0 1440 120" preserveAspectRatio="none" style="height:110px" aria-hidden="true">
-    <path d="M0,120 L0,74 L38,66 L52,74 L70,52 L84,70 L112,60 L134,72 L160,44 L178,68 L210,58 L236,70 L262,50 L290,66 L318,58 L349,70 L376,40 L398,64 L430,56 L458,70 L488,48 L512,66 L540,60 L570,70 L600,36 L622,62 L652,54 L684,68 L716,46 L744,64 L770,58 L800,70 L832,42 L858,64 L888,56 L918,68 L948,50 L976,66 L1004,58 L1034,70 L1064,38 L1090,62 L1120,54 L1150,68 L1180,48 L1208,64 L1238,58 L1268,70 L1300,44 L1326,64 L1356,56 L1388,68 L1414,52 L1440,66 L1440,120 Z"/>
-  </svg>
 </section>
 
-<!-- ================================================================
-     MOVEMENT 3 · THE LIGHT
-     The snow freezes when it watches. Your vision closes.
-     ================================================================ -->
-<div id="light-outer" data-beat>
-  <div id="light-stage" role="img" aria-label="Reconstruction: a pale light rises from a dark winter treeline. The falling snow stops mid-air while the light holds still, then the light crosses the sky and is gone.">
+<!-- MOVEMENT 3 · THE LIGHT -->
+<div id="light-outer" data-beat data-ch="03 · The Light">
+  <div id="light-stage" role="img" aria-label="Reconstruction: a pale light rises from a dark winter treeline. The falling snow and fog stop mid-air while the light holds still, then the light crosses the sky and is gone.">
     <span id="recon-chip" class="chip">Reconstruction · personal memory · WR-01-01</span>
-
-    <div class="dot" id="dot"></div>
-
     <div class="light-line" id="ll-0" style="top:42%">A pale light stood in the trees<br>where no light belonged.</div>
     <div class="light-line beat" id="ll-1" style="top:40%">It woke.</div>
     <div class="light-line beat" id="ll-2" style="top:34%">It watched.<small>Long enough to be sure of me.<br>Even the snow stopped falling.</small></div>
     <div class="light-line beat" id="ll-ran" style="top:38%">And it ran.</div>
     <div class="light-line" id="ll-4" style="top:44%;font-style:italic;color:var(--evidence)">No sound. No trail.<br>Just an empty sky, and a boy on his back in the snow.</div>
-
-    <svg class="treeline" viewBox="0 0 1440 160" preserveAspectRatio="none" style="height:150px" aria-hidden="true">
-      <path d="M0,160 L0,92 L30,80 L48,92 L66,64 L82,86 L108,74 L130,88 L158,54 L176,82 L206,70 L232,86 L260,60 L288,80 L316,72 L348,86 L374,48 L396,78 L428,68 L456,86 L486,58 L510,80 L538,72 L568,86 L598,44 L620,76 L650,66 L682,84 L714,56 L742,78 L768,70 L798,86 L830,52 L856,78 L886,68 L916,84 L946,60 L974,80 L1002,70 L1032,86 L1062,46 L1088,76 L1118,66 L1148,84 L1178,58 L1206,78 L1236,70 L1266,86 L1298,54 L1324,78 L1354,68 L1386,84 L1412,62 L1440,80 L1440,160 Z"/>
-    </svg>
   </div>
 </div>
 
-<section class="vh" data-beat>
+<section class="vh" data-beat data-ch="03 · The Light">
   <div class="measure" style="text-align:center">
     <p class="big rv" style="font-style:italic">I was not terrified.<br>I simply did not know what I had seen.</p>
   </div>
 </section>
 
 <!-- ================================================================
-     THE PAPER CENTURY — the site ages into the archive
+     THE PAPER CENTURY
      ================================================================ -->
 <div class="era-in" aria-hidden="true"></div>
 <div id="paper-era">
 
-  <!-- MOVEMENT 4 · THE FIRST WITNESSES -->
-  <section id="witnesses" data-beat>
+  <section id="witnesses" data-beat data-ch="04 · The First Witnesses">
     <div class="spacer-s"></div>
     <div class="measure" style="text-align:center">
       <p class="narr rv">For a long time I assumed the night belonged only to me.</p>
@@ -392,8 +392,7 @@
     <div class="spacer-m"></div>
   </section>
 
-  <!-- THE VERB WALL · the words were already there -->
-  <section id="verbs" data-beat>
+  <section id="verbs" data-beat data-ch="04 · The First Witnesses">
     <div class="measure" style="text-align:center">
       <p class="mono rv">WITNESS LANGUAGE · COMPILED ACROSS CASE FILES · 1883 — 1984</p>
     </div>
@@ -415,8 +414,7 @@
     <div class="spacer-m"></div>
   </section>
 
-  <!-- MOVEMENT 5 · WHAT THE OLD PEOPLE CALLED THEM -->
-  <section id="folklore" data-beat>
+  <section id="folklore" data-beat data-ch="05 · What the Old People Called Them">
     <div class="measure">
       <span class="chip rv">Context · 1894 Folk-Lore journal · paraphrase</span>
       <p class="narr rv" style="margin-top:2em">Before anyone measured strange
@@ -439,10 +437,8 @@
 </div><!-- /paper-era -->
 <div class="era-out" aria-hidden="true"></div>
 
-<!-- ================================================================
-     THE CONSTELLATION — night returns; the sightings accumulate
-     ================================================================ -->
-<div id="constellation-outer" data-beat>
+<!-- THE CONSTELLATION -->
+<div id="constellation-outer" data-beat data-ch="05 · The Same Sky">
   <div id="constellation" role="img" aria-label="Points of light accumulate on a dark field: Marfa 1883, Brown Mountain 1913, Gurdon 1930s, Devil's Promenade, Hessdalen 1981. A final unlabeled point appears for Younger's Creek, Kentucky.">
     <div class="star" id="st-0" style="left:24%;top:72%"><span class="lbl">1883 · MARFA, TEXAS</span></div>
     <div class="star" id="st-1" style="left:64%;top:38%"><span class="lbl">1913 · BROWN MOUNTAIN, NORTH CAROLINA</span></div>
@@ -450,18 +446,14 @@
     <div class="star" id="st-3" style="left:38%;top:44%"><span class="lbl">GENERATIONS · DEVIL'S PROMENADE, OKLAHOMA</span></div>
     <div class="star" id="st-4" style="left:84%;top:14%"><span class="lbl">1981 · HESSDALEN, NORWAY</span></div>
     <div class="star ky" id="st-5" style="left:52%;top:48%"><span class="lbl">MID-1980s · YOUNGER'S CREEK, KENTUCKY</span></div>
-
     <div class="const-line" id="cl-0" style="top:12%">Nobody ever put them on the same map.</div>
     <div class="const-line" id="cl-1" style="top:80%;font-style:italic;color:var(--evidence)">There was never a reason to.</div>
-
     <span class="chip const-note">Project interpretation · not to scale</span>
   </div>
 </div>
 
-<!-- ================================================================
-     MOVEMENT 6 · SOMEONE BROUGHT INSTRUMENTS
-     ================================================================ -->
-<section id="instruments" data-beat>
+<!-- MOVEMENT 6 -->
+<section id="instruments" data-beat data-ch="06 · Someone Brought Instruments">
   <div class="spacer-s"></div>
   <div class="measure">
     <p class="mono rv" style="line-height:2.4">
@@ -494,10 +486,8 @@
   <div class="spacer-m"></div>
 </section>
 
-<!-- ================================================================
-     MOVEMENT 7 · RETURN TO THE HILL
-     ================================================================ -->
-<section id="return" data-beat style="position:relative">
+<!-- MOVEMENT 7 -->
+<section id="return" data-beat data-ch="07 · Return to the Hill">
   <div class="measure">
     <p class="narr rv">An aircraft approaching head-on can hang motionless
     in the sky, then seem to leap sideways when it banks. Cold air bends
@@ -523,16 +513,10 @@
     <p class="whisper rv">Around here, that's what we called them.</p>
     <p class="mono rv" style="margin-top:3em;font-size:11px">FINAL WORDING PROVISIONAL · PENDING ERIC'S APPROVAL</p>
   </div>
-
-  <svg class="treeline" viewBox="0 0 1440 120" preserveAspectRatio="none" style="height:100px" aria-hidden="true">
-    <path d="M0,120 L0,74 L38,66 L52,74 L70,52 L84,70 L112,60 L134,72 L160,44 L178,68 L210,58 L236,70 L262,50 L290,66 L318,58 L349,70 L376,40 L398,64 L430,56 L458,70 L488,48 L512,66 L540,60 L570,70 L600,36 L622,62 L652,54 L684,68 L716,46 L744,64 L770,58 L800,70 L832,42 L858,64 L888,56 L918,68 L948,50 L976,66 L1004,58 L1034,70 L1064,38 L1090,62 L1120,54 L1150,68 L1180,48 L1208,64 L1238,58 L1268,70 L1300,44 L1326,64 L1356,56 L1388,68 L1414,52 L1440,66 L1440,120 Z"/>
-  </svg>
 </section>
 
-<!-- ================================================================
-     FINALE — black, and one more crossing, once
-     ================================================================ -->
-<section id="finale" data-beat>
+<!-- FINALE -->
+<section id="finale" data-beat data-ch="">
   <div class="echo" id="echo-close" style="top:32%"></div>
   <div class="vh" style="justify-content:flex-end;padding-bottom:14vh;text-align:center">
     <div class="sources">
@@ -554,14 +538,303 @@
 <script>
 (function(){
   const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = innerWidth < 640;
 
-  /* ---- reveal-on-scroll ---- */
-  const io = new IntersectionObserver(es=>{
+  /* =====================================================
+     THE WORLD — a living winter woods behind everything.
+     Layered treelines, drifting fog between the depth
+     planes, snow in three bands, faint stars, and the
+     light itself as a canvas-native luminous object.
+     ===================================================== */
+  const cv=document.getElementById('world'), cx=cv.getContext('2d');
+  let W,H,DPR;
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+  /* mouse — the woods notice the cursor */
+  let mx=0,my=0,tmx=0,tmy=0;
+  addEventListener('pointermove',e=>{
+    tmx=(e.clientX/innerWidth)*2-1; tmy=(e.clientY/innerHeight)*2-1;
+  },{passive:true});
+
+  /* fog sprite */
+  const fogSprite=document.createElement('canvas');
+  fogSprite.width=fogSprite.height=256;
+  (function(){
+    const g=fogSprite.getContext('2d');
+    const rg=g.createRadialGradient(128,128,0,128,128,128);
+    rg.addColorStop(0,'rgba(158,178,184,0.55)');
+    rg.addColorStop(.55,'rgba(158,178,184,0.16)');
+    rg.addColorStop(1,'rgba(158,178,184,0)');
+    g.fillStyle=rg; g.fillRect(0,0,256,256);
+  })();
+
+  /* treeline layers: far → near */
+  const LAYERS=[
+    {seed:11, base:.52, rough:14, spike:.10, color:'#0c161b', px:.015, mouse:5,  fog:10, fogA:.05, fogScale:1.6},
+    {seed:23, base:.60, rough:20, spike:.14, color:'#081014', px:.030, mouse:9,  fog:9,  fogA:.06, fogScale:1.3},
+    {seed:47, base:.70, rough:28, spike:.18, color:'#050b0e', px:.055, mouse:14, fog:8,  fogA:.08, fogScale:1.1},
+    {seed:71, base:.86, rough:40, spike:.22, color:'#03080a', px:.090, mouse:22, fog:0,  fogA:0,  fogScale:1}
+  ];
+  function buildRidge(L){
+    const rnd=mulberry32(L.seed); const pts=[]; const step=26;
+    let y=0;
+    for(let x=-step;x<=innerWidth+step*2;x+=step){
+      y+= (rnd()-.5)*L.rough*.9;
+      y=Math.max(-L.rough*1.6,Math.min(L.rough*1.6,y));
+      let peak=0;
+      if(rnd()<L.spike) peak=rnd()*L.rough*2.2;
+      pts.push({x,y:y-peak});
+    }
+    L.pts=pts;
+  }
+  /* fog blobs per layer */
+  function buildFog(L){
+    const rnd=mulberry32(L.seed*7+1);
+    L.blobs=[];
+    const n=isMobile?Math.ceil(L.fog/2):L.fog;
+    for(let i=0;i<n;i++){
+      L.blobs.push({
+        x:rnd(), yo:(rnd()-.5)*.12,
+        s:(500+rnd()*700)*L.fogScale,
+        v:(.00002+rnd()*.00005)*(rnd()<.5?1:-1),
+        a:L.fogA*(.6+rnd()*.8)
+      });
+    }
+  }
+  /* stars */
+  let stars=[];
+  (function(){ const rnd=mulberry32(5);
+    for(let i=0;i<44;i++) stars.push({x:rnd(),y:rnd()*.42,r:.5+rnd()*.9,tw:rnd()*Math.PI*2,ts:.2+rnd()*.5,a:.12+rnd()*.3});
+  })();
+  /* snow — three depth bands */
+  let flakes=[];
+  (function(){ const rnd=mulberry32(99);
+    const n=isMobile?80:170;
+    for(let i=0;i<n;i++){ const d=rnd();
+      flakes.push({x:rnd(),y:rnd(),d,
+        r:.6+d*2.1, v:.00022+d*.00062,
+        w:rnd()*Math.PI*2, ws:.3+rnd()*.9, a:.16+d*.5});
+    }
+  })();
+
+  function sizeCanvas(){
+    DPR=Math.min(devicePixelRatio,2);
+    W=cv.width=innerWidth*DPR; H=cv.height=innerHeight*DPR;
+    cv.style.width=innerWidth+'px'; cv.style.height=innerHeight+'px';
+    LAYERS.forEach(L=>{buildRidge(L);buildFog(L);});
+  }
+  sizeCanvas(); addEventListener('resize',sizeCanvas);
+
+  /* ---- shared scroll state ---- */
+  const outer=document.getElementById('light-outer');
+  const paperEra=document.getElementById('paper-era');
+  const vig=document.getElementById('vignette');
+  let timeScale=1, timeTarget=1, worldAlpha=1;
+  let lightP=-1;              /* progress through the encounter, -1 = not in view */
+  let ran=false, passedEncounter=false, runStart=0;
+  let clock=0, lastT=performance.now();
+
+  /* light flicker noise (smoothed) */
+  let flick=1, flickT=1;
+  setInterval(()=>{ flickT=.86+Math.random()*.14; },140);
+
+  const lines=['ll-0','ll-1','ll-2','ll-ran','ll-4'].map(id=>document.getElementById(id));
+  function show(idx){ lines.forEach((l,i)=>l.classList.toggle('vis', i===idx)); }
+
+  function drawWorld(now){
+    const dt=Math.min(50,now-lastT); lastT=now;
+    if(!prefersReduced){ timeScale += (timeTarget-timeScale)*.045; }
+    else timeScale=0;
+    clock+=dt*timeScale;
+    mx+=(tmx-mx)*.03; my+=(tmy-my)*.03;
+    flick+=(flickT-flick)*.12;
+
+    /* journey: push deeper into the woods through movements 1–3 */
+    const lightTop=outer.offsetTop, lightH=outer.offsetHeight;
+    const journey=Math.min(1,scrollY/(lightTop+lightH*.3));
+
+    /* world fades while the paper century owns the viewport */
+    const pr=paperEra.getBoundingClientRect();
+    const paperOwns=pr.top<innerHeight*.4 && pr.bottom>innerHeight*.6;
+    worldAlpha+=((paperOwns?0:1)-worldAlpha)*.05;
+
+    /* encounter progress */
+    const r=outer.getBoundingClientRect();
+    const inView=r.top<innerHeight&&r.bottom>0;
+    let p=-1;
+    if(inView){ p=Math.min(1,Math.max(0,-r.top/(r.height-innerHeight))); }
+    lightP=p;
+
+    /* encounter side-effects: text, vignette, stillness */
+    let dim=0;
+    if(p>=0){
+      if(p<0.10) show(0);
+      else if(p<0.40) show(p>0.16?1:-1);
+      else if(p<0.74) show(2);
+      else if(p<0.86) show(3);
+      else show(4);
+      if(p>=0.40&&p<0.74){
+        const t=(p-0.40)/0.24;
+        vig.style.opacity=Math.min(1,t);
+        dim=Math.min(1,t)*.5;
+        if(!ran) timeTarget=Math.max(0,1-(p-0.40)/0.10);
+        windDuck(Math.min(1,t));            /* the wind dies while it watches */
+      } else { vig.style.opacity=0; if(!ran) timeTarget=1; windDuck(0); }
+      if(ran&&p<0.58){ ran=false; }
+      if(!ran&&p>=0.74){
+        ran=true; passedEncounter=true; runStart=now;
+        timeTarget=2.4; setTimeout(()=>{timeTarget=1;},900);
+      }
+    } else { show(-1); vig.style.opacity=0; if(!ran) timeTarget=1; windDuck(0); }
+
+    /* ---------- paint ---------- */
+    cx.clearRect(0,0,W,H);
+    if(worldAlpha<.01){ requestAnimationFrame(drawWorld); return; }
+    cx.save();
+    cx.globalAlpha=worldAlpha;
+
+    /* sky */
+    const sky=cx.createLinearGradient(0,0,0,H);
+    const d=1-dim*.55;
+    sky.addColorStop(0,`rgb(${5*d|0},${10*d|0},${13*d|0})`);
+    sky.addColorStop(.62,`rgb(${8*d|0},${15*d|0},${19*d|0})`);
+    sky.addColorStop(1,`rgb(${11*d|0},${19*d|0},${23*d|0})`);
+    cx.fillStyle=sky; cx.fillRect(0,0,W,H);
+
+    /* stars — their twinkle also freezes */
+    stars.forEach(s=>{
+      const tw=.6+.4*Math.sin(s.tw+clock*.0004*s.ts);
+      cx.globalAlpha=worldAlpha*s.a*tw*(1-dim*.7);
+      cx.fillStyle='#cdd8da';
+      cx.beginPath();cx.arc(s.x*W,s.y*H,s.r*DPR,0,7);cx.fill();
+    });
+
+    /* layers far → near, light drawn between mid and nearest */
+    LAYERS.forEach((L,li)=>{
+      const rise=journey*(li+1)*.028*H;              /* the woods grow as you approach */
+      const px=scrollY*L.px*DPR;                     /* scroll parallax */
+      const mox=mx*L.mouse*DPR, moy=my*L.mouse*.35*DPR;
+      const baseY=L.base*H - rise + (px%H)*0 + moy;
+
+      /* the light — beyond the nearest trees, before them in paint order */
+      if(li===3 && p>=0.05 && !( p>=0.86 )) drawLight(p,now,baseY);
+
+      cx.globalAlpha=worldAlpha;
+      cx.fillStyle=L.color;
+      cx.beginPath();
+      cx.moveTo(-50,H+50);
+      L.pts.forEach(pt=>cx.lineTo((pt.x)*DPR+mox, baseY+pt.y*DPR));
+      cx.lineTo(W+50,H+50);
+      cx.closePath(); cx.fill();
+
+      /* fog band in front of this layer */
+      L.blobs&&L.blobs.forEach(b=>{
+        b.x+=b.v*timeScale*dt*.06;
+        if(b.x>1.3)b.x=-.3; if(b.x<-.3)b.x=1.3;
+        const bx=(b.x)*W + mox*1.5, by=baseY + b.yo*H;
+        cx.globalAlpha=worldAlpha*b.a*(1-dim*.6);
+        cx.drawImage(fogSprite, bx-b.s*DPR/2, by-b.s*DPR/4, b.s*DPR, b.s*DPR*.5);
+      });
+    });
+
+    /* snow — front of everything */
+    cx.fillStyle='#e8e2d2';
+    flakes.forEach(f=>{
+      f.y+=f.v*timeScale*(dt/16.7); f.w+=.012*f.ws*timeScale*(dt/16.7);
+      if(f.y>1.02){f.y=-.02;f.x=Math.random();}
+      const fx=(f.x+Math.sin(f.w)*.012)*W + mx*(6+f.d*18)*DPR;
+      cx.globalAlpha=worldAlpha*f.a;
+      cx.beginPath();cx.arc(fx,f.y*H,f.r*DPR,0,7);cx.fill();
+    });
+
+    cx.restore();
+    requestAnimationFrame(drawWorld);
+  }
+
+  /* the light itself */
+  function drawLight(p,now,nearBase){
+    let x=.26*W, y, intensity=1, stretch=0;
+    const lowY=nearBase- .01*H;            /* just above/behind the nearest ridge */
+    const highY=.34*H;
+    if(p<0.40){
+      const t=Math.max(0,(p-0.05)/0.35);
+      y=lowY+(highY-lowY)*t;
+      intensity=Math.min(1,t*2.2)*flick;   /* organic flicker while it wakes */
+    } else if(p<0.74){
+      y=highY;
+      const t=(p-0.40)/0.34;
+      intensity=1+t*.25;                    /* perfectly steady. that's the wrong part. */
+    } else {
+      /* RAN — 340ms traversal with velocity stretch */
+      const t=Math.min(1,(now-runStart)/340);
+      const e=t*t*(3-2*t);
+      x=.26*W + e*.95*W; y=highY - e*.06*H;
+      intensity=1.2*(1-t*.9); stretch=34*(1-Math.abs(t-.5)*2)+6;
+      if(t>=1) return;
+    }
+    if(prefersReduced){ intensity=p<0.74?1:0; stretch=0; }
+
+    const g=cx.createRadialGradient(x,y,0,x,y,90*DPR);
+    g.addColorStop(0,'rgba(244,236,216,'+(.9*intensity)+')');
+    g.addColorStop(.18,'rgba(232,214,180,'+(.34*intensity)+')');
+    g.addColorStop(.5,'rgba(184,121,62,'+(.12*intensity)+')');
+    g.addColorStop(1,'rgba(184,121,62,0)');
+    cx.globalAlpha=worldAlpha;
+    cx.fillStyle=g;
+    cx.fillRect(x-100*DPR,y-100*DPR,200*DPR,200*DPR);
+    cx.fillStyle='rgba(248,243,228,'+Math.min(1,intensity)+')';
+    cx.beginPath();
+    cx.ellipse(x,y,(2.4+stretch)*DPR,2.4*DPR,0,0,7);
+    cx.fill();
+  }
+  requestAnimationFrame(drawWorld);
+
+  /* =====================================================
+     WIND — procedural, opt-in, ducks to silence at WATCHED
+     ===================================================== */
+  let AC=null, windGain=null, windOn=false, duck=0;
+  const windBtn=document.getElementById('wind');
+  function windDuck(v){ duck=v;
+    if(windGain) windGain.gain.setTargetAtTime(windOn?(0.06*(1-duck)):0, AC.currentTime, .8);
+  }
+  windBtn.addEventListener('click',()=>{
+    if(!AC){
+      AC=new (window.AudioContext||window.webkitAudioContext)();
+      const len=AC.sampleRate*3, buf=AC.createBuffer(1,len,AC.sampleRate);
+      const ch=buf.getChannelData(0); let last=0;
+      for(let i=0;i<len;i++){ const w=Math.random()*2-1; last=(last+.02*w)/1.02; ch[i]=last*3.2; }
+      const src=AC.createBufferSource(); src.buffer=buf; src.loop=true;
+      const lp=AC.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=420; lp.Q.value=.4;
+      windGain=AC.createGain(); windGain.gain.value=0;
+      src.connect(lp).connect(windGain).connect(AC.destination); src.start();
+      /* slow gusts */
+      const lfo=AC.createOscillator(), lfoG=AC.createGain();
+      lfo.frequency.value=.07; lfoG.gain.value=140;
+      lfo.connect(lfoG).connect(lp.frequency); lfo.start();
+    }
+    windOn=!windOn;
+    windBtn.textContent=windOn?'Wind · On':'Wind · Off';
+    windGain.gain.setTargetAtTime(windOn?0.06*(1-duck):0, AC.currentTime, 1.2);
+  });
+
+  /* =====================================================
+     loader
+     ===================================================== */
+  const loader=document.getElementById('loader');
+  function dismiss(){ loader.classList.add('gone'); }
+  setTimeout(dismiss, prefersReduced?300:3400);
+  loader.addEventListener('click',dismiss);
+  addEventListener('wheel',dismiss,{once:true,passive:true});
+  addEventListener('touchstart',dismiss,{once:true,passive:true});
+
+  /* =====================================================
+     reveals, verb wall, echoes, progress, chapter mark
+     ===================================================== */
+  const io=new IntersectionObserver(es=>{
     es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });
   },{threshold:.25});
   document.querySelectorAll('.rv,.doc').forEach(el=>io.observe(el));
 
-  /* ---- verb wall: assemble, then ignite the three ---- */
   const wall=document.getElementById('verbwall');
   const wallIO=new IntersectionObserver(es=>{
     es.forEach(e=>{
@@ -576,7 +849,6 @@
   },{threshold:.4});
   wallIO.observe(wall);
 
-  /* ---- pre-echo + finale crossing, once each ---- */
   function armEcho(id,threshold,delay){
     const el=document.getElementById(id);
     const o=new IntersectionObserver(es=>{
@@ -588,167 +860,41 @@
     },{threshold});
     o.observe(el.parentElement);
   }
-  armEcho('echo-open',.6,1800);
+  armEcho('echo-open',.6,2600);
   armEcho('echo-close',.5,2200);
 
-  /* ---- progress hairline ---- */
   const bar=document.querySelector('.progress');
+  const chapEl=document.getElementById('chapter');
+  const chapSections=[...document.querySelectorAll('[data-ch]')];
   addEventListener('scroll',()=>{
     const h=document.documentElement;
     bar.style.height=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'vh';
+    let label='';
+    chapSections.forEach(s=>{ if(s.offsetTop<=scrollY+innerHeight*.45) label=s.dataset.ch; });
+    if(label){ chapEl.textContent=label; chapEl.classList.add('vis'); }
+    else chapEl.classList.remove('vis');
   },{passive:true});
 
   /* =====================================================
-     SNOW — falls through the whole night world.
-     Freezes mid-air while the light watches.
-     Fades over the paper century.
-     ===================================================== */
-  const cv=document.getElementById('snow'), cx=cv.getContext('2d');
-  let W,H,flakes=[];
-  let timeScale=1, timeTarget=1, snowAlpha=1, snowAlphaTarget=1;
-  function sizeCanvas(){
-    W=cv.width=innerWidth*devicePixelRatio; H=cv.height=innerHeight*devicePixelRatio;
-    cv.style.width=innerWidth+'px'; cv.style.height=innerHeight+'px';
-  }
-  sizeCanvas(); addEventListener('resize',sizeCanvas);
-  const N = innerWidth<640?70:140;
-  for(let i=0;i<N;i++){
-    flakes.push({
-      x:Math.random(), y:Math.random(),
-      r:(.6+Math.random()*1.6),
-      v:(.00025+Math.random()*.00055),
-      w:Math.random()*Math.PI*2,
-      ws:.3+Math.random()*.9,
-      a:.25+Math.random()*.5
-    });
-  }
-  const paperEra=document.getElementById('paper-era');
-  function snowFrame(t){
-    if(prefersReduced) return;
-    timeScale += (timeTarget-timeScale)*.045;
-    /* fade snow while the paper century owns the viewport */
-    const pr=paperEra.getBoundingClientRect();
-    snowAlphaTarget=(pr.top<innerHeight*.35 && pr.bottom>innerHeight*.65)?0:1;
-    snowAlpha += (snowAlphaTarget-snowAlpha)*.06;
-
-    cx.clearRect(0,0,W,H);
-    if(snowAlpha>.01){
-      cx.fillStyle='#e8e2d2';
-      flakes.forEach(f=>{
-        f.y+=f.v*timeScale; f.w+=.012*f.ws*timeScale;
-        if(f.y>1.02){f.y=-.02;f.x=Math.random();}
-        const x=(f.x+Math.sin(f.w)*.012)*W, y=f.y*H;
-        cx.globalAlpha=f.a*snowAlpha;
-        cx.beginPath();cx.arc(x,y,f.r*devicePixelRatio,0,7);cx.fill();
-      });
-      cx.globalAlpha=1;
-    }
-    requestAnimationFrame(snowFrame);
-  }
-  requestAnimationFrame(snowFrame);
-
-  /* =====================================================
-     THE LIGHT — scroll-driven; snow + vignette respond
-     0.00–0.10  darkness / line 0
-     0.10–0.40  WOKE: rises with scroll
-     0.40–0.74  WATCHED: dead zone. snow freezes. vision closes.
-     0.74       RAN: fast traversal; snow drops; vision snaps open
-     0.80–1.00  empty sky
-     ===================================================== */
-  const outer=document.getElementById('light-outer');
-  const dot=document.getElementById('dot');
-  const vig=document.getElementById('vignette');
-  const L={l0:'ll-0',l1:'ll-1',l2:'ll-2',l3:'ll-ran',l4:'ll-4'};
-  const lines=Object.values(L).map(id=>document.getElementById(id));
-  let ran=false, passedEncounter=false, runDecay=null;
-
-  function show(idx){ lines.forEach((l,i)=>l.classList.toggle('vis', i===idx)); }
-
-  function lightFrame(){
-    const r=outer.getBoundingClientRect();
-    const total=r.height-innerHeight;
-    const p=Math.min(1,Math.max(0,-r.top/total));
-    const inView=r.top<innerHeight&&r.bottom>0;
-
-    if(!inView){ show(-1); vig.style.opacity=0; if(!ran) timeTarget=1; }
-    else{
-      if(p<0.10) show(0);
-      else if(p<0.40) show(p>0.16?1:-1);
-      else if(p<0.74) show(2);
-      else if(p<0.86) show(3);
-      else show(4);
-
-      /* vignette: closes across WATCHED, snaps open on RAN */
-      if(p>=0.40&&p<0.74){ vig.style.opacity=Math.min(1,(p-0.40)/0.24); }
-      else vig.style.opacity=0;
-
-      /* snow: freezes across WATCHED */
-      if(p>=0.40&&p<0.74&&!ran){ timeTarget=Math.max(0,1-(p-0.40)/0.12); }
-      else if(!ran) timeTarget=1;
-
-      if(ran && p<0.58){ /* re-arm on climb back */
-        ran=false; dot.classList.remove('run');
-        dot.style.transition='none'; dot.style.transform='';
-        clearTimeout(runDecay);
-      }
-
-      if(!ran){
-        if(p<0.05){ dot.style.opacity=0; }
-        else if(p<0.40){
-          const t=(p-0.05)/0.35;
-          const rise=prefersReduced ? Math.round(t*3)/3 : t;
-          dot.style.opacity=Math.min(1,t*2.5);
-          dot.style.transform='translateY('+(-rise*46)+'vh)';
-        }
-        else if(p<0.74){
-          const t=(p-0.40)/0.34;
-          dot.style.opacity=1;
-          dot.style.transform='translateY(-46vh)';
-          dot.style.boxShadow='0 0 '+(8+t*3)+'px 2px rgba(239,230,210,.85), 0 0 '+(26+t*8)+'px 8px rgba(184,121,62,.3)';
-        }
-        else{
-          ran=true; passedEncounter=true;
-          if(prefersReduced){ dot.style.opacity=0; timeTarget=1; }
-          else{
-            timeTarget=2.4;                       /* the held snow falls all at once */
-            runDecay=setTimeout(()=>{timeTarget=1;},900);
-            dot.style.transition='';
-            dot.classList.add('run');
-            requestAnimationFrame(()=>{
-              dot.style.transform='translateY(-52vh) translateX(110vw)';
-              dot.style.opacity=0;
-            });
-          }
-        }
-      }
-    }
-    requestAnimationFrame(lightFrame);
-  }
-  requestAnimationFrame(lightFrame);
-
-  /* =====================================================
-     THE CONSTELLATION — points accumulate with scroll
+     constellation
      ===================================================== */
   const cOuter=document.getElementById('constellation-outer');
   const cStage=document.getElementById('constellation');
-  const stars=[0,1,2,3,4,5].map(i=>document.getElementById('st-'+i));
+  const cstars=[0,1,2,3,4,5].map(i=>document.getElementById('st-'+i));
   const cl0=document.getElementById('cl-0'), cl1=document.getElementById('cl-1');
-  function constFrame(){
+  (function constFrame(){
     const r=cOuter.getBoundingClientRect();
     const total=r.height-innerHeight;
     const p=Math.min(1,Math.max(0,-r.top/total));
-    stars.forEach((s,i)=>{
-      s.classList.toggle('on', p > 0.08+i*0.11);
-    });
+    cstars.forEach((s,i)=>s.classList.toggle('on', p>0.08+i*0.11));
     cl0.classList.toggle('vis', p>0.78);
     cl1.classList.toggle('vis', p>0.86);
     cStage.classList.toggle('quiet', p>0.78);
     requestAnimationFrame(constFrame);
-  }
-  requestAnimationFrame(constFrame);
+  })();
 
   /* =====================================================
-     THE IDLE WATCHER — only after the encounter
+     idle watcher
      ===================================================== */
   const watcher=document.getElementById('watcher');
   let idleTimer=null, lastX=-1;
@@ -773,7 +919,7 @@
   armWatcher();
 
   /* =====================================================
-     PRESENTER MODE
+     presenter mode
      ===================================================== */
   const beats=[...document.querySelectorAll('[data-beat]')];
   function currentBeat(){
