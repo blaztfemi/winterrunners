@@ -161,6 +161,40 @@ plainly. The title — its first appearance — then:
 *"Around here, we called them Winter Runners."* End near-black on a quiet
 sources link. No call to action.
 
+## 5b. The set pieces (v2 — the swings)
+
+Restraint is the setup; these are the payoffs. Five deliberate violations
+of stillness, each singular, each in service of the folktale:
+
+1. **Snow that knows.** Canvas snowfall runs through the entire night
+   world. Across WATCHED it decelerates to a dead stop — flakes hanging
+   mid-air while the light holds. When the light runs, the snow falls
+   all at once, slightly too fast, for one second. The world exhales.
+2. **Vision closes.** During WATCHED a radial vignette swallows the
+   viewport until only the light and the near-dark remain — peripheral
+   vision shutting down the way fear actually does. It snaps open on RAN.
+3. **The paper century.** At "Then I started reading," the entire site
+   ages into the archive: background turns to archive paper, ink text,
+   documents living on their native material. Night returns for the
+   constellation and Hessdalen. The website itself becomes the thing it
+   is quoting.
+4. **The verb wall.** Witness verbs compiled from a century of case
+   files assemble one by one in mono caps — float, bob, swing, flare,
+   split, merge, vanish — and then RISE, HOLD, RUN ignite in ember among
+   them. His memory was already in the record. (Honest: these verbs are
+   drawn from the Research Dossier's documented witness language.)
+5. **The constellation.** A pinned black field where sighting sites
+   accumulate as ember points with dates — Marfa 1883, Brown Mountain
+   1913, Gurdon, Devil's Promenade, Hessdalen 1981 — Kentucky igniting
+   last, brighter, then every label fades and only the lights remain.
+   "Nobody ever put them on the same map. There was never a reason to."
+   Chip: PROJECT INTERPRETATION · NOT TO SCALE.
+
+Plus two grace notes: a **pre-echo** (a tiny light crosses the darkness
+during the cold open, before the first sentence — too early to mean
+anything, felt more than seen) and a **final crossing** in the black
+after the last line, once, and never again on that visit.
+
 ## 6. The one uncanny touch
 
 The site's single permitted swing, implemented in the prototype:
