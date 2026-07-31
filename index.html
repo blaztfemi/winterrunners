@@ -450,6 +450,24 @@
   @keyframes breathe{0%,100%{opacity:.5;transform:scale(.9)}50%{opacity:1;transform:scale(1.12)}}
   @media (prefers-reduced-motion: reduce){.treeglow{animation:none;opacity:.75}}
 
+  /* ===== dread reveal: the line arrives, then the room drops ===== */
+  .dread{font-family:var(--display);font-weight:600;text-wrap:balance;
+    margin:1.1em 0;display:block}
+  .dread span{display:block;opacity:0;filter:blur(14px);transform:translateY(26px) scale(.985);
+    transition:opacity 2.6s cubic-bezier(.16,1,.3,1),filter 2.6s cubic-bezier(.16,1,.3,1),
+               transform 2.6s cubic-bezier(.16,1,.3,1),letter-spacing 3.4s ease,color 3.4s ease}
+  .dread .d1{font-size:clamp(27px,4.1vw,54px);line-height:1.14;letter-spacing:.02em;color:#b9b5ab}
+  .dread .d2{font-size:clamp(30px,4.7vw,64px);line-height:1.14;margin-top:.34em;
+    letter-spacing:.06em;color:#8f8b83}
+  .dread.on .d1{opacity:1;filter:none;transform:none;letter-spacing:0;color:var(--newsprint)}
+  .dread.on .d2{opacity:1;filter:none;transform:none;transition-delay:1.5s,1.5s,1.5s,1.7s,1.7s}
+  .dread.land .d2{letter-spacing:.005em;color:var(--ember);
+    text-shadow:0 0 34px rgba(196,133,74,.34),0 0 90px rgba(196,133,74,.13)}
+  @media (prefers-reduced-motion: reduce){
+    .dread span{opacity:1;filter:none;transform:none;transition:none}
+    .dread .d2{color:var(--ember)}
+  }
+
   /* ===== reveal choreography ===== */
   .rv,[data-rv]{opacity:0;
     transition:opacity 1.5s cubic-bezier(.16,1,.3,1),transform 1.5s cubic-bezier(.16,1,.3,1),
@@ -570,17 +588,19 @@
     <p class="narr rv">We called ours the last house in Hardin County. The road
     ran out past us into gravel and then into nothing. If the power went, nobody
     was coming. If the road iced, nobody was coming.</p>
-    <p class="big" data-rv="up">It did not feel like the edge of the county.
-    It felt like the edge of everything.</p>
+    <p class="dread" data-dread>
+      <span class="d1">It did not feel like the edge of the county.</span>
+      <span class="d2">It felt like the edge of everything.</span>
+    </p>
   </div>
 
   <div class="spacer-s"></div>
   <div class="wide">
     <figure class="plate photo" data-rv="blur">
       <img src="assets/family/01-house-construction.jpg"
-           alt="A two-storey house under construction with dark red siding, scaffolding, and a woman and small child standing in a second-floor opening.">
-      <figcaption>My parents built it themselves. That is my mother in the
-      second floor opening, and that small red shape beside her is me, standing
+           alt="A two-storey house under construction with dark red siding, scaffolding, and a man and small child standing in a second-floor opening.">
+      <figcaption>My parents built it themselves. That is my father in the
+      second floor opening, and that small red shape beside him is me, standing
       on scaffold plank over a floor that did not exist yet.
       <span class="cap-src">Family archive · Younger&rsquo;s Creek</span></figcaption>
     </figure>
@@ -1992,6 +2012,18 @@
     el.classList.add('on'); io.unobserve(el);
   });},{threshold:.18});
   document.querySelectorAll('.rv,[data-rv],.clip,.dossier').forEach(el=>io.observe(el));
+
+  /* the dread line: first clause lands, a beat of nothing, then the second
+     clause arrives and slowly takes the ember. */
+  document.querySelectorAll('[data-dread]').forEach(el=>{
+    const o=new IntersectionObserver(es=>{es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      el.classList.add('on');
+      setTimeout(()=>el.classList.add('land'),3400);
+      o.unobserve(el);
+    });},{threshold:.6});
+    o.observe(el);
+  });
 
   const wall=document.getElementById('verbwall');
   const wIO=new IntersectionObserver(es=>{es.forEach(e=>{
