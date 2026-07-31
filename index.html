@@ -7,27 +7,29 @@
 <meta name="description" content="A childhood memory from Hardin County, Kentucky — and the older record that was waiting for it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=Special+Elite&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Special+Elite&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --deep:#050c0f;
     --charcoal:#0e1417;
-    --newsprint:#F2EEE5;
-    --paper:#D8D0C1;
-    --ink:#1a1b17;
-    --evidence:#7E969B;
-    --ember:#B8793E;
-    --rust:#87483B;
+    --newsprint:#F4F1E9;
+    --paper:#D9D1C2;
+    --ink:#191a16;
+    --evidence:#9DB3B8;          /* brightened for legibility */
+    --evidence-dim:#7E969B;
+    --ember:#C4854A;
+    --rust:#9A5343;
     --blood:#6d2b22;
-    --display:'Bodoni Moda', 'Times New Roman', serif;
-    --serif:'Newsreader', Georgia, serif;
-    --sans:'IBM Plex Sans', Arial, sans-serif;
-    --mono:'IBM Plex Mono', 'Courier New', monospace;
-    --type:'Special Elite', 'Courier New', monospace;
+    --banner:'Playfair Display', Georgia, serif;      /* headlines */
+    --news:'Libre Franklin', Helvetica, Arial, sans-serif; /* decks, labels, UI */
+    --col:'Libre Baskerville', Georgia, serif;        /* newspaper columns */
+    --serif:'Newsreader', Georgia, serif;             /* narration */
+    --type:'Special Elite', 'Courier New', monospace; /* declassified */
+    --mono:'IBM Plex Mono', 'Courier New', monospace; /* coordinates */
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{background:var(--deep);color:var(--newsprint);font-family:var(--serif);
-    font-weight:300;line-height:1.6;overflow-x:hidden}
+    font-weight:300;line-height:1.62;overflow-x:hidden}
   ::selection{background:var(--blood);color:var(--newsprint)}
 
   /* ===== fixed layers ===== */
@@ -37,23 +39,44 @@
   #vignette{position:fixed;inset:0;pointer-events:none;z-index:70;opacity:0;
     background:radial-gradient(ellipse 55% 42% at 50% 46%, transparent 28%, rgba(2,6,8,.98) 80%)}
   #edgedark{position:fixed;inset:0;pointer-events:none;z-index:69;
-    background:radial-gradient(ellipse 90% 80% at 50% 50%, transparent 45%, rgba(2,6,8,.55) 100%)}
-  .progress{position:fixed;top:0;left:0;width:2px;height:0;background:var(--ember);opacity:.3;z-index:95}
-  #chapter{position:fixed;top:20px;left:22px;z-index:85;font-family:var(--mono);font-size:11px;
-    letter-spacing:.18em;color:var(--evidence);opacity:0;transition:opacity 1s ease;text-transform:uppercase}
-  #chapter.vis{opacity:.55}
-  #wind{position:fixed;bottom:20px;right:22px;z-index:85;font-family:var(--mono);font-size:10.5px;
-    letter-spacing:.16em;color:var(--evidence);background:rgba(5,12,15,.6);
-    border:1px solid rgba(126,150,155,.28);padding:6px 12px;border-radius:2px;cursor:pointer;
-    opacity:.65;text-transform:uppercase}
-  #wind:hover{color:var(--newsprint);border-color:rgba(242,238,229,.4);opacity:1}
+    background:radial-gradient(ellipse 90% 80% at 50% 50%, transparent 45%, rgba(2,6,8,.5) 100%)}
+  .progress{position:fixed;top:0;left:0;width:2px;height:0;background:var(--ember);opacity:.35;z-index:95}
+  #chapter{position:fixed;top:22px;left:24px;z-index:85;font-family:var(--news);font-size:12px;
+    font-weight:600;letter-spacing:.16em;color:var(--evidence);opacity:0;transition:opacity 1s ease;
+    text-transform:uppercase}
+  #chapter.vis{opacity:.7}
+
+  /* ===== paced navigation control ===== */
+  #nav{position:fixed;bottom:26px;right:26px;z-index:88;display:flex;flex-direction:column;
+    align-items:center;gap:6px;opacity:0;transition:opacity 1.2s ease}
+  #nav.vis{opacity:.85}
+  #nav:hover{opacity:1}
+  #nav button{width:42px;height:34px;background:rgba(6,13,16,.82);border:1px solid rgba(157,179,184,.3);
+    color:var(--evidence);cursor:pointer;display:flex;align-items:center;justify-content:center;
+    border-radius:2px;transition:all .35s ease;padding:0}
+  #nav button:hover:not(:disabled){border-color:var(--ember);color:var(--ember);background:rgba(12,20,24,.95)}
+  #nav button:disabled{opacity:.28;cursor:default}
+  #nav button svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.7;
+    stroke-linecap:round;stroke-linejoin:round}
+  #navCount{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--evidence-dim);
+    padding:2px 0;user-select:none}
+  #navHint{position:fixed;bottom:34px;right:78px;z-index:88;font-family:var(--news);font-size:11.5px;
+    font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--evidence-dim);
+    opacity:0;transition:opacity 1s ease;pointer-events:none;white-space:nowrap}
+  #navHint.vis{opacity:.75}
+  #wind{position:fixed;bottom:26px;left:26px;z-index:88;font-family:var(--news);font-size:11px;
+    font-weight:500;letter-spacing:.14em;color:var(--evidence-dim);background:rgba(6,13,16,.75);
+    border:1px solid rgba(157,179,184,.24);padding:8px 13px;border-radius:2px;cursor:pointer;
+    opacity:.6;text-transform:uppercase;transition:all .35s ease}
+  #wind:hover{color:var(--ember);border-color:rgba(196,133,74,.5);opacity:1}
 
   /* ===== loader ===== */
   #loader{position:fixed;inset:0;background:#020507;z-index:100;display:flex;align-items:center;
     justify-content:center;text-align:center;transition:opacity 2.4s ease}
   #loader.gone{opacity:0;pointer-events:none}
-  #loader .mono{line-height:2.8;opacity:0;animation:loaderIn 2.6s ease .4s forwards}
-  @keyframes loaderIn{to{opacity:.8}}
+  #loader p{font-family:var(--news);font-weight:400;font-size:13px;letter-spacing:.24em;
+    line-height:3;color:var(--evidence);opacity:0;animation:loaderIn 2.6s ease .4s forwards}
+  @keyframes loaderIn{to{opacity:.85}}
 
   /* ===== shared ===== */
   section{position:relative;z-index:2}
@@ -61,160 +84,183 @@
   .wide{max-width:52em;margin:0 auto;padding:0 24px}
   .vh{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
   p.narr{font-size:clamp(19px,2.2vw,23px);margin:1.4em 0;text-shadow:0 1px 16px rgba(2,6,8,.9)}
-  .big{font-family:var(--display);font-size:clamp(32px,6vw,82px);line-height:1.1;font-weight:400;
+  .big{font-family:var(--banner);font-size:clamp(32px,5.8vw,78px);line-height:1.08;font-weight:700;
     letter-spacing:-0.015em;margin:.6em 0;text-shadow:0 2px 30px rgba(2,6,8,.95)}
   .whisper{font-size:clamp(17px,1.8vw,20px);color:var(--evidence);font-style:italic}
   .spacer-s{height:30vh}.spacer-m{height:55vh}.spacer-l{height:85vh}
   .rv{opacity:0;transform:translateY(16px);transition:opacity 1.7s ease,transform 1.7s ease}
   .rv.on{opacity:1;transform:none}
-  .chip{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
-    color:var(--evidence);border:1px solid rgba(126,150,155,.32);padding:4px 10px;border-radius:2px;
-    text-transform:uppercase;background:rgba(5,12,15,.6)}
-  .chip.warn{color:var(--ember);border-color:rgba(184,121,62,.5)}
-  .mono{font-family:var(--mono);color:var(--evidence);font-size:12.5px;letter-spacing:.12em}
-  a.src{color:var(--evidence);font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;
-    text-decoration:none;border-bottom:1px solid rgba(126,150,155,.32)}
+
+  /* labels — Franklin Gothic, readable */
+  .chip{display:inline-block;font-family:var(--news);font-size:11.5px;font-weight:600;
+    letter-spacing:.15em;color:var(--evidence);border:1px solid rgba(157,179,184,.34);
+    padding:5px 11px;border-radius:2px;text-transform:uppercase;background:rgba(5,12,15,.62)}
+  .chip.warn{color:var(--ember);border-color:rgba(196,133,74,.5)}
+  .label{font-family:var(--news);font-weight:500;font-size:12.5px;letter-spacing:.15em;
+    color:var(--evidence);text-transform:uppercase;line-height:2.2}
+  .coord{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;color:var(--evidence);line-height:2.6}
+  a.src{color:var(--evidence);font-family:var(--news);font-weight:600;font-size:11.5px;
+    letter-spacing:.11em;text-decoration:none;border-bottom:1px solid rgba(157,179,184,.35);
+    text-transform:uppercase}
   a.src:hover{color:var(--ember);border-color:var(--ember)}
 
   /* ===== photo plates ===== */
-  .plate{position:relative;overflow:hidden;background:#03080a;
-    box-shadow:0 30px 70px rgba(0,0,0,.7)}
-  .plate img{width:100%;display:block;filter:saturate(.55) contrast(1.12) brightness(.72)}
-  .plate.deep img{filter:saturate(.35) contrast(1.25) brightness(.5)}
-  .plate figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;
-    background:linear-gradient(transparent,rgba(3,8,10,.92));font-family:var(--mono);
-    font-size:10.5px;letter-spacing:.13em;color:var(--evidence);text-transform:uppercase}
-  .slot{border:1px dashed rgba(126,150,155,.38);background:rgba(6,12,15,.75);display:flex;
+  .plate{position:relative;overflow:hidden;background:#03080a;box-shadow:0 30px 70px rgba(0,0,0,.7)}
+  .plate img{width:100%;display:block;filter:saturate(.5) contrast(1.14) brightness(.7)}
+  .plate.deep img{filter:saturate(.3) contrast(1.28) brightness(.48)}
+  .plate figcaption{position:absolute;left:0;right:0;bottom:0;padding:15px 17px;
+    background:linear-gradient(transparent,rgba(3,8,10,.94));font-family:var(--news);font-weight:500;
+    font-size:11.5px;letter-spacing:.12em;color:var(--evidence);text-transform:uppercase;line-height:1.7}
+  .slot{border:1px dashed rgba(157,179,184,.4);background:rgba(6,12,15,.75);display:flex;
     flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:26px;
     text-align:center;border-radius:2px}
-  .slot .mono{font-size:10.5px;line-height:2}
-  .slot::before{content:'';width:34px;height:1px;background:rgba(126,150,155,.4)}
+  .slot .label{font-size:11.5px;line-height:2}
+  .slot::before{content:'';width:34px;height:1px;background:rgba(157,179,184,.42)}
 
   /* ===== the light stage ===== */
   #light-outer{height:700vh;position:relative}
   #light-stage{position:sticky;top:0;height:100vh;overflow:hidden}
-  #recon-chip{position:absolute;top:22px;right:22px;z-index:5;opacity:.7}
-  .light-line{position:absolute;left:0;right:0;text-align:center;z-index:76;font-family:var(--display);
-    font-size:clamp(26px,4.2vw,50px);font-weight:400;opacity:0;transition:opacity 1.4s ease;
+  #recon-chip{position:absolute;top:24px;right:24px;z-index:5;opacity:.8}
+  .light-line{position:absolute;left:0;right:0;text-align:center;z-index:76;font-family:var(--banner);
+    font-size:clamp(26px,4.2vw,50px);font-weight:500;opacity:0;transition:opacity 1.4s ease;
     padding:0 24px;text-shadow:0 2px 30px rgba(2,6,8,.95)}
-  .light-line.beat{font-size:clamp(46px,8.5vw,112px);letter-spacing:.03em}
+  .light-line.beat{font-size:clamp(46px,8.5vw,112px);font-weight:700;letter-spacing:.01em}
   .light-line small{display:block;font-family:var(--serif);font-size:clamp(15px,1.7vw,19px);
-    font-style:italic;color:var(--evidence);margin-top:1.1em;letter-spacing:0}
+    font-weight:300;font-style:italic;color:var(--evidence);margin-top:1.1em;letter-spacing:0}
   .light-line.vis{opacity:1}
   #ll-ran{font-size:clamp(58px,12vw,164px)}
 
   /* ===== paper century ===== */
   #paper-era{background:var(--paper);color:var(--ink);position:relative;z-index:2;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23p)' opacity='0.35'/%3E%3C/svg%3E");
-    box-shadow:inset 0 50px 90px rgba(26,27,23,.3), inset 0 -50px 90px rgba(26,27,23,.3)}
+    box-shadow:inset 0 50px 90px rgba(25,26,22,.3), inset 0 -50px 90px rgba(25,26,22,.3)}
+  #paper-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  #paper-bg img{width:100%;height:100%;object-fit:cover;opacity:.22;mix-blend-mode:multiply;
+    filter:grayscale(.4) contrast(1.1)}
+  #paper-era>section{position:relative;z-index:1}
   #paper-era p.narr,#paper-era .big{color:var(--ink);text-shadow:none}
-  #paper-era .whisper,#paper-era .mono{color:#5a5446}
-  #paper-era .chip{color:#5a5446;border-color:rgba(90,84,70,.4);background:none}
-  #paper-era .chip.warn{color:var(--blood);border-color:rgba(109,43,34,.5)}
-  #paper-era a.src{color:var(--blood);border-color:rgba(109,43,34,.4)}
-  .era-in{height:24vh;background:linear-gradient(rgba(216,208,193,0),var(--paper));position:relative;z-index:2}
-  .era-out{height:24vh;background:linear-gradient(var(--paper),rgba(216,208,193,0));position:relative;z-index:2}
+  #paper-era .whisper{color:#575143}
+  #paper-era .label,#paper-era .coord{color:#575143}
+  #paper-era .chip{color:#4e483c;border-color:rgba(78,72,60,.45);background:rgba(217,209,194,.6)}
+  #paper-era .chip.warn{color:var(--blood);border-color:rgba(109,43,34,.55)}
+  #paper-era a.src{color:var(--blood);border-color:rgba(109,43,34,.45)}
+  .era-in{height:24vh;background:linear-gradient(rgba(217,209,194,0),var(--paper));position:relative;z-index:2}
+  .era-out{height:24vh;background:linear-gradient(var(--paper),rgba(217,209,194,0));position:relative;z-index:2}
 
   /* ===== newspaper clipping ===== */
-  .clip{position:relative;max-width:620px;margin:0 auto;background:#e6dfcd;color:var(--ink);
-    padding:0;box-shadow:0 26px 60px rgba(26,27,23,.45);
-    transform:translateY(64px) rotate(-.6deg);opacity:0;
+  .clip{position:relative;max-width:640px;margin:0 auto;background:#e8e1cf;color:var(--ink);
+    box-shadow:0 26px 60px rgba(25,26,22,.5);
+    transform:translateY(64px) rotate(-.5deg);opacity:0;
     transition:transform 2.2s cubic-bezier(.16,1,.3,1),opacity 1.8s ease}
   .clip.on{transform:translateY(0) rotate(0);opacity:1}
-  .clip::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.3;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23c)'/%3E%3C/svg%3E");
-    mix-blend-mode:multiply}
-  .clip .rail{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;
-    font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:#6b6455;
-    text-transform:uppercase;padding:10px 22px;border-bottom:1px solid rgba(90,84,70,.35)}
+  .clip .tex{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .clip .tex img{width:100%;height:100%;object-fit:cover;opacity:.16;mix-blend-mode:multiply}
+  .clip>*:not(.tex){position:relative;z-index:1}
+  .clip .nameplate{border-bottom:2px solid rgba(25,26,22,.75);padding:14px 22px 8px;
+    display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .clip .nameplate .np{font-family:var(--banner);font-weight:900;font-size:clamp(17px,2.4vw,23px);
+    letter-spacing:.02em;text-transform:uppercase}
+  .clip .nameplate .npd{font-family:var(--news);font-weight:500;font-size:10.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:#5c5648}
+  .clip .rail{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+    font-family:var(--news);font-weight:600;font-size:10.5px;letter-spacing:.15em;color:#615a4b;
+    text-transform:uppercase;padding:9px 22px;border-bottom:1px solid rgba(78,72,60,.4)}
   .clip .inner{padding:26px 30px 30px}
-  .clip .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:#6b6455;
-    text-transform:uppercase;margin-bottom:12px}
-  .clip h3{font-family:var(--display);font-weight:700;font-size:clamp(26px,4.2vw,42px);
-    line-height:1.05;margin-bottom:6px;letter-spacing:-.01em}
-  .clip .dek{font-family:var(--display);font-weight:400;font-style:italic;font-size:clamp(15px,1.9vw,19px);
-    color:#4a4539;margin-bottom:16px;line-height:1.35}
-  .clip .cols{font-family:var(--sans);font-weight:300;font-size:13.5px;line-height:1.75;color:#33322a;
-    column-count:2;column-gap:22px;text-align:justify;hyphens:auto}
-  @media(max-width:560px){.clip .cols{column-count:1}}
-  .clip .cols p{margin-bottom:9px}
-  .clip .foot{margin-top:16px;padding-top:12px;border-top:1px solid rgba(90,84,70,.3)}
+  .clip .kicker{font-family:var(--news);font-weight:700;font-size:11px;letter-spacing:.2em;
+    color:var(--blood);text-transform:uppercase;margin-bottom:13px}
+  .clip h3{font-family:var(--banner);font-weight:900;font-size:clamp(28px,4.6vw,46px);
+    line-height:1.02;margin-bottom:9px;letter-spacing:-.018em}
+  .clip .dek{font-family:var(--news);font-weight:400;font-style:italic;
+    font-size:clamp(15px,1.9vw,18px);color:#463f33;margin-bottom:18px;line-height:1.45;
+    padding-bottom:16px;border-bottom:1px solid rgba(78,72,60,.35)}
+  .clip .cols{font-family:var(--col);font-weight:400;font-size:13px;line-height:1.72;color:#2d2c25;
+    column-count:2;column-gap:24px;column-rule:1px solid rgba(78,72,60,.22);
+    text-align:justify;hyphens:auto}
+  @media(max-width:580px){.clip .cols{column-count:1}}
+  .clip .cols p{margin-bottom:10px}
+  .clip .cols p:first-child::first-letter{font-family:var(--banner);font-weight:900;font-size:3.1em;
+    float:left;line-height:.82;margin:.05em .09em 0 0;color:var(--ink)}
+  .clip .foot{margin-top:18px;padding-top:13px;border-top:2px solid rgba(25,26,22,.55);
+    display:flex;gap:18px;flex-wrap:wrap}
 
-  /* ===== declassified document ===== */
-  .dossier{position:relative;max-width:620px;margin:0 auto;background:#ddd6c4;color:#2a2820;
-    padding:30px 32px;box-shadow:0 26px 60px rgba(26,27,23,.5);font-family:var(--type);
-    transform:translateY(64px) rotate(.5deg);opacity:0;
+  /* ===== declassified dossier ===== */
+  .dossier{position:relative;max-width:640px;margin:0 auto;background:#ded7c5;color:#282620;
+    padding:32px 34px;box-shadow:0 26px 60px rgba(25,26,22,.55);font-family:var(--type);
+    transform:translateY(64px) rotate(.4deg);opacity:0;
     transition:transform 2.2s cubic-bezier(.16,1,.3,1),opacity 1.8s ease}
   .dossier.on{transform:translateY(0) rotate(0);opacity:1}
-  .dossier .stamp{position:absolute;top:16px;right:24px;transform:rotate(-11deg);
-    border:2.5px solid rgba(109,43,34,.62);color:rgba(109,43,34,.72);font-family:var(--mono);
-    font-weight:500;font-size:12px;letter-spacing:.22em;padding:5px 12px;text-transform:uppercase}
-  .dossier .hdr{font-size:12px;letter-spacing:.1em;line-height:2.1;color:#4a4539;
-    border-bottom:1px dashed rgba(90,84,70,.5);padding-bottom:12px;margin-bottom:16px}
-  .dossier .line{font-size:15px;line-height:2.05;letter-spacing:.01em}
-  .redact{display:inline-block;background:#1a1b17;color:transparent;user-select:none;
+  .dossier .tex{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .dossier .tex img{width:100%;height:100%;object-fit:cover;opacity:.2;mix-blend-mode:multiply}
+  .dossier>*:not(.tex){position:relative;z-index:1}
+  .dossier .stamp{position:absolute;top:18px;right:26px;transform:rotate(-11deg);
+    border:2.5px solid rgba(109,43,34,.6);color:rgba(109,43,34,.72);font-family:var(--news);
+    font-weight:700;font-size:12.5px;letter-spacing:.2em;padding:6px 13px;text-transform:uppercase}
+  .dossier .hdr{font-size:13px;letter-spacing:.08em;line-height:2.15;color:#463f33;
+    border-bottom:1px dashed rgba(78,72,60,.55);padding-bottom:14px;margin-bottom:18px}
+  .dossier .line{font-size:15.5px;line-height:2.1;letter-spacing:.01em}
+  .redact{display:inline-block;background:#191a16;color:transparent;user-select:none;
     border-radius:1px;vertical-align:middle;height:1.05em;position:relative;top:-1px}
-  .dossier .quote{font-family:var(--display);font-style:italic;font-weight:400;
-    font-size:clamp(19px,2.7vw,26px);line-height:1.35;color:#22231d;margin:20px 0;
-    padding-left:16px;border-left:3px solid rgba(109,43,34,.55)}
+  .dossier .quote{font-family:var(--banner);font-style:italic;font-weight:500;
+    font-size:clamp(19px,2.7vw,27px);line-height:1.34;color:#201f1a;margin:22px 0;
+    padding-left:17px;border-left:3px solid rgba(109,43,34,.6)}
 
-  .surfq{font-family:var(--display);font-size:clamp(30px,5.2vw,70px);line-height:1.12;font-weight:400;
+  .surfq{font-family:var(--banner);font-size:clamp(30px,5.2vw,70px);line-height:1.1;font-weight:700;
     font-style:italic;color:var(--ink);max-width:13em;margin:0 auto}
-  .surfq .attr{display:block;font-style:normal;font-family:var(--mono);font-size:11px;
-    letter-spacing:.16em;color:#5a5446;margin-top:1.7em;text-transform:uppercase;line-height:2}
+  .surfq .attr{display:block;font-style:normal;font-family:var(--news);font-weight:600;font-size:12px;
+    letter-spacing:.15em;color:#575143;margin-top:1.7em;text-transform:uppercase;line-height:2.1}
 
-  .verbwall{display:flex;flex-wrap:wrap;gap:13px 24px;justify-content:center;max-width:760px;
-    margin:0 auto;padding:0 24px;font-family:var(--mono);font-size:clamp(13px,1.7vw,18px);
-    letter-spacing:.14em;text-transform:uppercase}
-  .verbwall span{color:#8a8271;opacity:0;transform:translateY(8px);
+  .verbwall{display:flex;flex-wrap:wrap;gap:13px 24px;justify-content:center;max-width:770px;
+    margin:0 auto;padding:0 24px;font-family:var(--news);font-weight:500;
+    font-size:clamp(14px,1.7vw,18px);letter-spacing:.13em;text-transform:uppercase}
+  .verbwall span{color:#7d7565;opacity:0;transform:translateY(8px);
     transition:opacity 1.2s ease,transform 1.2s ease,color 1.2s ease}
   .verbwall.on span{opacity:1;transform:none}
-  .verbwall span.hot{color:var(--blood);font-weight:500}
-  .verbwall.lit span.hot{color:var(--ember);text-shadow:0 0 20px rgba(184,121,62,.4)}
+  .verbwall span.hot{color:var(--blood);font-weight:800}
+  .verbwall.lit span.hot{color:#a8632f;text-shadow:0 0 22px rgba(196,133,74,.45)}
 
-  /* ===== the three doors ===== */
-  .doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;
-    max-width:1080px;margin:0 auto;background:rgba(126,150,155,.14)}
-  .door{background:#070f13;padding:34px 28px 40px;position:relative;overflow:hidden;
+  /* ===== three doors ===== */
+  .doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:2px;
+    max-width:1100px;margin:0 auto;background:rgba(157,179,184,.15)}
+  .door{background:#070f13;padding:36px 30px 42px;position:relative;overflow:hidden;
     transition:background 1.2s ease}
-  .door:hover{background:#0b1519}
-  .door .no{font-family:var(--display);font-size:60px;font-weight:400;color:rgba(126,150,155,.16);
-    line-height:1;margin-bottom:14px}
-  .door h4{font-family:var(--display);font-size:clamp(22px,2.6vw,30px);font-weight:500;
-    letter-spacing:.01em;margin-bottom:6px}
-  .door .sub{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--evidence);
-    text-transform:uppercase;margin-bottom:18px}
-  .door p{font-size:15.5px;line-height:1.72;color:#c8c4ba;margin-bottom:14px}
-  .door .verdict{font-family:var(--display);font-style:italic;font-size:17px;color:var(--ember);
-    line-height:1.45;margin-top:18px;padding-top:16px;border-top:1px solid rgba(126,150,155,.18)}
+  .door:hover{background:#0c161a}
+  .door .no{font-family:var(--banner);font-size:62px;font-weight:900;color:rgba(157,179,184,.15);
+    line-height:1;margin-bottom:16px}
+  .door h4{font-family:var(--banner);font-size:clamp(23px,2.7vw,31px);font-weight:700;
+    margin-bottom:8px}
+  .door .sub{font-family:var(--news);font-weight:600;font-size:11px;letter-spacing:.17em;
+    color:var(--evidence);text-transform:uppercase;margin-bottom:20px}
+  .door p{font-size:16px;line-height:1.74;color:#cfcbc1;margin-bottom:15px}
+  .door .verdict{font-family:var(--banner);font-style:italic;font-weight:500;font-size:18px;
+    color:var(--ember);line-height:1.44;margin-top:20px;padding-top:18px;
+    border-top:1px solid rgba(157,179,184,.2)}
 
   /* ===== constellation ===== */
   #constellation-outer{height:540vh;position:relative;z-index:2}
   #constellation{position:sticky;top:0;height:100vh;overflow:hidden}
   .star{position:absolute;width:6px;height:6px;border-radius:50%;background:#efe6d2;
-    box-shadow:0 0 8px 2px rgba(239,230,210,.8),0 0 22px 7px rgba(184,121,62,.22);
+    box-shadow:0 0 8px 2px rgba(239,230,210,.8),0 0 22px 7px rgba(196,133,74,.24);
     opacity:0;transition:opacity 2s ease}
-  .star .lbl{position:absolute;left:15px;top:-7px;white-space:nowrap;font-family:var(--mono);
-    font-size:11px;letter-spacing:.14em;color:var(--evidence);transition:opacity 1.5s ease;
-    text-shadow:0 1px 12px rgba(2,6,8,.95)}
+  .star .lbl{position:absolute;left:16px;top:-8px;white-space:nowrap;font-family:var(--news);
+    font-weight:600;font-size:12px;letter-spacing:.12em;color:var(--evidence);
+    transition:opacity 1.5s ease;text-shadow:0 1px 12px rgba(2,6,8,.98)}
   .star.on{opacity:1}
-  .star.ky{background:#f7dcb8;box-shadow:0 0 11px 4px rgba(247,220,184,.95),0 0 30px 11px rgba(184,121,62,.45)}
+  .star.ky{background:#f9e0bc;box-shadow:0 0 12px 4px rgba(249,224,188,.95),0 0 32px 12px rgba(196,133,74,.48)}
   .star.ky .lbl{color:var(--ember)}
   #constellation.quiet .lbl{opacity:0}
-  .const-line{position:absolute;left:0;right:0;text-align:center;padding:0 24px;font-family:var(--display);
-    font-size:clamp(22px,3.2vw,40px);font-weight:400;opacity:0;transition:opacity 1.6s ease;
+  .const-line{position:absolute;left:0;right:0;text-align:center;padding:0 24px;font-family:var(--banner);
+    font-size:clamp(22px,3.2vw,40px);font-weight:500;opacity:0;transition:opacity 1.6s ease;
     text-shadow:0 2px 26px rgba(2,6,8,.95)}
   .const-line.vis{opacity:1}
-  .const-note{position:absolute;bottom:20px;right:22px;opacity:.5}
+  .const-note{position:absolute;bottom:24px;right:24px;opacity:.6}
 
   /* ===== retelling ===== */
-  .vidgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;
-    max-width:860px;margin:0 auto;padding:0 24px}
-  .vidcard{background:rgba(11,17,20,.9);border:1px solid rgba(126,150,155,.16);border-radius:2px;
-    aspect-ratio:16/10;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;
+  .vidgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;
+    max-width:880px;margin:0 auto;padding:0 24px}
+  .vidcard{background:rgba(11,17,20,.9);border:1px solid rgba(157,179,184,.18);border-radius:2px;
+    aspect-ratio:16/10;display:flex;flex-direction:column;justify-content:flex-end;padding:15px;
     text-decoration:none}
-  .vidcard .mono{font-size:10px;line-height:1.9}
-  .vidcard:hover{border-color:rgba(184,121,62,.45)}
+  .vidcard .label{font-size:11px;line-height:1.9}
+  .vidcard:hover{border-color:rgba(196,133,74,.5)}
   @media (prefers-reduced-motion: no-preference){
     .vidgrid.drift .vidcard{animation:drift 15s ease-in-out infinite alternate}
     .vidgrid.drift .vidcard:nth-child(2){animation-delay:-5s}
@@ -223,26 +269,28 @@
   }
 
   #watcher{position:fixed;bottom:6vh;width:5px;height:5px;border-radius:50%;background:#e9dfcb;
-    box-shadow:0 0 7px 2px rgba(233,223,203,.7),0 0 20px 7px rgba(184,121,62,.22);opacity:0;
+    box-shadow:0 0 7px 2px rgba(233,223,203,.7),0 0 20px 7px rgba(196,133,74,.24);opacity:0;
     pointer-events:none;z-index:80;transition:opacity 6s ease}
   #watcher.gone{transition:opacity .3s ease}
   #watcher.vis{opacity:.5}
 
-  .triad{font-family:var(--display);font-weight:400;font-size:clamp(38px,6.5vw,90px);
-    letter-spacing:.05em;line-height:1.42;text-align:center;text-shadow:0 2px 30px rgba(2,6,8,.95)}
-  #thetitle{font-family:var(--display);font-size:clamp(50px,11.5vw,178px);letter-spacing:.06em;
-    font-weight:500;text-align:center;line-height:1;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"),linear-gradient(#F2EEE5,#b9b2a2);
+  .triad{font-family:var(--banner);font-weight:500;font-size:clamp(38px,6.5vw,90px);
+    letter-spacing:.03em;line-height:1.42;text-align:center;text-shadow:0 2px 30px rgba(2,6,8,.95)}
+  #thetitle{font-family:var(--banner);font-size:clamp(50px,12vw,182px);letter-spacing:.02em;
+    font-weight:900;text-align:center;line-height:.98;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"),linear-gradient(#F4F1E9,#b3aca0);
     background-blend-mode:multiply;-webkit-background-clip:text;background-clip:text;
     -webkit-text-fill-color:transparent;color:transparent}
   #finale{position:relative;min-height:130vh;background:#020507;overflow:hidden;z-index:2}
   .echo{position:absolute;top:32%;left:-3%;width:4px;height:4px;border-radius:50%;background:#efe6d2;
-    box-shadow:0 0 7px 2px rgba(239,230,210,.8),0 0 18px 6px rgba(184,121,62,.25);opacity:0}
+    box-shadow:0 0 7px 2px rgba(239,230,210,.8),0 0 18px 6px rgba(196,133,74,.28);opacity:0}
   .echo.go{animation:echoCross 3.2s cubic-bezier(.4,0,.6,1) 1 forwards}
   @keyframes echoCross{0%{opacity:0;transform:translateX(0)}12%{opacity:.85}88%{opacity:.85}
     100%{opacity:0;transform:translateX(106vw)}}
-  .sources{font-family:var(--mono);font-size:12px;line-height:2.5;color:var(--evidence);letter-spacing:.06em}
-  .sources a{color:var(--evidence);text-decoration:none;border-bottom:1px solid rgba(126,150,155,.28)}
+  .sources{font-family:var(--news);font-weight:400;font-size:13px;line-height:2.5;
+    color:var(--evidence);letter-spacing:.05em}
+  .sources .hd{font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:12px}
+  .sources a{color:var(--evidence);text-decoration:none;border-bottom:1px solid rgba(157,179,184,.3)}
   .sources a:hover{color:var(--ember)}
 
   @media (prefers-reduced-motion: reduce){
@@ -255,7 +303,9 @@
     #light-outer{height:480vh}
     #constellation-outer{height:400vh}
     .clip .inner,.dossier{padding:22px 20px}
-    #wind{bottom:14px;right:14px}
+    #nav{bottom:16px;right:16px}
+    #navHint{display:none}
+    #wind{bottom:16px;left:16px;font-size:10px;padding:7px 10px}
   }
 </style>
 </head>
@@ -267,17 +317,28 @@
 <div class="progress" aria-hidden="true"></div>
 <div id="watcher" aria-hidden="true"></div>
 <div id="chapter" aria-hidden="true"></div>
+
 <button id="wind" aria-label="Toggle wind ambience">Wind · Off</button>
+<div id="navHint" aria-hidden="true">Move at the story's pace</div>
+<nav id="nav" aria-label="Story navigation">
+  <button id="navUp" aria-label="Previous beat" disabled>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>
+  </button>
+  <div id="navCount">01</div>
+  <button id="navDown" aria-label="Next beat">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+</nav>
 
 <div id="loader">
-  <p class="mono">HARDIN COUNTY, KENTUCKY<br>A WINTER NIGHT<br>MID-1980s</p>
+  <p>HARDIN COUNTY, KENTUCKY<br>A WINTER NIGHT<br>MID-1980s</p>
 </div>
 
 <!-- ============ COLD OPEN ============ -->
 <section id="coldopen" class="vh" data-beat data-ch="" style="min-height:140vh;overflow:hidden">
   <div class="echo" id="echo-open" style="top:30%"></div>
   <div class="measure" style="text-align:center;margin-top:24vh">
-    <p class="mono rv" style="line-height:2.8">
+    <p class="coord rv">
       OFF U.S. HIGHWAY 62<br>
       YOUNGER'S CREEK · HARDIN COUNTY<br>
       37.757° N, 85.724° W
@@ -305,7 +366,9 @@
       <figcaption>Reconstruction · rolling hill country, Hardin County · [ REPLACE: EXACT KENTUCKY HORIZON · WR-01-01 ]</figcaption>
     </figure>
   </div>
+</section>
 
+<section data-beat data-ch="01 · The Last House">
   <div class="spacer-s"></div>
   <div class="measure">
     <p class="narr rv">My father cleared the paths with an old Massey
@@ -314,14 +377,21 @@
     meadow, the family kept honeybees.</p>
     <p class="narr rv">Most days it was me, the dog, and the woods.</p>
   </div>
-
+  <div class="spacer-s"></div>
+  <div class="wide">
+    <figure class="plate deep rv">
+      <img src="https://gen.krea.ai/images/a4511ca1-4a67-4915-b6b0-62aeff2e4ef4.png"
+           alt="A single distant farmhouse window glowing faintly across a black snowy field, seen through bare branches." loading="lazy">
+      <figcaption>Reconstruction · the house from the tree line · [ REPLACE: FAMILY HOUSE · FAM-02 ]</figcaption>
+    </figure>
+  </div>
   <div class="spacer-s"></div>
   <div class="measure" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
     <figure class="slot rv" data-slot="FAM-01" style="aspect-ratio:3/4">
-      <span class="mono">[ FAMILY PHOTO SLOT · FAM-01 ]<br>ERIC, CHILDHOOD</span>
+      <span class="label">[ FAMILY PHOTO SLOT · FAM-01 ]<br>ERIC, CHILDHOOD</span>
     </figure>
     <figure class="slot rv" data-slot="FAM-03" style="aspect-ratio:3/4">
-      <span class="mono">[ FAMILY PHOTO SLOT · FAM-03 ]<br>MASSEY FERGUSON<br>RADIO FLYER · DOG</span>
+      <span class="label">[ FAMILY PHOTO SLOT · FAM-03 ]<br>MASSEY FERGUSON<br>RADIO FLYER · DOG</span>
     </figure>
   </div>
   <div class="spacer-m"></div>
@@ -342,11 +412,24 @@
       <figcaption>Reconstruction · [ REPLACE: RADIO FLYER · FAMILY ARCHIVE ]</figcaption>
     </figure>
   </div>
+</section>
+
+<section data-beat data-ch="02 · The Hill">
   <div class="spacer-m"></div>
   <div class="measure" style="text-align:center">
     <p class="narr rv">The sled turned beneath me and left me on my
-    back in the snow, looking up into an enormous winter sky.</p>
-    <div class="spacer-m"></div>
+    back in the snow, looking up.</p>
+  </div>
+  <div class="spacer-s"></div>
+  <div class="wide">
+    <figure class="plate deep rv">
+      <img src="https://gen.krea.ai/images/934d4a4f-971d-45ff-9b1e-339e3f279830.png"
+           alt="Bare black winter branches seen from directly below against a heavy night sky." loading="lazy">
+      <figcaption>Reconstruction · the view from flat on your back</figcaption>
+    </figure>
+  </div>
+  <div class="spacer-m"></div>
+  <div class="measure" style="text-align:center">
     <p class="whisper rv">The kind of quiet where you can hear the cold.</p>
   </div>
   <div class="spacer-l"></div>
@@ -355,7 +438,7 @@
 <!-- ============ 03 THE LIGHT ============ -->
 <div id="light-outer" data-beat data-ch="03 · The Light">
   <div id="light-stage" role="img" aria-label="Reconstruction: a pale light rises from a dark winter treeline over rolling hills. The falling snow and fog stop mid-air while the light holds still, then the light crosses the sky and is gone.">
-    <span id="recon-chip" class="chip">Reconstruction · personal memory · WR-01-01</span>
+    <span id="recon-chip" class="chip">Reconstruction · personal memory</span>
     <div class="light-line" id="ll-0" style="top:42%">A pale light stood in the trees<br>where no light belonged.</div>
     <div class="light-line beat" id="ll-1" style="top:40%">It woke.</div>
     <div class="light-line beat" id="ll-2" style="top:33%">It watched.<small>Long enough to be sure of me.<br>Even the snow stopped falling.</small></div>
@@ -375,8 +458,11 @@
 <!-- ============ THE PAPER CENTURY ============ -->
 <div class="era-in" aria-hidden="true"></div>
 <div id="paper-era">
+  <div id="paper-bg" aria-hidden="true">
+    <img src="https://gen.krea.ai/images/6d097c05-cd04-4ac1-9e14-9aa843f46aff.png" alt="" loading="lazy">
+  </div>
 
-  <!-- 04 THE COUNTY — the conspiracy hinge -->
+  <!-- 04 THE COUNTY -->
   <section id="county" data-beat data-ch="04 · The County">
     <div class="spacer-s"></div>
     <div class="measure" style="text-align:center">
@@ -390,6 +476,11 @@
 
     <div style="padding:0 24px">
       <article class="clip" data-slot="DOC-06">
+        <div class="tex"><img src="https://gen.krea.ai/images/c6acbd81-dafc-4d97-80a9-cdde31856834.png" alt="" loading="lazy"></div>
+        <div class="nameplate">
+          <span class="np">The Hardin County Record</span>
+          <span class="npd">Reconstructed from federal sources</span>
+        </div>
         <div class="rail">
           <span>Primary record · U.S. Army / Project Sign</span>
           <span>7 January 1948</span>
@@ -417,28 +508,27 @@
             balloon belonging to a program that was, at the time, secret.</p>
           </div>
           <div class="foot">
-            <a class="src" href="https://www.army.mil/article/263119/questions_remain_75_years_after_mysterious_fort_knox_ufo_incident_downed_pilot" rel="noopener">U.S. ARMY · OFFICIAL ACCOUNT →</a>
-            &nbsp;&nbsp;
-            <a class="src" href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">NATIONAL ARCHIVES · PROJECT BLUE BOOK →</a>
+            <a class="src" href="https://www.army.mil/article/263119/questions_remain_75_years_after_mysterious_fort_knox_ufo_incident_downed_pilot" rel="noopener">U.S. Army · Official account →</a>
+            <a class="src" href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">National Archives · Blue Book →</a>
           </div>
         </div>
       </article>
     </div>
+  </section>
 
+  <section data-beat data-ch="04 · The County">
     <div class="spacer-m"></div>
     <div class="measure" style="text-align:center">
       <p class="narr rv">I read the colonel's description four times before
       I understood why my hands were cold.</p>
     </div>
     <div class="spacer-s"></div>
-
     <div class="vh" style="text-align:center">
       <blockquote class="surfq rv">
         &ldquo;It remained stationary, seemingly,<br>for one and a half&nbsp;hours.&rdquo;
         <span class="attr">Col. Guy F. Hix · Commanding Officer<br>Godman Army Airfield · Hardin County, Kentucky · 1948</span>
       </blockquote>
     </div>
-
     <div class="measure">
       <p class="narr rv">A United States Army colonel stood on an airfield in
       my county and reported a light that <em>held still</em>.</p>
@@ -449,10 +539,13 @@
       <p class="big rv" style="font-style:italic">A man died over that.</p>
       <p class="whisper rv">And then the explanation changed.</p>
     </div>
-    <div class="spacer-m"></div>
+  </section>
 
+  <section data-beat data-ch="04 · The County">
+    <div class="spacer-m"></div>
     <div style="padding:0 24px">
       <article class="dossier" data-slot="DOC-07">
+        <div class="tex"><img src="https://gen.krea.ai/images/f92db884-740c-449b-924c-2c411e6cfb12.png" alt="" loading="lazy"></div>
         <span class="stamp">Declassified</span>
         <div class="hdr">
           PROJECT SIGN / PROJECT BLUE BOOK<br>
@@ -463,18 +556,18 @@
           FIRST OFFICIAL EXPLANATION &nbsp;·&nbsp; THE PLANET VENUS<br>
           REVISED EXPLANATION &nbsp;·&nbsp; SKYHOOK BALLOON<br>
           PROGRAM STATUS IN 1948 &nbsp;·&nbsp; <span class="redact" style="width:7.5em">&nbsp;</span><br>
-          WITNESS COUNT &nbsp;·&nbsp; TOWER PERSONNEL, SENIOR OFFICERS<br>
+          WITNESSES &nbsp;·&nbsp; TOWER PERSONNEL, SENIOR OFFICERS<br>
           DURATION &nbsp;·&nbsp; APPROX. 90 MINUTES<br>
           FATALITIES &nbsp;·&nbsp; ONE
         </div>
         <p class="quote">The first answer they gave the public was wrong.
         We know that because they are the ones who corrected it.</p>
-        <div class="line" style="font-size:13px;color:#4a4539">
-          12,618 SIGHTINGS WERE RECORDED BEFORE THE FILE WAS CLOSED IN 1969.<br>
+        <div class="line" style="font-size:13.5px;color:#463f33">
+          12,618 SIGHTINGS WERE RECORDED BEFORE THE FILE CLOSED IN 1969.<br>
           701 OF THEM WERE NEVER EXPLAINED. THE RECORDS ARE PUBLIC.
         </div>
-        <div style="margin-top:18px">
-          <a class="src" href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">READ THE FILES · NATIONAL ARCHIVES →</a>
+        <div style="margin-top:20px">
+          <a class="src" href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">Read the files · National Archives →</a>
         </div>
       </article>
     </div>
@@ -492,51 +585,61 @@
     <div class="spacer-m"></div>
   </section>
 
-  <!-- 05 THE WITNESSES -->
+  <!-- 05 THE OLDER RECORD -->
   <section id="witnesses" data-beat data-ch="05 · The Older Record">
     <div class="measure" style="text-align:center">
       <p class="narr rv">But here is the part that undoes the tidy version.</p>
       <p class="big rv">The lights are older<br>than the aircraft.</p>
     </div>
     <div class="spacer-m"></div>
-
     <div style="padding:0 24px">
       <article class="clip" data-slot="DOC-01">
+        <div class="tex"><img src="https://gen.krea.ai/images/c6acbd81-dafc-4d97-80a9-cdde31856834.png" alt="" loading="lazy"></div>
+        <div class="nameplate">
+          <span class="np">Miami News-Record</span>
+          <span class="npd">Ottawa County, Oklahoma · 9 May 1965</span>
+        </div>
         <div class="rail">
           <span>Primary record · Newspaper</span>
-          <span>Miami News-Record · 9 May 1965</span>
+          <span>Gateway to Oklahoma History</span>
         </div>
         <div class="inner">
-          <div class="kicker">Ottawa County, Oklahoma · Devil's Promenade</div>
+          <div class="kicker">Devil's Promenade · Near Hornet</div>
           <h3>Spook Light Long a<br>Popular Attraction</h3>
           <p class="dek">Velma Nieberding's account of a light that country people
           along one road had been watching for generations.</p>
           <div class="cols">
-            <p>[ ARCHIVE DOCUMENT SLOT · DOC-01 — full scan pending rights
-            clearance from the Dobson Museum and Home / Ottawa County
-            Historical Society. Metadata card shown until cleared. ]</p>
             <p>The clipping is preserved in the Gateway to Oklahoma History.
             The headline is verified against the catalog record. It documents
             a local tradition already old in 1965 — watched, chased,
             photographed, and argued about long before that.</p>
+            <p>[ ARCHIVE DOCUMENT SLOT · DOC-01 — full scan pending rights
+            clearance from the Dobson Museum and Home / Ottawa County
+            Historical Society. Metadata card shown until cleared. ]</p>
           </div>
           <div class="foot">
-            <a class="src" href="https://gateway.okhistory.org/ark:/67531/metadc2582124/" rel="noopener">OKLAHOMA HISTORICAL SOCIETY →</a>
+            <a class="src" href="https://gateway.okhistory.org/ark:/67531/metadc2582124/" rel="noopener">Oklahoma Historical Society →</a>
           </div>
         </div>
       </article>
     </div>
+  </section>
 
+  <section data-beat data-ch="05 · The Older Record">
     <div class="spacer-m"></div>
-
     <div style="padding:0 24px">
       <article class="clip" data-slot="DOC-02">
+        <div class="tex"><img src="https://gen.krea.ai/images/c6acbd81-dafc-4d97-80a9-cdde31856834.png" alt="" loading="lazy"></div>
+        <div class="nameplate">
+          <span class="np">U.S. Geological Survey</span>
+          <span class="npd">Circular 646 · 1971</span>
+        </div>
         <div class="rail">
           <span>Primary record · Federal report</span>
-          <span>USGS Circular 646 · 1971</span>
+          <span>George R. Mansfield</span>
         </div>
         <div class="inner">
-          <div class="kicker">United States Geological Survey · George R. Mansfield</div>
+          <div class="kicker">Brown Mountain · Linville Gorge, North Carolina</div>
           <h3>Origin of the Brown<br>Mountain Light</h3>
           <p class="dek">A federal geologist was sent to North Carolina to explain a
           light that people had been reporting for over half a century.</p>
@@ -549,12 +652,11 @@
             kept seeing something they could not account for — for decades.</p>
           </div>
           <div class="foot">
-            <a class="src" href="https://pubs.usgs.gov/circ/1971/0646/report.pdf" rel="noopener">USGS · READ THE CIRCULAR →</a>
+            <a class="src" href="https://pubs.usgs.gov/circ/1971/0646/report.pdf" rel="noopener">USGS · Read the circular →</a>
           </div>
         </div>
       </article>
     </div>
-
     <div class="spacer-m"></div>
     <div class="measure" style="text-align:center">
       <p class="whisper rv">Neither report found a saucer.
@@ -564,10 +666,10 @@
     <div class="spacer-m"></div>
   </section>
 
-  <!-- THE VERB WALL -->
+  <!-- VERB WALL -->
   <section id="verbs" data-beat data-ch="05 · The Older Record">
     <div class="measure" style="text-align:center">
-      <p class="mono rv">WITNESS LANGUAGE · COMPILED ACROSS CASE FILES · 1883 — 1984</p>
+      <p class="label rv">Witness language · compiled across case files · 1883 — 1984</p>
     </div>
     <div class="spacer-s"></div>
     <div class="verbwall" id="verbwall" aria-label="Verbs used by witnesses across a century of reports; three of them — rise, hold, run — are highlighted.">
@@ -600,7 +702,17 @@
       <p class="narr rv">A light that hovered over one place marked
       something buried. A light that kept ahead of a traveler wanted
       following. Those had names, and rules, and reasons.</p>
-      <div class="spacer-s"></div>
+    </div>
+    <div class="spacer-s"></div>
+    <div class="wide">
+      <figure class="plate deep rv">
+        <img src="https://gen.krea.ai/images/68a08ddc-42a1-472b-908a-db6ffb1aed84.png"
+             alt="Footprints in deep snow leading toward a dark treeline and stopping." loading="lazy">
+        <figcaption>Reconstruction · the oldest rule was: do not follow</figcaption>
+      </figure>
+    </div>
+    <div class="spacer-s"></div>
+    <div class="measure">
       <p class="big rv" style="font-style:italic">But a light that runs is a
       light with somewhere to be.</p>
       <p class="whisper rv">And nobody ever gave that one a name.</p>
@@ -617,23 +729,23 @@
 </div><!-- /paper-era -->
 <div class="era-out" aria-hidden="true"></div>
 
-<!-- ============ THE CONSTELLATION ============ -->
+<!-- ============ CONSTELLATION ============ -->
 <div id="constellation-outer" data-beat data-ch="07 · The Same Sky">
   <div id="constellation" role="img" aria-label="Points of light accumulate on a dark field: Wales in the 1600s, Marfa 1883, Brown Mountain 1913, Gurdon in the 1930s, Godman Field 1948, Hessdalen 1981, and finally an unlabeled point for Younger's Creek, Kentucky.">
-    <div class="star" id="st-0" style="left:14%;top:22%"><span class="lbl">1600s · WALES · CORPSE CANDLES</span></div>
-    <div class="star" id="st-1" style="left:26%;top:74%"><span class="lbl">1883 · MARFA, TEXAS</span></div>
-    <div class="star" id="st-2" style="left:68%;top:36%"><span class="lbl">1913 · BROWN MOUNTAIN, N.C.</span></div>
-    <div class="star" id="st-3" style="left:44%;top:62%"><span class="lbl">1930s · GURDON, ARKANSAS</span></div>
-    <div class="star" id="st-4" style="left:34%;top:44%"><span class="lbl">1948 · GODMAN FIELD · HARDIN CO., KY</span></div>
-    <div class="star" id="st-5" style="left:82%;top:15%"><span class="lbl">1981 · HESSDALEN, NORWAY</span></div>
-    <div class="star ky" id="st-6" style="left:52%;top:50%"><span class="lbl">MID-1980s · YOUNGER'S CREEK · HARDIN CO., KY</span></div>
+    <div class="star" id="st-0" style="left:14%;top:22%"><span class="lbl">1600s · Wales · corpse candles</span></div>
+    <div class="star" id="st-1" style="left:26%;top:74%"><span class="lbl">1883 · Marfa, Texas</span></div>
+    <div class="star" id="st-2" style="left:68%;top:36%"><span class="lbl">1913 · Brown Mountain, N.C.</span></div>
+    <div class="star" id="st-3" style="left:44%;top:62%"><span class="lbl">1930s · Gurdon, Arkansas</span></div>
+    <div class="star" id="st-4" style="left:34%;top:44%"><span class="lbl">1948 · Godman Field · Hardin Co., KY</span></div>
+    <div class="star" id="st-5" style="left:82%;top:15%"><span class="lbl">1981 · Hessdalen, Norway</span></div>
+    <div class="star ky" id="st-6" style="left:52%;top:50%"><span class="lbl">Mid-1980s · Younger's Creek · Hardin Co., KY</span></div>
     <div class="const-line" id="cl-0" style="top:11%">Nobody ever put them on the same map.</div>
     <div class="const-line" id="cl-1" style="top:82%;font-style:italic;color:var(--evidence)">There was never a reason to.</div>
     <span class="chip const-note">Project interpretation · not to scale</span>
   </div>
 </div>
 
-<!-- ============ 08 THE THREE DOORS ============ -->
+<!-- ============ 08 THREE DOORS ============ -->
 <section id="doors" data-beat data-ch="08 · Three Doors">
   <div class="spacer-s"></div>
   <div class="measure" style="text-align:center">
@@ -705,12 +817,12 @@
     <figure class="plate deep rv">
       <img src="https://gen.krea.ai/images/329257b9-352b-4601-8bab-1f63bea3a152.png"
            alt="A vintage military airfield control tower at dusk with figures watching the sky." loading="lazy">
-      <figcaption>Reconstruction · watching the sky from a tower · [ REPLACE: GODMAN FIELD ARCHIVE IMAGERY IF CLEARED ]</figcaption>
+      <figcaption>Reconstruction · watching the sky from a tower · [ REPLACE: GODMAN FIELD ARCHIVE IF CLEARED ]</figcaption>
     </figure>
   </div>
   <div class="spacer-m"></div>
   <div class="measure">
-    <p class="mono rv" style="line-height:2.5">
+    <p class="coord rv">
       HESSDALEN VALLEY, NORWAY<br>
       FIELD CAMPAIGN · 21 JAN — 26 FEB 1984<br>
       53 LIGHT OBSERVATIONS RECORDED
@@ -728,16 +840,16 @@
   </div>
 
   <div class="spacer-m"></div>
-  <p class="mono rv" style="text-align:center;margin-bottom:18px">THE STORY IS STILL BEING TOLD</p>
+  <p class="label rv" style="text-align:center;margin-bottom:18px">The story is still being told</p>
   <div class="vidgrid drift">
     <a class="vidcard rv" data-slot="VID-01" href="https://www.pbs.org/video/searching-for-the-brown-mountain-lights-ovqhzn/" rel="noopener">
-      <span class="mono">[ FIELD FOOTAGE SLOT · VID-01 ]<br>PBS NC · SEARCHING FOR THE BROWN MOUNTAIN LIGHTS</span>
+      <span class="label">[ FIELD FOOTAGE · VID-01 ]<br>PBS NC · Searching for the Brown Mountain Lights</span>
     </a>
     <a class="vidcard rv" data-slot="VID-02" href="https://www.hessdalen.org" rel="noopener">
-      <span class="mono">[ FIELD FOOTAGE SLOT · VID-02 ]<br>PROJECT HESSDALEN · THE SKY OF HESSDALEN</span>
+      <span class="label">[ FIELD FOOTAGE · VID-02 ]<br>Project Hessdalen · The Sky of Hessdalen</span>
     </a>
     <a class="vidcard rv" data-slot="VID-03" href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">
-      <span class="mono">[ ARCHIVE SLOT · VID-03 ]<br>NATIONAL ARCHIVES · BLUE BOOK · 12,618 CASES</span>
+      <span class="label">[ ARCHIVE · VID-03 ]<br>National Archives · Blue Book · 12,618 cases</span>
     </a>
   </div>
   <div class="spacer-m"></div>
@@ -760,7 +872,12 @@
     for forty years, sharpens in some places and softens in others.</p>
     <p class="narr rv">All of that is true. I have checked. I want you to
     know that I checked.</p>
-    <div class="spacer-m"></div>
+  </div>
+</section>
+
+<section data-beat data-ch="10 · Return to the Hill">
+  <div class="spacer-m"></div>
+  <div class="measure">
     <p class="big rv" style="font-style:italic">I cannot tell you what I saw that night.</p>
     <p class="narr rv">I can only tell you that a colonel in my county
     wrote <em>stationary</em>, that a Welshman four centuries ago wrote
@@ -769,18 +886,18 @@
     <p class="narr rv">— and that a boy on his back in the snow, who had
     never read any of it, reached for the same three words.</p>
   </div>
-
   <div class="spacer-l"></div>
   <div class="vh" style="text-align:center">
     <p class="triad rv">It woke.<br>It watched.<br>It ran.</p>
   </div>
-  <div class="spacer-s"></div>
+</section>
 
+<section data-beat data-ch="">
   <div class="vh" style="text-align:center">
     <h1 id="thetitle" class="rv">WINTER<br>RUNNERS</h1>
     <div class="spacer-s"></div>
     <p class="whisper rv">Around here, that's what we called them.</p>
-    <p class="mono rv" style="margin-top:3em;font-size:10.5px">FINAL WORDING PROVISIONAL · PENDING ERIC'S APPROVAL</p>
+    <p class="label rv" style="margin-top:3em;font-size:11px">Final wording provisional · pending Eric's approval</p>
   </div>
 </section>
 
@@ -792,13 +909,14 @@
       <p class="whisper rv">If you grew up somewhere with a hill and a treeline,
       you already know how this ends.</p>
       <div class="spacer-s"></div>
-      <p class="narr rv" style="font-family:var(--display);font-style:italic;font-size:clamp(22px,3vw,34px)">
+      <p class="rv" style="font-family:var(--banner);font-style:italic;font-weight:500;
+        font-size:clamp(22px,3vw,34px);line-height:1.4">
         Go outside tonight. Look at the tree line.<br>Give it ninety minutes.</p>
     </div>
   </div>
   <div class="vh" style="justify-content:flex-end;padding-bottom:14vh;text-align:center">
     <div class="sources">
-      <p>SOURCES</p>
+      <p class="hd">Sources</p>
       <p>
         <a href="https://www.army.mil/article/263119/questions_remain_75_years_after_mysterious_fort_knox_ufo_incident_downed_pilot" rel="noopener">U.S. Army · Godman Field / Mantell, 7 Jan 1948</a><br>
         <a href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">National Archives · Project Blue Book, RG 341</a><br>
@@ -808,12 +926,13 @@
         <a href="https://www.hessdalen.org" rel="noopener">Project Hessdalen · 1984 Final Technical Report</a><br>
         <a href="https://www.usgs.gov/faqs/what-are-earthquake-lights" rel="noopener">USGS · Earthquake Lights</a><br>
         <a href="https://www.encyclopediaofarkansas.net/entries/gurdon-light-2360/" rel="noopener">Encyclopedia of Arkansas · Gurdon Light</a><br>
-        <span>Folk-Lore, vol. 5 · "Ghostly Lights" · 1894</span>
+        <span>Folk-Lore, vol. 5 · &ldquo;Ghostly Lights&rdquo; · 1894</span>
       </p>
-      <p style="margin-top:3.5em;opacity:.55;line-height:2.2">
+      <p style="margin-top:3.5em;opacity:.55;line-height:2.2;font-size:12px">
         A documentary reconstruction. Evidence classes are labeled throughout.<br>
-        Photographic plates marked RECONSTRUCTION are generated for layout and<br>
-        are placeholders for cleared archival and family material.<br>
+        Plates marked RECONSTRUCTION are generated for layout and are placeholders<br>
+        for cleared archival and family material. Newspaper objects are original<br>
+        editorial designs built from verified public facts, not reproductions.<br>
         The name &ldquo;Winter Runners&rdquo; is this project's own.</p>
     </div>
   </div>
@@ -825,10 +944,7 @@
   const isMobile = innerWidth < 640;
 
   /* =====================================================
-     THE WORLD — rolling Kentucky hill country.
-     Smooth sine-composite ridges (no peaks), bare winter
-     hardwoods standing on them, fog between depth planes,
-     snow in three bands, and the light living in the scene.
+     THE WORLD — rolling Kentucky hill country
      ===================================================== */
   const cv=document.getElementById('world'), cx=cv.getContext('2d');
   let W,H,DPR;
@@ -849,15 +965,12 @@
     rg.addColorStop(1,'rgba(150,170,178,0)');
     g.fillStyle=rg;g.fillRect(0,0,256,256);})();
 
-  /* far -> near. amp = how tall the rolling swells are (gentle) */
   const LAYERS=[
     {seed:11, base:.56, amp:16, treeH:9,  treeGap:16, color:'#0a1418', px:.014, mouse:5,  fog:9, fogA:.055, fogScale:1.7},
     {seed:23, base:.65, amp:22, treeH:15, treeGap:22, color:'#071013', px:.028, mouse:9,  fog:8, fogA:.06,  fogScale:1.35},
     {seed:47, base:.76, amp:28, treeH:24, treeGap:30, color:'#040b0e', px:.052, mouse:14, fog:7, fogA:.07,  fogScale:1.1},
     {seed:71, base:.92, amp:34, treeH:40, treeGap:44, color:'#020608', px:.088, mouse:22, fog:0, fogA:0,    fogScale:1}
   ];
-
-  /* rolling hills: sum of three slow sines — rounded swells, never peaks */
   function ridgeY(L,x){
     return Math.sin(x*L.f1+L.p1)*L.amp
          + Math.sin(x*L.f2+L.p2)*L.amp*.45
@@ -868,13 +981,11 @@
     L.f1=.0016+r()*.0011; L.p1=r()*6.28;
     L.f2=.0042+r()*.0025; L.p2=r()*6.28;
     L.f3=.0095+r()*.0050; L.p3=r()*6.28;
-    /* bare trees standing along the ridge */
     L.trees=[];
     const r2=rng(L.seed*13+5);
     for(let x=-60;x<innerWidth+80;x+=L.treeGap*(.55+r2()*.9)){
       L.trees.push({x, h:L.treeH*(.6+r2()*.85), lean:(r2()-.5)*.28, br:2+((r2()*3)|0)});
     }
-    /* fog */
     L.blobs=[];
     const n=isMobile?Math.ceil(L.fog/2):L.fog;
     const r3=rng(L.seed*7+1);
@@ -899,23 +1010,18 @@
   }
   sizeCanvas(); addEventListener('resize',sizeCanvas);
 
-  /* draw one bare winter hardwood */
   function drawTree(t,bx,by,scale,col){
-    const h=t.h*scale*DPR;
-    const x=bx, y=by;
+    const h=t.h*scale*DPR, x=bx, y=by;
     cx.strokeStyle=col; cx.lineCap='round';
     cx.lineWidth=Math.max(.8,h*.055);
     cx.beginPath(); cx.moveTo(x,y);
-    const tipX=x+t.lean*h, tipY=y-h;
-    cx.quadraticCurveTo(x+t.lean*h*.3,y-h*.55,tipX,tipY); cx.stroke();
+    cx.quadraticCurveTo(x+t.lean*h*.3,y-h*.55,x+t.lean*h,y-h); cx.stroke();
     cx.lineWidth=Math.max(.5,h*.028);
     for(let i=0;i<t.br;i++){
       const f=.45+i*(.5/t.br);
-      const bxp=x+t.lean*h*f*.6, byp=y-h*f;
-      const dir=i%2?1:-1;
+      const bxp=x+t.lean*h*f*.6, byp=y-h*f, dir=i%2?1:-1;
       cx.beginPath(); cx.moveTo(bxp,byp);
-      cx.lineTo(bxp+dir*h*(.20+i*.05), byp-h*(.16+i*.04));
-      cx.stroke();
+      cx.lineTo(bxp+dir*h*(.20+i*.05), byp-h*(.16+i*.04)); cx.stroke();
     }
   }
 
@@ -992,20 +1098,16 @@
       if(li===3&&p>=0.05&&p<0.99) drawLight(p,now,baseY);
 
       cx.globalAlpha=worldAlpha;
-      /* hill body */
       cx.fillStyle=L.color;
       cx.beginPath(); cx.moveTo(-60,H+60);
-      for(let sx=-60;sx<=innerWidth+60;sx+=8){
-        cx.lineTo(sx*DPR+mox, baseY+ridgeY(L,sx+scroll)*DPR);
-      }
+      for(let sx=-60;sx<=innerWidth+60;sx+=8) cx.lineTo(sx*DPR+mox, baseY+ridgeY(L,sx+scroll)*DPR);
       cx.lineTo(W+60,H+60); cx.closePath(); cx.fill();
-      /* bare trees on the ridge */
+
       L.trees.forEach(t=>{
         const tx=t.x*DPR+mox;
         if(tx<-60||tx>W+60) return;
         drawTree(t,tx,baseY+ridgeY(L,t.x+scroll)*DPR+1,1,L.color);
       });
-      /* fog in front of this plane */
       L.blobs.forEach(b=>{
         b.x+=b.v*timeScale*dt*.06;
         if(b.x>1.3)b.x=-.3; if(b.x<-.3)b.x=1.3;
@@ -1034,10 +1136,10 @@
     if(p<0.40){
       const t=Math.max(0,(p-0.05)/0.35);
       y=lowY+(highY-lowY)*t;
-      intensity=Math.min(1,t*2.2)*flick;          /* alive while it wakes */
+      intensity=Math.min(1,t*2.2)*flick;
     } else if(p<0.74){
       y=highY; const t=(p-0.40)/0.34;
-      intensity=1+t*.28;                           /* then unnaturally steady */
+      intensity=1+t*.28;
     } else {
       const t=Math.min(1,(now-runStart)/340);
       if(t>=1) return;
@@ -1049,8 +1151,8 @@
     const g=cx.createRadialGradient(x,y,0,x,y,95*DPR);
     g.addColorStop(0,'rgba(248,240,220,'+(.92*intensity)+')');
     g.addColorStop(.16,'rgba(236,216,180,'+(.36*intensity)+')');
-    g.addColorStop(.48,'rgba(184,121,62,'+(.13*intensity)+')');
-    g.addColorStop(1,'rgba(184,121,62,0)');
+    g.addColorStop(.48,'rgba(196,133,74,'+(.13*intensity)+')');
+    g.addColorStop(1,'rgba(196,133,74,0)');
     cx.globalAlpha=worldAlpha; cx.fillStyle=g;
     cx.fillRect(x-105*DPR,y-105*DPR,210*DPR,210*DPR);
     cx.fillStyle='rgba(250,246,232,'+Math.min(1,intensity)+')';
@@ -1084,7 +1186,15 @@
 
   /* ===== loader ===== */
   const loader=document.getElementById('loader');
-  const dismiss=()=>loader.classList.add('gone');
+  const navEl=document.getElementById('nav');
+  const hintEl=document.getElementById('navHint');
+  function dismiss(){
+    loader.classList.add('gone');
+    setTimeout(()=>{
+      navEl.classList.add('vis'); hintEl.classList.add('vis');
+      setTimeout(()=>hintEl.classList.remove('vis'),5200);
+    },900);
+  }
   setTimeout(dismiss,prefersReduced?300:3400);
   loader.addEventListener('click',dismiss);
   addEventListener('wheel',dismiss,{once:true,passive:true});
@@ -1113,17 +1223,76 @@
   }
   armEcho('echo-open',.6,2600); armEcho('echo-close',.4,2200);
 
+  /* =====================================================
+     PACED NAVIGATION — the story moves at its own speed
+     ===================================================== */
+  const beats=[...document.querySelectorAll('[data-beat]')];
+  const upBtn=document.getElementById('navUp');
+  const downBtn=document.getElementById('navDown');
+  const countEl=document.getElementById('navCount');
   const bar=document.querySelector('.progress');
   const chapEl=document.getElementById('chapter');
   const chapSecs=[...document.querySelectorAll('[data-ch]')];
-  addEventListener('scroll',()=>{
+  let animating=false, animCancel=false;
+
+  function beatIndex(){
+    const y=scrollY+innerHeight*.42;
+    let i=0; beats.forEach((b,j)=>{if(b.offsetTop<=y)i=j;});
+    return i;
+  }
+  /* target: for tall pinned sections, land at their start */
+  function targetFor(i){
+    const b=beats[i];
+    return Math.min(b.offsetTop, document.body.scrollHeight-innerHeight);
+  }
+  function easeInOutCubic(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+
+  function glideTo(y,dur){
+    if(prefersReduced){ scrollTo(0,y); return; }
+    animCancel=false; animating=true;
+    const start=scrollY, dist=y-start, t0=performance.now();
+    (function step(now){
+      if(animCancel){animating=false;return;}
+      const t=Math.min(1,(now-t0)/dur);
+      scrollTo(0,start+dist*easeInOutCubic(t));
+      if(t<1) requestAnimationFrame(step); else animating=false;
+    })(t0);
+  }
+  /* user takes over instantly if they touch the wheel */
+  addEventListener('wheel',()=>{if(animating)animCancel=true;},{passive:true});
+  addEventListener('touchstart',()=>{if(animating)animCancel=true;},{passive:true});
+
+  function go(dir){
+    const i=beatIndex();
+    const n=Math.max(0,Math.min(beats.length-1,i+dir));
+    if(n===i&&dir>0&&i===beats.length-1) return;
+    /* distance-aware duration: longer journeys take longer, capped */
+    const y=targetFor(n);
+    const dist=Math.abs(y-scrollY);
+    const dur=Math.max(900,Math.min(2200,600+dist*.45));
+    glideTo(y,dur);
+  }
+  downBtn.addEventListener('click',()=>go(1));
+  upBtn.addEventListener('click',()=>go(-1));
+  addEventListener('keydown',e=>{
+    if(['ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(1);}
+    else if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(-1);}
+  });
+
+  function syncUI(){
     const h=document.documentElement;
     bar.style.height=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'vh';
+    const i=beatIndex();
+    countEl.textContent=String(i+1).padStart(2,'0');
+    upBtn.disabled=(i===0);
+    downBtn.disabled=(i===beats.length-1);
     let label='';
     chapSecs.forEach(s=>{if(s.offsetTop<=scrollY+innerHeight*.45)label=s.dataset.ch;});
     if(label){chapEl.textContent=label;chapEl.classList.add('vis');}
     else chapEl.classList.remove('vis');
-  },{passive:true});
+  }
+  addEventListener('scroll',syncUI,{passive:true});
+  syncUI();
 
   /* ===== constellation ===== */
   const cO=document.getElementById('constellation-outer');
@@ -1156,17 +1325,6 @@
   }
   ['scroll','pointermove','keydown','touchstart'].forEach(e=>addEventListener(e,arm,{passive:true}));
   arm();
-
-  /* ===== presenter ===== */
-  const beats=[...document.querySelectorAll('[data-beat]')];
-  function cur(){const y=scrollY+innerHeight*.4;let i=0;
-    beats.forEach((b,j)=>{if(b.offsetTop<=y)i=j;});return i;}
-  addEventListener('keydown',e=>{
-    if(['ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();
-      beats[Math.min(beats.length-1,cur()+1)].scrollIntoView({behavior:prefersReduced?'auto':'smooth'});}
-    else if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();
-      beats[Math.max(0,cur()-1)].scrollIntoView({behavior:prefersReduced?'auto':'smooth'});}
-  });
 })();
 </script>
 </body>

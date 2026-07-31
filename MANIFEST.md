@@ -94,6 +94,17 @@ awaiting real material. **URLs are temporary — re-host locally before Vercel d
 | Declassified document texture (reference) | `gen.krea.ai/images/f92db884-740c-449b-924c-2c411e6cfb12.png` |
 | The light — approved direction | `gen.krea.ai/images/7e22ec44-bc48-40aa-9744-adb16284432f.png` |
 | Hessdalen camp mood | `gen.krea.ai/images/d373d704-dc9d-466b-bade-3bb33e80e82a.png` |
+| **Footprints stopping in snow** (Movement 06, "do not follow") | `gen.krea.ai/images/68a08ddc-42a1-472b-908a-db6ffb1aed84.png` |
+| **Full 1948 broadsheet** — paper-era background, 22% multiply | `gen.krea.ai/images/6d097c05-cd04-4ac1-9e14-9aa843f46aff.png` |
+| **Distant farmhouse window** (Movement 01, the house from the tree line) | `gen.krea.ai/images/a4511ca1-4a67-4915-b6b0-62aeff2e4ef4.png` |
+| **Branches from below** (Movement 02, "on my back, looking up") | `gen.krea.ai/images/934d4a4f-971d-45ff-9b1e-339e3f279830.png` |
+| Newspaper masthead lockup study — **not deployed** (generated text unverified; CSS nameplate used instead) | `app-uploads.krea.ai/public/3cd755fd-e950-43ab-9137-e3f1f9a72411.png` |
+
+### Texture layers (multiply-blended, not content)
+
+- Newsprint texture over every `.clip` at 16% — `c6acbd81-…`
+- Declassified paper over `.dossier` at 20% — `f92db884-…`
+- Full broadsheet behind the entire paper era at 22% — `6d097c05-…`
 
 ## Verified-language ledger
 

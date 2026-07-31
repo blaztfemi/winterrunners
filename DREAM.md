@@ -208,15 +208,46 @@ audience: **"Go outside tonight. Look at the tree line. Give it ninety
 minutes."** (Ninety minutes is Hix's duration. Most of the room won't
 catch it. The ones who do will feel it.)
 
-## 4c. Typography (v4 — journalistic grit)
+## 4c. Typography (v5 — actual newsprint)
+
+Bodoni Moda was wrong: Didone reads as *fashion magazine*, not newspaper.
+American newspapers ran **Cheltenham/Century serifs for headlines and
+Franklin Gothic for decks and labels**. The v5 stack matches that:
 
 | Role | Face | Why |
 |---|---|---|
-| Display / headlines / big statements | **Bodoni Moda** | High-contrast Didone — the actual DNA of newspaper headline type. Severe, elegant, period-true, never novelty-horror. |
-| Narration & body | **Newsreader** | Literary serif, calm at 19–23px |
-| Declassified documents | **Special Elite** | Distressed typewriter. Now *justified* rather than gimmick: Blue Book records were typed. Used only inside dossier objects. |
-| Captions, UI | **IBM Plex Sans** | |
-| Metadata, coordinates, evidence chips | **IBM Plex Mono** | |
+| Headlines, big statements, drop caps | **Playfair Display 700/900** | Transitional serif with true newspaper-headline weight and tight setting |
+| Decks, kickers, labels, chips, UI, sources | **Libre Franklin 500–800** | Direct Franklin Gothic revival — *the* American newspaper sans. Also far more legible at small sizes than mono. |
+| Newspaper column body | **Libre Baskerville** | Justified, hyphenated, column-ruled — real broadsheet body copy |
+| Narration | **Newsreader** | Literary serif, calm at 19–23px |
+| Declassified documents | **Special Elite** | Distressed typewriter, justified by the fact that Blue Book records were typed. Dossier objects only. |
+| Coordinates only | **IBM Plex Mono** | Rationed to lat/long and field dates |
+
+**Legibility pass:** all small text raised (10.5px → 11.5–13px), evidence
+color brightened `#7E969B → #9DB3B8`, letter-spacing loosened on labels.
+Mono is no longer used for anything the reader must actually *read*.
+
+**Clipping anatomy** (`.clip`): nameplate with rule → metadata rail →
+kicker → banner headline → italic Franklin deck under a rule → two
+justified Baskerville columns with a column rule and a Playfair drop cap →
+double-rule footer with sources. Krea newsprint texture multiply-blended
+over the whole object at 16%.
+
+## 4d. Paced navigation (v5)
+
+The wheel was too jarring for the material. The site now offers a **pace**
+without ever taking control away:
+
+- A discreet control at bottom-right: ▲ / ▼ with a two-digit beat counter.
+- Clicking (or arrow keys / PageUp / PageDown / Space) glides to the next
+  story beat on an `easeInOutCubic` curve with **distance-aware duration**
+  (900–2200ms) — long journeys take longer, so the site breathes.
+- **Any wheel or touch input instantly cancels the glide.** Native
+  scrolling is never intercepted. The user is always in control.
+- Beats were made more granular (22 stops) so each press lands on a
+  composed moment, not a giant leap.
+- A hint — "Move at the story's pace" — fades in after the loader and
+  disappears after five seconds.
 
 Grit still lives in the **paper and the plates**, never in a distressed
 display face: SVG-noise paper texture on the archive era, multiply-blended
