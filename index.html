@@ -4,229 +4,264 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Winter Runners</title>
-<meta name="description" content="A childhood memory from rural Kentucky, and the older mystery that swallowed it.">
+<meta name="description" content="A childhood memory from Hardin County, Kentucky — and the older record that was waiting for it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=Special+Elite&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --deep:#071014;
-    --charcoal:#111719;
+    --deep:#050c0f;
+    --charcoal:#0e1417;
     --newsprint:#F2EEE5;
     --paper:#D8D0C1;
-    --ink:#20211d;
+    --ink:#1a1b17;
     --evidence:#7E969B;
     --ember:#B8793E;
     --rust:#87483B;
-    --serif:'Newsreader', Georgia, 'Times New Roman', serif;
-    --sans:'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    --blood:#6d2b22;
+    --display:'Bodoni Moda', 'Times New Roman', serif;
+    --serif:'Newsreader', Georgia, serif;
+    --sans:'IBM Plex Sans', Arial, sans-serif;
     --mono:'IBM Plex Mono', 'Courier New', monospace;
+    --type:'Special Elite', 'Courier New', monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    background:var(--deep);
-    color:var(--newsprint);
-    font-family:var(--serif);
-    font-weight:300;
-    line-height:1.6;
-    overflow-x:hidden;
-  }
-  ::selection{background:var(--rust);color:var(--newsprint)}
+  body{background:var(--deep);color:var(--newsprint);font-family:var(--serif);
+    font-weight:300;line-height:1.6;overflow-x:hidden}
+  ::selection{background:var(--blood);color:var(--newsprint)}
 
-  /* ================= fixed layers ================= */
+  /* ===== fixed layers ===== */
   #world{position:fixed;inset:0;z-index:1;pointer-events:none}
-  .grain{
-    position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.05;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-  #vignette{
-    position:fixed;inset:0;pointer-events:none;z-index:70;opacity:0;
-    background:radial-gradient(ellipse 55% 42% at 50% 46%, transparent 30%, rgba(3,8,10,.97) 82%);
-  }
-  .progress{position:fixed;top:0;left:0;width:2px;height:0;background:var(--evidence);opacity:.18;z-index:95}
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:92;opacity:.07;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+  #vignette{position:fixed;inset:0;pointer-events:none;z-index:70;opacity:0;
+    background:radial-gradient(ellipse 55% 42% at 50% 46%, transparent 28%, rgba(2,6,8,.98) 80%)}
+  #edgedark{position:fixed;inset:0;pointer-events:none;z-index:69;
+    background:radial-gradient(ellipse 90% 80% at 50% 50%, transparent 45%, rgba(2,6,8,.55) 100%)}
+  .progress{position:fixed;top:0;left:0;width:2px;height:0;background:var(--ember);opacity:.3;z-index:95}
+  #chapter{position:fixed;top:20px;left:22px;z-index:85;font-family:var(--mono);font-size:11px;
+    letter-spacing:.18em;color:var(--evidence);opacity:0;transition:opacity 1s ease;text-transform:uppercase}
+  #chapter.vis{opacity:.55}
+  #wind{position:fixed;bottom:20px;right:22px;z-index:85;font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.16em;color:var(--evidence);background:rgba(5,12,15,.6);
+    border:1px solid rgba(126,150,155,.28);padding:6px 12px;border-radius:2px;cursor:pointer;
+    opacity:.65;text-transform:uppercase}
+  #wind:hover{color:var(--newsprint);border-color:rgba(242,238,229,.4);opacity:1}
 
-  /* chapter mark, Luca-style numbered */
-  #chapter{
-    position:fixed;top:20px;left:22px;z-index:85;font-family:var(--mono);
-    font-size:11px;letter-spacing:.16em;color:var(--evidence);opacity:0;
-    transition:opacity 1s ease;text-transform:uppercase;
-  }
-  #chapter.vis{opacity:.6}
-
-  /* wind toggle */
-  #wind{
-    position:fixed;bottom:20px;right:22px;z-index:85;font-family:var(--mono);
-    font-size:11px;letter-spacing:.16em;color:var(--evidence);background:none;
-    border:1px solid rgba(126,150,155,.3);padding:6px 12px;border-radius:2px;
-    cursor:pointer;opacity:.7;text-transform:uppercase;
-  }
-  #wind:hover{color:var(--newsprint);border-color:rgba(242,238,229,.4)}
-
-  /* ================= loader ================= */
-  #loader{
-    position:fixed;inset:0;background:#04090b;z-index:100;
-    display:flex;align-items:center;justify-content:center;text-align:center;
-    transition:opacity 2.4s ease;
-  }
+  /* ===== loader ===== */
+  #loader{position:fixed;inset:0;background:#020507;z-index:100;display:flex;align-items:center;
+    justify-content:center;text-align:center;transition:opacity 2.4s ease}
   #loader.gone{opacity:0;pointer-events:none}
-  #loader .mono{line-height:2.6;opacity:0;animation:loaderIn 2.6s ease .4s forwards}
+  #loader .mono{line-height:2.8;opacity:0;animation:loaderIn 2.6s ease .4s forwards}
   @keyframes loaderIn{to{opacity:.8}}
 
-  /* ================= shared ================= */
+  /* ===== shared ===== */
   section{position:relative;z-index:2}
   .measure{max-width:34em;margin:0 auto;padding:0 24px}
+  .wide{max-width:52em;margin:0 auto;padding:0 24px}
   .vh{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
-  p.narr{font-size:clamp(19px,2.2vw,24px);margin:1.4em 0;text-shadow:0 1px 14px rgba(4,9,11,.8)}
-  .big{font-size:clamp(34px,6.5vw,88px);line-height:1.12;font-weight:300;letter-spacing:-0.01em;margin:.6em 0;text-shadow:0 2px 24px rgba(4,9,11,.85)}
-  .whisper{font-size:clamp(17px,1.8vw,21px);color:var(--evidence);font-style:italic}
+  p.narr{font-size:clamp(19px,2.2vw,23px);margin:1.4em 0;text-shadow:0 1px 16px rgba(2,6,8,.9)}
+  .big{font-family:var(--display);font-size:clamp(32px,6vw,82px);line-height:1.1;font-weight:400;
+    letter-spacing:-0.015em;margin:.6em 0;text-shadow:0 2px 30px rgba(2,6,8,.95)}
+  .whisper{font-size:clamp(17px,1.8vw,20px);color:var(--evidence);font-style:italic}
   .spacer-s{height:30vh}.spacer-m{height:55vh}.spacer-l{height:85vh}
-  .rv{opacity:0;transform:translateY(14px);transition:opacity 1.6s ease,transform 1.6s ease}
+  .rv{opacity:0;transform:translateY(16px);transition:opacity 1.7s ease,transform 1.7s ease}
   .rv.on{opacity:1;transform:none}
-  .chip{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--evidence);
-    border:1px solid rgba(126,150,155,.35);padding:4px 10px;border-radius:2px;text-transform:uppercase;
-    background:rgba(7,16,20,.55)}
-  .mono{font-family:var(--mono);color:var(--evidence);font-size:13px;letter-spacing:.1em}
+  .chip{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+    color:var(--evidence);border:1px solid rgba(126,150,155,.32);padding:4px 10px;border-radius:2px;
+    text-transform:uppercase;background:rgba(5,12,15,.6)}
+  .chip.warn{color:var(--ember);border-color:rgba(184,121,62,.5)}
+  .mono{font-family:var(--mono);color:var(--evidence);font-size:12.5px;letter-spacing:.12em}
+  a.src{color:var(--evidence);font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;
+    text-decoration:none;border-bottom:1px solid rgba(126,150,155,.32)}
+  a.src:hover{color:var(--ember);border-color:var(--ember)}
 
-  .slot{border:1px dashed rgba(126,150,155,.4);background:rgba(9,15,18,.72);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:10px;padding:26px;text-align:center;border-radius:2px;backdrop-filter:blur(2px)}
-  .slot .mono{font-size:11px;line-height:1.9}
+  /* ===== photo plates ===== */
+  .plate{position:relative;overflow:hidden;background:#03080a;
+    box-shadow:0 30px 70px rgba(0,0,0,.7)}
+  .plate img{width:100%;display:block;filter:saturate(.55) contrast(1.12) brightness(.72)}
+  .plate.deep img{filter:saturate(.35) contrast(1.25) brightness(.5)}
+  .plate figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;
+    background:linear-gradient(transparent,rgba(3,8,10,.92));font-family:var(--mono);
+    font-size:10.5px;letter-spacing:.13em;color:var(--evidence);text-transform:uppercase}
+  .slot{border:1px dashed rgba(126,150,155,.38);background:rgba(6,12,15,.75);display:flex;
+    flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:26px;
+    text-align:center;border-radius:2px}
+  .slot .mono{font-size:10.5px;line-height:2}
   .slot::before{content:'';width:34px;height:1px;background:rgba(126,150,155,.4)}
 
-  /* ================= the light stage ================= */
-  #light-outer{height:680vh;position:relative}
+  /* ===== the light stage ===== */
+  #light-outer{height:700vh;position:relative}
   #light-stage{position:sticky;top:0;height:100vh;overflow:hidden}
   #recon-chip{position:absolute;top:22px;right:22px;z-index:5;opacity:.7}
-  .light-line{position:absolute;left:0;right:0;text-align:center;z-index:76;
-    font-size:clamp(26px,4.4vw,54px);font-weight:300;opacity:0;
-    transition:opacity 1.4s ease;padding:0 24px;text-shadow:0 2px 24px rgba(4,9,11,.9)}
-  .light-line.beat{font-size:clamp(44px,8vw,104px);letter-spacing:.04em;font-weight:400}
-  .light-line small{display:block;font-size:clamp(16px,1.8vw,20px);font-style:italic;color:var(--evidence);margin-top:1em}
+  .light-line{position:absolute;left:0;right:0;text-align:center;z-index:76;font-family:var(--display);
+    font-size:clamp(26px,4.2vw,50px);font-weight:400;opacity:0;transition:opacity 1.4s ease;
+    padding:0 24px;text-shadow:0 2px 30px rgba(2,6,8,.95)}
+  .light-line.beat{font-size:clamp(46px,8.5vw,112px);letter-spacing:.03em}
+  .light-line small{display:block;font-family:var(--serif);font-size:clamp(15px,1.7vw,19px);
+    font-style:italic;color:var(--evidence);margin-top:1.1em;letter-spacing:0}
   .light-line.vis{opacity:1}
-  #ll-ran{font-size:clamp(56px,11vw,150px);letter-spacing:.02em}
+  #ll-ran{font-size:clamp(58px,12vw,164px)}
 
-  /* ================= paper century ================= */
-  #paper-era{
-    background:var(--paper);color:var(--ink);position:relative;z-index:2;
-    box-shadow:inset 0 40px 80px rgba(32,33,29,.25), inset 0 -40px 80px rgba(32,33,29,.25);
-  }
-  #paper-era p.narr{color:var(--ink);text-shadow:none}
-  #paper-era .big{text-shadow:none}
-  #paper-era .whisper{color:#5c5648}
-  #paper-era .mono{color:#5c5648}
-  #paper-era .chip{color:#5c5648;border-color:rgba(92,86,72,.4);background:none}
-  .era-in{height:26vh;background:linear-gradient(rgba(216,208,193,0),var(--paper));position:relative;z-index:2}
-  .era-out{height:26vh;background:linear-gradient(var(--paper),rgba(216,208,193,0));position:relative;z-index:2}
+  /* ===== paper century ===== */
+  #paper-era{background:var(--paper);color:var(--ink);position:relative;z-index:2;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23p)' opacity='0.35'/%3E%3C/svg%3E");
+    box-shadow:inset 0 50px 90px rgba(26,27,23,.3), inset 0 -50px 90px rgba(26,27,23,.3)}
+  #paper-era p.narr,#paper-era .big{color:var(--ink);text-shadow:none}
+  #paper-era .whisper,#paper-era .mono{color:#5a5446}
+  #paper-era .chip{color:#5a5446;border-color:rgba(90,84,70,.4);background:none}
+  #paper-era .chip.warn{color:var(--blood);border-color:rgba(109,43,34,.5)}
+  #paper-era a.src{color:var(--blood);border-color:rgba(109,43,34,.4)}
+  .era-in{height:24vh;background:linear-gradient(rgba(216,208,193,0),var(--paper));position:relative;z-index:2}
+  .era-out{height:24vh;background:linear-gradient(var(--paper),rgba(216,208,193,0));position:relative;z-index:2}
 
-  .doc{background:#efe9dc;color:var(--ink);padding:34px 30px;max-width:560px;margin:0 auto;
-    box-shadow:0 24px 50px rgba(32,33,29,.35);
-    transform:translateY(60px) rotate(.45deg);opacity:0;
+  /* ===== newspaper clipping ===== */
+  .clip{position:relative;max-width:620px;margin:0 auto;background:#e6dfcd;color:var(--ink);
+    padding:0;box-shadow:0 26px 60px rgba(26,27,23,.45);
+    transform:translateY(64px) rotate(-.6deg);opacity:0;
     transition:transform 2.2s cubic-bezier(.16,1,.3,1),opacity 1.8s ease}
-  .doc.on{transform:translateY(0) rotate(0);opacity:1}
-  .doc .cat{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:#5c5648;
-    text-transform:uppercase;border-bottom:1px solid rgba(92,86,72,.3);padding-bottom:10px;margin-bottom:16px;
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
-  .doc h3{font-weight:500;font-size:clamp(22px,3vw,30px);line-height:1.2;margin-bottom:10px}
-  .doc .body{font-family:var(--sans);font-weight:300;font-size:14px;line-height:1.7;color:#3a382f}
-  .doc a{color:var(--rust);text-decoration:none;border-bottom:1px solid rgba(135,72,59,.4)}
+  .clip.on{transform:translateY(0) rotate(0);opacity:1}
+  .clip::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.3;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23c)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply}
+  .clip .rail{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:#6b6455;
+    text-transform:uppercase;padding:10px 22px;border-bottom:1px solid rgba(90,84,70,.35)}
+  .clip .inner{padding:26px 30px 30px}
+  .clip .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:#6b6455;
+    text-transform:uppercase;margin-bottom:12px}
+  .clip h3{font-family:var(--display);font-weight:700;font-size:clamp(26px,4.2vw,42px);
+    line-height:1.05;margin-bottom:6px;letter-spacing:-.01em}
+  .clip .dek{font-family:var(--display);font-weight:400;font-style:italic;font-size:clamp(15px,1.9vw,19px);
+    color:#4a4539;margin-bottom:16px;line-height:1.35}
+  .clip .cols{font-family:var(--sans);font-weight:300;font-size:13.5px;line-height:1.75;color:#33322a;
+    column-count:2;column-gap:22px;text-align:justify;hyphens:auto}
+  @media(max-width:560px){.clip .cols{column-count:1}}
+  .clip .cols p{margin-bottom:9px}
+  .clip .foot{margin-top:16px;padding-top:12px;border-top:1px solid rgba(90,84,70,.3)}
 
-  .surfq{font-size:clamp(30px,5.4vw,72px);line-height:1.15;font-weight:300;font-style:italic;
-    color:var(--ink);max-width:14em;margin:0 auto}
-  .surfq .attr{display:block;font-style:normal;font-family:var(--mono);font-size:12px;
-    letter-spacing:.14em;color:#5c5648;margin-top:1.6em;text-transform:uppercase}
+  /* ===== declassified document ===== */
+  .dossier{position:relative;max-width:620px;margin:0 auto;background:#ddd6c4;color:#2a2820;
+    padding:30px 32px;box-shadow:0 26px 60px rgba(26,27,23,.5);font-family:var(--type);
+    transform:translateY(64px) rotate(.5deg);opacity:0;
+    transition:transform 2.2s cubic-bezier(.16,1,.3,1),opacity 1.8s ease}
+  .dossier.on{transform:translateY(0) rotate(0);opacity:1}
+  .dossier .stamp{position:absolute;top:16px;right:24px;transform:rotate(-11deg);
+    border:2.5px solid rgba(109,43,34,.62);color:rgba(109,43,34,.72);font-family:var(--mono);
+    font-weight:500;font-size:12px;letter-spacing:.22em;padding:5px 12px;text-transform:uppercase}
+  .dossier .hdr{font-size:12px;letter-spacing:.1em;line-height:2.1;color:#4a4539;
+    border-bottom:1px dashed rgba(90,84,70,.5);padding-bottom:12px;margin-bottom:16px}
+  .dossier .line{font-size:15px;line-height:2.05;letter-spacing:.01em}
+  .redact{display:inline-block;background:#1a1b17;color:transparent;user-select:none;
+    border-radius:1px;vertical-align:middle;height:1.05em;position:relative;top:-1px}
+  .dossier .quote{font-family:var(--display);font-style:italic;font-weight:400;
+    font-size:clamp(19px,2.7vw,26px);line-height:1.35;color:#22231d;margin:20px 0;
+    padding-left:16px;border-left:3px solid rgba(109,43,34,.55)}
 
-  .verbwall{display:flex;flex-wrap:wrap;gap:14px 26px;justify-content:center;
-    max-width:760px;margin:0 auto;padding:0 24px;font-family:var(--mono);
-    font-size:clamp(14px,1.8vw,19px);letter-spacing:.12em;text-transform:uppercase}
+  .surfq{font-family:var(--display);font-size:clamp(30px,5.2vw,70px);line-height:1.12;font-weight:400;
+    font-style:italic;color:var(--ink);max-width:13em;margin:0 auto}
+  .surfq .attr{display:block;font-style:normal;font-family:var(--mono);font-size:11px;
+    letter-spacing:.16em;color:#5a5446;margin-top:1.7em;text-transform:uppercase;line-height:2}
+
+  .verbwall{display:flex;flex-wrap:wrap;gap:13px 24px;justify-content:center;max-width:760px;
+    margin:0 auto;padding:0 24px;font-family:var(--mono);font-size:clamp(13px,1.7vw,18px);
+    letter-spacing:.14em;text-transform:uppercase}
   .verbwall span{color:#8a8271;opacity:0;transform:translateY(8px);
     transition:opacity 1.2s ease,transform 1.2s ease,color 1.2s ease}
   .verbwall.on span{opacity:1;transform:none}
-  .verbwall span.hot{color:var(--rust);font-weight:400}
-  .verbwall.lit span.hot{color:var(--ember);text-shadow:0 0 18px rgba(184,121,62,.35)}
+  .verbwall span.hot{color:var(--blood);font-weight:500}
+  .verbwall.lit span.hot{color:var(--ember);text-shadow:0 0 20px rgba(184,121,62,.4)}
 
-  /* ================= constellation ================= */
-  #constellation-outer{height:520vh;position:relative;z-index:2}
+  /* ===== the three doors ===== */
+  .doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;
+    max-width:1080px;margin:0 auto;background:rgba(126,150,155,.14)}
+  .door{background:#070f13;padding:34px 28px 40px;position:relative;overflow:hidden;
+    transition:background 1.2s ease}
+  .door:hover{background:#0b1519}
+  .door .no{font-family:var(--display);font-size:60px;font-weight:400;color:rgba(126,150,155,.16);
+    line-height:1;margin-bottom:14px}
+  .door h4{font-family:var(--display);font-size:clamp(22px,2.6vw,30px);font-weight:500;
+    letter-spacing:.01em;margin-bottom:6px}
+  .door .sub{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--evidence);
+    text-transform:uppercase;margin-bottom:18px}
+  .door p{font-size:15.5px;line-height:1.72;color:#c8c4ba;margin-bottom:14px}
+  .door .verdict{font-family:var(--display);font-style:italic;font-size:17px;color:var(--ember);
+    line-height:1.45;margin-top:18px;padding-top:16px;border-top:1px solid rgba(126,150,155,.18)}
+
+  /* ===== constellation ===== */
+  #constellation-outer{height:540vh;position:relative;z-index:2}
   #constellation{position:sticky;top:0;height:100vh;overflow:hidden}
   .star{position:absolute;width:6px;height:6px;border-radius:50%;background:#efe6d2;
-    box-shadow:0 0 7px 2px rgba(239,230,210,.8),0 0 20px 6px rgba(184,121,62,.22);
+    box-shadow:0 0 8px 2px rgba(239,230,210,.8),0 0 22px 7px rgba(184,121,62,.22);
     opacity:0;transition:opacity 2s ease}
-  .star .lbl{position:absolute;left:14px;top:-6px;white-space:nowrap;font-family:var(--mono);
-    font-size:11.5px;letter-spacing:.13em;color:var(--evidence);transition:opacity 1.5s ease;
-    text-shadow:0 1px 10px rgba(4,9,11,.9)}
+  .star .lbl{position:absolute;left:15px;top:-7px;white-space:nowrap;font-family:var(--mono);
+    font-size:11px;letter-spacing:.14em;color:var(--evidence);transition:opacity 1.5s ease;
+    text-shadow:0 1px 12px rgba(2,6,8,.95)}
   .star.on{opacity:1}
-  .star.ky{background:#f4d9b8;box-shadow:0 0 9px 3px rgba(244,217,184,.9),0 0 26px 9px rgba(184,121,62,.4)}
+  .star.ky{background:#f7dcb8;box-shadow:0 0 11px 4px rgba(247,220,184,.95),0 0 30px 11px rgba(184,121,62,.45)}
   .star.ky .lbl{color:var(--ember)}
   #constellation.quiet .lbl{opacity:0}
-  .const-line{position:absolute;left:0;right:0;text-align:center;padding:0 24px;
-    font-size:clamp(22px,3.4vw,42px);font-weight:300;opacity:0;transition:opacity 1.6s ease;
-    text-shadow:0 2px 20px rgba(4,9,11,.9)}
+  .const-line{position:absolute;left:0;right:0;text-align:center;padding:0 24px;font-family:var(--display);
+    font-size:clamp(22px,3.2vw,40px);font-weight:400;opacity:0;transition:opacity 1.6s ease;
+    text-shadow:0 2px 26px rgba(2,6,8,.95)}
   .const-line.vis{opacity:1}
-  .const-note{position:absolute;bottom:20px;right:22px;opacity:.55}
+  .const-note{position:absolute;bottom:20px;right:22px;opacity:.5}
 
-  /* ================= modern retelling ================= */
-  .vidgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;max-width:820px;margin:0 auto;padding:0 24px}
-  .vidcard{background:rgba(17,23,25,.85);border:1px solid rgba(126,150,155,.18);border-radius:2px;
-    aspect-ratio:16/10;display:flex;flex-direction:column;justify-content:flex-end;
-    padding:14px;text-decoration:none}
-  .vidcard .mono{font-size:10.5px;line-height:1.8}
+  /* ===== retelling ===== */
+  .vidgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;
+    max-width:860px;margin:0 auto;padding:0 24px}
+  .vidcard{background:rgba(11,17,20,.9);border:1px solid rgba(126,150,155,.16);border-radius:2px;
+    aspect-ratio:16/10;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;
+    text-decoration:none}
+  .vidcard .mono{font-size:10px;line-height:1.9}
   .vidcard:hover{border-color:rgba(184,121,62,.45)}
   @media (prefers-reduced-motion: no-preference){
-    .vidgrid.drift .vidcard{animation:drift 14s ease-in-out infinite alternate}
+    .vidgrid.drift .vidcard{animation:drift 15s ease-in-out infinite alternate}
     .vidgrid.drift .vidcard:nth-child(2){animation-delay:-5s}
-    .vidgrid.drift .vidcard:nth-child(3){animation-delay:-9s}
+    .vidgrid.drift .vidcard:nth-child(3){animation-delay:-10s}
     @keyframes drift{from{transform:translateX(-1.5%)}to{transform:translateX(1.5%)}}
   }
 
-  /* ================= idle watcher ================= */
-  #watcher{position:fixed;bottom:6vh;width:5px;height:5px;border-radius:50%;
-    background:#e9dfcb;box-shadow:0 0 6px 2px rgba(233,223,203,.7),0 0 18px 6px rgba(184,121,62,.2);
-    opacity:0;pointer-events:none;z-index:80;transition:opacity 6s ease}
+  #watcher{position:fixed;bottom:6vh;width:5px;height:5px;border-radius:50%;background:#e9dfcb;
+    box-shadow:0 0 7px 2px rgba(233,223,203,.7),0 0 20px 7px rgba(184,121,62,.22);opacity:0;
+    pointer-events:none;z-index:80;transition:opacity 6s ease}
   #watcher.gone{transition:opacity .3s ease}
   #watcher.vis{opacity:.5}
 
-  /* ================= title / finale ================= */
-  .triad{font-weight:400;font-size:clamp(40px,7vw,96px);letter-spacing:.06em;line-height:1.4;text-align:center;
-    text-shadow:0 2px 26px rgba(4,9,11,.9)}
-  #thetitle{
-    font-size:clamp(52px,11vw,168px);letter-spacing:.1em;font-weight:400;text-align:center;line-height:1.05;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"),linear-gradient(#F2EEE5,#cfc8b8);
-    background-blend-mode:multiply;
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;color:transparent;
-  }
-  #finale{position:relative;min-height:120vh;background:#04090b;overflow:hidden;z-index:2}
-  .echo{
-    position:absolute;top:32%;left:-3%;width:4px;height:4px;border-radius:50%;
-    background:#efe6d2;box-shadow:0 0 6px 2px rgba(239,230,210,.8),0 0 16px 5px rgba(184,121,62,.25);
-    opacity:0;
-  }
+  .triad{font-family:var(--display);font-weight:400;font-size:clamp(38px,6.5vw,90px);
+    letter-spacing:.05em;line-height:1.42;text-align:center;text-shadow:0 2px 30px rgba(2,6,8,.95)}
+  #thetitle{font-family:var(--display);font-size:clamp(50px,11.5vw,178px);letter-spacing:.06em;
+    font-weight:500;text-align:center;line-height:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"),linear-gradient(#F2EEE5,#b9b2a2);
+    background-blend-mode:multiply;-webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent}
+  #finale{position:relative;min-height:130vh;background:#020507;overflow:hidden;z-index:2}
+  .echo{position:absolute;top:32%;left:-3%;width:4px;height:4px;border-radius:50%;background:#efe6d2;
+    box-shadow:0 0 7px 2px rgba(239,230,210,.8),0 0 18px 6px rgba(184,121,62,.25);opacity:0}
   .echo.go{animation:echoCross 3.2s cubic-bezier(.4,0,.6,1) 1 forwards}
-  @keyframes echoCross{
-    0%{opacity:0;transform:translateX(0)}
-    12%{opacity:.85}
-    88%{opacity:.85}
-    100%{opacity:0;transform:translateX(106vw)}
-  }
-  .sources{font-family:var(--mono);font-size:12.5px;line-height:2.4;color:var(--evidence);letter-spacing:.05em}
-  .sources a{color:var(--evidence);text-decoration:none;border-bottom:1px solid rgba(126,150,155,.3)}
-  .sources a:hover{color:var(--newsprint)}
+  @keyframes echoCross{0%{opacity:0;transform:translateX(0)}12%{opacity:.85}88%{opacity:.85}
+    100%{opacity:0;transform:translateX(106vw)}}
+  .sources{font-family:var(--mono);font-size:12px;line-height:2.5;color:var(--evidence);letter-spacing:.06em}
+  .sources a{color:var(--evidence);text-decoration:none;border-bottom:1px solid rgba(126,150,155,.28)}
+  .sources a:hover{color:var(--ember)}
 
   @media (prefers-reduced-motion: reduce){
-    .rv,.doc,.verbwall span{transition:none}
+    .rv,.clip,.dossier,.verbwall span{transition:none}
     #watcher{display:none}
     .echo.go{animation:none;opacity:0}
-    #loader{transition:none}
+    .vidgrid.drift .vidcard{animation:none}
   }
   @media (max-width:640px){
-    #light-outer{height:460vh}
-    #constellation-outer{height:380vh}
-    .doc{padding:24px 20px}
+    #light-outer{height:480vh}
+    #constellation-outer{height:400vh}
+    .clip .inner,.dossier{padding:22px 20px}
     #wind{bottom:14px;right:14px}
   }
 </style>
 </head>
 <body>
 <canvas id="world" aria-hidden="true"></canvas>
+<div id="edgedark" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div id="vignette" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"></div>
@@ -235,24 +270,22 @@
 <button id="wind" aria-label="Toggle wind ambience">Wind · Off</button>
 
 <div id="loader">
-  <p class="mono">A WINTER NIGHT<br>HARDIN COUNTY, KENTUCKY<br>MID-1980s</p>
+  <p class="mono">HARDIN COUNTY, KENTUCKY<br>A WINTER NIGHT<br>MID-1980s</p>
 </div>
 
-<!-- ================================================================
-     COLD OPEN
-     ================================================================ -->
+<!-- ============ COLD OPEN ============ -->
 <section id="coldopen" class="vh" data-beat data-ch="" style="min-height:140vh;overflow:hidden">
   <div class="echo" id="echo-open" style="top:30%"></div>
   <div class="measure" style="text-align:center;margin-top:24vh">
-    <p class="mono rv" style="line-height:2.6">
-      OFF HIGHWAY 62<br>
-      YOUNGER'S CREEK, KENTUCKY<br>
-      MID-1980s
+    <p class="mono rv" style="line-height:2.8">
+      OFF U.S. HIGHWAY 62<br>
+      YOUNGER'S CREEK · HARDIN COUNTY<br>
+      37.757° N, 85.724° W
     </p>
   </div>
 </section>
 
-<!-- MOVEMENT 1 -->
+<!-- ============ 01 THE LAST HOUSE ============ -->
 <section id="house" data-beat data-ch="01 · The Last House">
   <div class="measure">
     <span class="chip rv">Personal memory</span>
@@ -265,9 +298,11 @@
   </div>
 
   <div class="spacer-s"></div>
-  <div class="measure">
-    <figure class="slot rv" data-slot="FAM-02" style="aspect-ratio:4/3">
-      <span class="mono">[ FAMILY PHOTO SLOT · FAM-02 ]<br>THE HOUSE OFF HIGHWAY 62<br>ERIC FAMILY ARCHIVE · MID-1980s</span>
+  <div class="wide">
+    <figure class="plate rv">
+      <img src="https://gen.krea.ai/images/f40f63ea-888f-4245-ab6d-7521f75cbfef.png"
+           alt="Rolling Kentucky hills under snow at night, bare hardwood treeline along the ridge." loading="lazy">
+      <figcaption>Reconstruction · rolling hill country, Hardin County · [ REPLACE: EXACT KENTUCKY HORIZON · WR-01-01 ]</figcaption>
     </figure>
   </div>
 
@@ -286,20 +321,30 @@
       <span class="mono">[ FAMILY PHOTO SLOT · FAM-01 ]<br>ERIC, CHILDHOOD</span>
     </figure>
     <figure class="slot rv" data-slot="FAM-03" style="aspect-ratio:3/4">
-      <span class="mono">[ FAMILY PHOTO SLOT · FAM-03 ]<br>MASSEY FERGUSON · RADIO FLYER · DOG</span>
+      <span class="mono">[ FAMILY PHOTO SLOT · FAM-03 ]<br>MASSEY FERGUSON<br>RADIO FLYER · DOG</span>
     </figure>
   </div>
   <div class="spacer-m"></div>
 </section>
 
-<!-- MOVEMENT 2 -->
+<!-- ============ 02 THE HILL ============ -->
 <section id="hill" data-beat data-ch="02 · The Hill">
   <div class="measure" style="text-align:center">
     <p class="narr rv">Six inches of powder had come down that afternoon.</p>
     <div class="spacer-s"></div>
     <p class="narr rv">One more run before supper. That was the deal.</p>
-    <div class="spacer-m"></div>
-    <p class="narr rv">The Radio Flyer turned beneath me and left me on my
+  </div>
+  <div class="spacer-m"></div>
+  <div class="measure">
+    <figure class="plate deep rv">
+      <img src="https://gen.krea.ai/images/d0134b8b-fc73-455d-8965-451501b77dd1.png"
+           alt="A sled left on a snowy hillside at dusk." loading="lazy">
+      <figcaption>Reconstruction · [ REPLACE: RADIO FLYER · FAMILY ARCHIVE ]</figcaption>
+    </figure>
+  </div>
+  <div class="spacer-m"></div>
+  <div class="measure" style="text-align:center">
+    <p class="narr rv">The sled turned beneath me and left me on my
     back in the snow, looking up into an enormous winter sky.</p>
     <div class="spacer-m"></div>
     <p class="whisper rv">The kind of quiet where you can hear the cold.</p>
@@ -307,13 +352,13 @@
   <div class="spacer-l"></div>
 </section>
 
-<!-- MOVEMENT 3 · THE LIGHT -->
+<!-- ============ 03 THE LIGHT ============ -->
 <div id="light-outer" data-beat data-ch="03 · The Light">
-  <div id="light-stage" role="img" aria-label="Reconstruction: a pale light rises from a dark winter treeline. The falling snow and fog stop mid-air while the light holds still, then the light crosses the sky and is gone.">
+  <div id="light-stage" role="img" aria-label="Reconstruction: a pale light rises from a dark winter treeline over rolling hills. The falling snow and fog stop mid-air while the light holds still, then the light crosses the sky and is gone.">
     <span id="recon-chip" class="chip">Reconstruction · personal memory · WR-01-01</span>
     <div class="light-line" id="ll-0" style="top:42%">A pale light stood in the trees<br>where no light belonged.</div>
     <div class="light-line beat" id="ll-1" style="top:40%">It woke.</div>
-    <div class="light-line beat" id="ll-2" style="top:34%">It watched.<small>Long enough to be sure of me.<br>Even the snow stopped falling.</small></div>
+    <div class="light-line beat" id="ll-2" style="top:33%">It watched.<small>Long enough to be sure of me.<br>Even the snow stopped falling.</small></div>
     <div class="light-line beat" id="ll-ran" style="top:38%">And it ran.</div>
     <div class="light-line" id="ll-4" style="top:44%;font-style:italic;color:var(--evidence)">No sound. No trail.<br>Just an empty sky, and a boy on his back in the snow.</div>
   </div>
@@ -321,78 +366,206 @@
 
 <section class="vh" data-beat data-ch="03 · The Light">
   <div class="measure" style="text-align:center">
-    <p class="big rv" style="font-style:italic">I was not terrified.<br>I simply did not know what I had seen.</p>
+    <p class="big rv" style="font-style:italic">I was not terrified.<br>I simply did not know<br>what I had seen.</p>
+    <div class="spacer-s"></div>
+    <p class="whisper rv">I did not tell anyone for a very long time.</p>
   </div>
 </section>
 
-<!-- ================================================================
-     THE PAPER CENTURY
-     ================================================================ -->
+<!-- ============ THE PAPER CENTURY ============ -->
 <div class="era-in" aria-hidden="true"></div>
 <div id="paper-era">
 
-  <section id="witnesses" data-beat data-ch="04 · The First Witnesses">
+  <!-- 04 THE COUNTY — the conspiracy hinge -->
+  <section id="county" data-beat data-ch="04 · The County">
     <div class="spacer-s"></div>
     <div class="measure" style="text-align:center">
       <p class="narr rv">For a long time I assumed the night belonged only to me.</p>
-      <p class="narr rv">Then I started reading.</p>
+      <p class="narr rv">Then I started reading. And the first thing I found
+      was not in Norway, or Texas, or some desert with a visitor center.</p>
+      <div class="spacer-s"></div>
+      <p class="big rv">It was in my county.</p>
     </div>
     <div class="spacer-m"></div>
 
     <div style="padding:0 24px">
-      <article class="doc" data-slot="DOC-01">
-        <div class="cat">
-          <span>Primary record · Newspaper</span>
-          <span>1998.1933 · Gateway to Oklahoma History</span>
+      <article class="clip" data-slot="DOC-06">
+        <div class="rail">
+          <span>Primary record · U.S. Army / Project Sign</span>
+          <span>7 January 1948</span>
         </div>
-        <h3>Spook Light Long a Popular Attraction</h3>
-        <div class="body">
-          <p>Velma Nieberding · <em>Miami News-Record</em> · May 9, 1965 ·
-          Ottawa County, Oklahoma. A light seen for generations along the
-          Devil's Promenade road near Hornet — watched, chased,
-          photographed, argued about.</p>
-          <p style="margin-top:10px">[ ARCHIVE DOCUMENT SLOT · DOC-01 — full scan pending rights
-          clearance; metadata card until cleared ]</p>
-          <p style="margin-top:10px"><a href="https://gateway.okhistory.org/ark:/67531/metadc2582124/" rel="noopener">Oklahoma Historical Society →</a></p>
-        </div>
-      </article>
-    </div>
-
-    <div class="spacer-m"></div>
-    <div class="vh" style="text-align:center">
-      <blockquote class="surfq rv">
-        &ldquo;Spook Light Long a&nbsp;Popular&nbsp;Attraction&rdquo;
-        <span class="attr">Miami News-Record · May 9 1965 · headline, verified</span>
-      </blockquote>
-    </div>
-
-    <div style="padding:0 24px">
-      <article class="doc" data-slot="DOC-02">
-        <div class="cat">
-          <span>Primary record · Government report</span>
-          <span>USGS · Public domain</span>
-        </div>
-        <h3>Origin of the Brown Mountain Light in North Carolina</h3>
-        <div class="body">
-          <p>George R. Mansfield · U.S. Geological Survey Circular 646 ·
-          1971. A federal geologist sent to explain a light that people in
-          the Linville Gorge had been reporting for over half a century.</p>
-          <p style="margin-top:10px">[ ARCHIVE DOCUMENT SLOT · DOC-02 — official PDF cover + map figure ]</p>
-          <p style="margin-top:10px"><a href="https://pubs.usgs.gov/circ/1971/0646/report.pdf" rel="noopener">USGS Circular 646 →</a></p>
+        <div class="inner">
+          <div class="kicker">Godman Army Airfield · Fort Knox · Hardin County, Kentucky</div>
+          <h3>The Colonel Watched It<br>For Ninety Minutes</h3>
+          <p class="dek">A base commander, his officers, and the control tower stood
+          looking at something over Hardin County that would not move.</p>
+          <div class="cols">
+            <p>On the afternoon of 7 January 1948, personnel at Godman Army
+            Airfield — the airfield on the Fort Knox reservation, in Hardin
+            County, Kentucky — reported an object in the sky above the
+            field. The base commanding officer, Col. Guy F. Hix, was called
+            to the tower. Senior officers looked at it through binoculars.
+            Nobody could say what it was.</p>
+            <p>Kentucky Air National Guard F-51 Mustangs of the 165th Fighter
+            Squadron were passing overhead. They were asked to take a look.
+            Capt. Thomas F. Mantell climbed after it without oxygen aboard.
+            He did not come back. His aircraft came down near Franklin,
+            Kentucky, and he became the first American pilot to die pursuing
+            an unidentified object.</p>
+            <p>The Air Force first offered the planet Venus. Later the
+            explanation changed to a Skyhook — a high-altitude research
+            balloon belonging to a program that was, at the time, secret.</p>
+          </div>
+          <div class="foot">
+            <a class="src" href="https://www.army.mil/article/263119/questions_remain_75_years_after_mysterious_fort_knox_ufo_incident_downed_pilot" rel="noopener">U.S. ARMY · OFFICIAL ACCOUNT →</a>
+            &nbsp;&nbsp;
+            <a class="src" href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">NATIONAL ARCHIVES · PROJECT BLUE BOOK →</a>
+          </div>
         </div>
       </article>
     </div>
 
     <div class="spacer-m"></div>
     <div class="measure" style="text-align:center">
-      <p class="whisper rv">The government did not find a saucer.
-      It found something stranger: a light that would not resolve into
-      one explanation.</p>
+      <p class="narr rv">I read the colonel's description four times before
+      I understood why my hands were cold.</p>
+    </div>
+    <div class="spacer-s"></div>
+
+    <div class="vh" style="text-align:center">
+      <blockquote class="surfq rv">
+        &ldquo;It remained stationary, seemingly,<br>for one and a half&nbsp;hours.&rdquo;
+        <span class="attr">Col. Guy F. Hix · Commanding Officer<br>Godman Army Airfield · Hardin County, Kentucky · 1948</span>
+      </blockquote>
+    </div>
+
+    <div class="measure">
+      <p class="narr rv">A United States Army colonel stood on an airfield in
+      my county and reported a light that <em>held still</em>.</p>
+      <p class="narr rv">He wrote <strong>stationary</strong>. I said
+      <strong>watched</strong>. Thirty-six years apart, in the same county,
+      we were reaching for the same word and neither of us could find it.</p>
+      <div class="spacer-s"></div>
+      <p class="big rv" style="font-style:italic">A man died over that.</p>
+      <p class="whisper rv">And then the explanation changed.</p>
+    </div>
+    <div class="spacer-m"></div>
+
+    <div style="padding:0 24px">
+      <article class="dossier" data-slot="DOC-07">
+        <span class="stamp">Declassified</span>
+        <div class="hdr">
+          PROJECT SIGN / PROJECT BLUE BOOK<br>
+          RECORD GROUP 341 · NATIONAL ARCHIVES<br>
+          CASE: GODMAN FIELD, KY · 7 JAN 1948
+        </div>
+        <div class="line">
+          FIRST OFFICIAL EXPLANATION &nbsp;·&nbsp; THE PLANET VENUS<br>
+          REVISED EXPLANATION &nbsp;·&nbsp; SKYHOOK BALLOON<br>
+          PROGRAM STATUS IN 1948 &nbsp;·&nbsp; <span class="redact" style="width:7.5em">&nbsp;</span><br>
+          WITNESS COUNT &nbsp;·&nbsp; TOWER PERSONNEL, SENIOR OFFICERS<br>
+          DURATION &nbsp;·&nbsp; APPROX. 90 MINUTES<br>
+          FATALITIES &nbsp;·&nbsp; ONE
+        </div>
+        <p class="quote">The first answer they gave the public was wrong.
+        We know that because they are the ones who corrected it.</p>
+        <div class="line" style="font-size:13px;color:#4a4539">
+          12,618 SIGHTINGS WERE RECORDED BEFORE THE FILE WAS CLOSED IN 1969.<br>
+          701 OF THEM WERE NEVER EXPLAINED. THE RECORDS ARE PUBLIC.
+        </div>
+        <div style="margin-top:18px">
+          <a class="src" href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">READ THE FILES · NATIONAL ARCHIVES →</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="spacer-m"></div>
+    <div class="measure" style="text-align:center">
+      <span class="chip warn rv">Project interpretation</span>
+      <p class="narr rv" style="margin-top:1.6em">I am not telling you the
+      Army knows what I saw.</p>
+      <p class="narr rv">I am telling you that the one time a light over
+      Hardin County was investigated at the highest level, the public
+      explanation had to be revised — and the true one had been classified.</p>
+      <p class="whisper rv">That is not a theory. That is the paperwork.</p>
     </div>
     <div class="spacer-m"></div>
   </section>
 
-  <section id="verbs" data-beat data-ch="04 · The First Witnesses">
+  <!-- 05 THE WITNESSES -->
+  <section id="witnesses" data-beat data-ch="05 · The Older Record">
+    <div class="measure" style="text-align:center">
+      <p class="narr rv">But here is the part that undoes the tidy version.</p>
+      <p class="big rv">The lights are older<br>than the aircraft.</p>
+    </div>
+    <div class="spacer-m"></div>
+
+    <div style="padding:0 24px">
+      <article class="clip" data-slot="DOC-01">
+        <div class="rail">
+          <span>Primary record · Newspaper</span>
+          <span>Miami News-Record · 9 May 1965</span>
+        </div>
+        <div class="inner">
+          <div class="kicker">Ottawa County, Oklahoma · Devil's Promenade</div>
+          <h3>Spook Light Long a<br>Popular Attraction</h3>
+          <p class="dek">Velma Nieberding's account of a light that country people
+          along one road had been watching for generations.</p>
+          <div class="cols">
+            <p>[ ARCHIVE DOCUMENT SLOT · DOC-01 — full scan pending rights
+            clearance from the Dobson Museum and Home / Ottawa County
+            Historical Society. Metadata card shown until cleared. ]</p>
+            <p>The clipping is preserved in the Gateway to Oklahoma History.
+            The headline is verified against the catalog record. It documents
+            a local tradition already old in 1965 — watched, chased,
+            photographed, and argued about long before that.</p>
+          </div>
+          <div class="foot">
+            <a class="src" href="https://gateway.okhistory.org/ark:/67531/metadc2582124/" rel="noopener">OKLAHOMA HISTORICAL SOCIETY →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="spacer-m"></div>
+
+    <div style="padding:0 24px">
+      <article class="clip" data-slot="DOC-02">
+        <div class="rail">
+          <span>Primary record · Federal report</span>
+          <span>USGS Circular 646 · 1971</span>
+        </div>
+        <div class="inner">
+          <div class="kicker">United States Geological Survey · George R. Mansfield</div>
+          <h3>Origin of the Brown<br>Mountain Light</h3>
+          <p class="dek">A federal geologist was sent to North Carolina to explain a
+          light that people had been reporting for over half a century.</p>
+          <div class="cols">
+            <p>The government did not send a geologist because the story was
+            silly. It sent one because the reports would not stop. Circular
+            646 tests roads, railroads, fires, sight lines, and terrain.</p>
+            <p>It is a careful document. It is also, read a certain way, a
+            record of a federal agency conceding that people in the hills
+            kept seeing something they could not account for — for decades.</p>
+          </div>
+          <div class="foot">
+            <a class="src" href="https://pubs.usgs.gov/circ/1971/0646/report.pdf" rel="noopener">USGS · READ THE CIRCULAR →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="spacer-m"></div>
+    <div class="measure" style="text-align:center">
+      <p class="whisper rv">Neither report found a saucer.
+      Both found something stranger: a light that would not resolve
+      into one explanation.</p>
+    </div>
+    <div class="spacer-m"></div>
+  </section>
+
+  <!-- THE VERB WALL -->
+  <section id="verbs" data-beat data-ch="05 · The Older Record">
     <div class="measure" style="text-align:center">
       <p class="mono rv">WITNESS LANGUAGE · COMPILED ACROSS CASE FILES · 1883 — 1984</p>
     </div>
@@ -408,13 +581,14 @@
     </div>
     <div class="spacer-s"></div>
     <div class="measure" style="text-align:center">
-      <p class="big rv" style="font-style:italic">Other winters. Other witnesses.<br>The same three movements.</p>
+      <p class="big rv" style="font-style:italic">Other winters.<br>Other witnesses.<br>The same three movements.</p>
       <p class="whisper rv">My words were already in the record.<br>I just didn't know it yet.</p>
     </div>
     <div class="spacer-m"></div>
   </section>
 
-  <section id="folklore" data-beat data-ch="05 · What the Old People Called Them">
+  <!-- 06 FOLKLORE -->
+  <section id="folklore" data-beat data-ch="06 · What the Old People Called Them">
     <div class="measure">
       <span class="chip rv">Context · 1894 Folk-Lore journal · paraphrase</span>
       <p class="narr rv" style="margin-top:2em">Before anyone measured strange
@@ -430,6 +604,12 @@
       <p class="big rv" style="font-style:italic">But a light that runs is a
       light with somewhere to be.</p>
       <p class="whisper rv">And nobody ever gave that one a name.</p>
+      <div class="spacer-s"></div>
+      <p class="narr rv">This matters more than it looks. Whatever the Army
+      was flying over Fort Knox in 1948, nobody was flying anything in
+      1894. Or in Wales, three hundred years before that.</p>
+      <p class="narr rv"><strong>Something was being seen before there was
+      anything to see.</strong></p>
     </div>
     <div class="spacer-m"></div>
   </section>
@@ -437,26 +617,100 @@
 </div><!-- /paper-era -->
 <div class="era-out" aria-hidden="true"></div>
 
-<!-- THE CONSTELLATION -->
-<div id="constellation-outer" data-beat data-ch="05 · The Same Sky">
-  <div id="constellation" role="img" aria-label="Points of light accumulate on a dark field: Marfa 1883, Brown Mountain 1913, Gurdon 1930s, Devil's Promenade, Hessdalen 1981. A final unlabeled point appears for Younger's Creek, Kentucky.">
-    <div class="star" id="st-0" style="left:24%;top:72%"><span class="lbl">1883 · MARFA, TEXAS</span></div>
-    <div class="star" id="st-1" style="left:64%;top:38%"><span class="lbl">1913 · BROWN MOUNTAIN, NORTH CAROLINA</span></div>
-    <div class="star" id="st-2" style="left:44%;top:58%"><span class="lbl">1930s · GURDON, ARKANSAS</span></div>
-    <div class="star" id="st-3" style="left:38%;top:44%"><span class="lbl">GENERATIONS · DEVIL'S PROMENADE, OKLAHOMA</span></div>
-    <div class="star" id="st-4" style="left:84%;top:14%"><span class="lbl">1981 · HESSDALEN, NORWAY</span></div>
-    <div class="star ky" id="st-5" style="left:52%;top:48%"><span class="lbl">MID-1980s · YOUNGER'S CREEK, KENTUCKY</span></div>
-    <div class="const-line" id="cl-0" style="top:12%">Nobody ever put them on the same map.</div>
-    <div class="const-line" id="cl-1" style="top:80%;font-style:italic;color:var(--evidence)">There was never a reason to.</div>
+<!-- ============ THE CONSTELLATION ============ -->
+<div id="constellation-outer" data-beat data-ch="07 · The Same Sky">
+  <div id="constellation" role="img" aria-label="Points of light accumulate on a dark field: Wales in the 1600s, Marfa 1883, Brown Mountain 1913, Gurdon in the 1930s, Godman Field 1948, Hessdalen 1981, and finally an unlabeled point for Younger's Creek, Kentucky.">
+    <div class="star" id="st-0" style="left:14%;top:22%"><span class="lbl">1600s · WALES · CORPSE CANDLES</span></div>
+    <div class="star" id="st-1" style="left:26%;top:74%"><span class="lbl">1883 · MARFA, TEXAS</span></div>
+    <div class="star" id="st-2" style="left:68%;top:36%"><span class="lbl">1913 · BROWN MOUNTAIN, N.C.</span></div>
+    <div class="star" id="st-3" style="left:44%;top:62%"><span class="lbl">1930s · GURDON, ARKANSAS</span></div>
+    <div class="star" id="st-4" style="left:34%;top:44%"><span class="lbl">1948 · GODMAN FIELD · HARDIN CO., KY</span></div>
+    <div class="star" id="st-5" style="left:82%;top:15%"><span class="lbl">1981 · HESSDALEN, NORWAY</span></div>
+    <div class="star ky" id="st-6" style="left:52%;top:50%"><span class="lbl">MID-1980s · YOUNGER'S CREEK · HARDIN CO., KY</span></div>
+    <div class="const-line" id="cl-0" style="top:11%">Nobody ever put them on the same map.</div>
+    <div class="const-line" id="cl-1" style="top:82%;font-style:italic;color:var(--evidence)">There was never a reason to.</div>
     <span class="chip const-note">Project interpretation · not to scale</span>
   </div>
 </div>
 
-<!-- MOVEMENT 6 -->
-<section id="instruments" data-beat data-ch="06 · Someone Brought Instruments">
+<!-- ============ 08 THE THREE DOORS ============ -->
+<section id="doors" data-beat data-ch="08 · Three Doors">
   <div class="spacer-s"></div>
+  <div class="measure" style="text-align:center">
+    <p class="big rv">So what were they?</p>
+    <p class="narr rv">There are only three honest answers, and I have
+    stopped pretending I can choose between them.</p>
+  </div>
+  <div class="spacer-m"></div>
+
+  <div class="doors">
+    <article class="door rv">
+      <div class="no">I</div>
+      <h4>The Government</h4>
+      <div class="sub">Restricted airspace · classified programs</div>
+      <p>Godman Army Airfield sits inside my home county, with restricted
+      airspace over it. In 1948 the Air Force explained the object above
+      that field as Venus, then replaced that answer with a balloon from a
+      program the public was not cleared to know about.</p>
+      <p>Illumination flares, night exercises, aircraft turning head-on —
+      these explain a great deal, honestly and unglamorously. Most lights
+      in most skies are ours.</p>
+      <div class="verdict">But a government that classified the answer once
+      is not a government you can finish auditing.</div>
+    </article>
+
+    <article class="door rv">
+      <div class="no">II</div>
+      <h4>The Dead</h4>
+      <div class="sub">Corpse candles · spook lights · the old vocabulary</div>
+      <p>Long before aviation, people in Wales, in the Ozarks, in
+      Appalachia watched lights leave houses, walk roads, and keep pace
+      with travelers — and they built rules around them. Do not follow.
+      Do not answer. Do not go out to look.</p>
+      <p>Those rules were not written by people who thought they were
+      looking at machines. They were written by people who thought
+      something was <em>going somewhere</em>.</p>
+      <div class="verdict">Whatever was flying in 1948, nothing was flying
+      in 1694. The lights kept their appointments anyway.</div>
+    </article>
+
+    <article class="door rv">
+      <div class="no">III</div>
+      <h4>Something Else</h4>
+      <div class="sub">Instruments · plasma · the unfinished file</div>
+      <p>In a Norwegian valley, researchers hauled radar, magnetometers,
+      spectrum analyzers, and cameras into the snow and recorded lights
+      through a winter field campaign. They came back with data, not
+      answers.</p>
+      <p>The USGS itself keeps an open file on luminous phenomena near
+      earthquakes. Serious people, real instruments, no conclusion. The
+      question stayed open because the evidence kept it open.</p>
+      <div class="verdict">The most unsettling possibility is the most
+      boring one: nobody knows, and they never stopped looking.</div>
+    </article>
+  </div>
+
+  <div class="spacer-m"></div>
+  <div class="measure" style="text-align:center">
+    <span class="chip warn rv">Parallel, not connection</span>
+    <p class="narr rv" style="margin-top:1.8em">Every door has a lock on the
+    inside. Pick whichever one lets you sleep.</p>
+  </div>
+  <div class="spacer-m"></div>
+</section>
+
+<!-- ============ 09 INSTRUMENTS ============ -->
+<section id="instruments" data-beat data-ch="09 · Someone Brought Instruments">
+  <div class="wide">
+    <figure class="plate deep rv">
+      <img src="https://gen.krea.ai/images/329257b9-352b-4601-8bab-1f63bea3a152.png"
+           alt="A vintage military airfield control tower at dusk with figures watching the sky." loading="lazy">
+      <figcaption>Reconstruction · watching the sky from a tower · [ REPLACE: GODMAN FIELD ARCHIVE IMAGERY IF CLEARED ]</figcaption>
+    </figure>
+  </div>
+  <div class="spacer-m"></div>
   <div class="measure">
-    <p class="mono rv" style="line-height:2.4">
+    <p class="mono rv" style="line-height:2.5">
       HESSDALEN VALLEY, NORWAY<br>
       FIELD CAMPAIGN · 21 JAN — 26 FEB 1984<br>
       53 LIGHT OBSERVATIONS RECORDED
@@ -466,39 +720,54 @@
     strange night to himself, researchers in a Norwegian valley were
     hauling radar, magnetometers, and cameras into the snow — because
     the lights there came often enough to wait for.</p>
+    <p class="narr rv">Same decade. Same season. Same behavior in the
+    notebooks. No connection has ever been demonstrated, and I am not
+    claiming one.</p>
     <div class="spacer-s"></div>
-    <span class="chip rv" style="border-color:rgba(184,121,62,.5);color:var(--ember)">Parallel, not connection</span>
+    <span class="chip warn rv">Parallel, not connection</span>
   </div>
 
   <div class="spacer-m"></div>
   <p class="mono rv" style="text-align:center;margin-bottom:18px">THE STORY IS STILL BEING TOLD</p>
   <div class="vidgrid drift">
-    <a class="vidcard rv" data-slot="VID-01" href="https://www.pbs.org" rel="noopener">
+    <a class="vidcard rv" data-slot="VID-01" href="https://www.pbs.org/video/searching-for-the-brown-mountain-lights-ovqhzn/" rel="noopener">
       <span class="mono">[ FIELD FOOTAGE SLOT · VID-01 ]<br>PBS NC · SEARCHING FOR THE BROWN MOUNTAIN LIGHTS</span>
     </a>
     <a class="vidcard rv" data-slot="VID-02" href="https://www.hessdalen.org" rel="noopener">
-      <span class="mono">[ FIELD FOOTAGE SLOT · VID-02 ]<br>THE SKY OF HESSDALEN · DOCUMENTARY</span>
+      <span class="mono">[ FIELD FOOTAGE SLOT · VID-02 ]<br>PROJECT HESSDALEN · THE SKY OF HESSDALEN</span>
     </a>
-    <a class="vidcard rv" data-slot="VID-03" href="https://www.hessdalen.org" rel="noopener">
-      <span class="mono">[ FIELD FOOTAGE SLOT · VID-03 ]<br>ERLING STRAND · PROJECT LECTURE</span>
+    <a class="vidcard rv" data-slot="VID-03" href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">
+      <span class="mono">[ ARCHIVE SLOT · VID-03 ]<br>NATIONAL ARCHIVES · BLUE BOOK · 12,618 CASES</span>
     </a>
   </div>
   <div class="spacer-m"></div>
 </section>
 
-<!-- MOVEMENT 7 -->
-<section id="return" data-beat data-ch="07 · Return to the Hill">
+<!-- ============ 10 RETURN ============ -->
+<section id="return" data-beat data-ch="10 · Return to the Hill">
+  <div class="wide">
+    <figure class="plate deep rv">
+      <img src="https://gen.krea.ai/images/fe75deb9-b498-4d42-aed0-693d554860a3.png"
+           alt="Dense dark winter woods at night, bare trunks receding into blackness." loading="lazy">
+      <figcaption>Reconstruction · the woods at the property edge · [ REPLACE: EXACT KENTUCKY TREELINE ]</figcaption>
+    </figure>
+  </div>
+  <div class="spacer-m"></div>
   <div class="measure">
     <p class="narr rv">An aircraft approaching head-on can hang motionless
     in the sky, then seem to leap sideways when it banks. Cold air bends
     distant light into places it should not be. A child's memory, told
     for forty years, sharpens in some places and softens in others.</p>
-    <p class="narr rv">All of that is true. I have checked.</p>
+    <p class="narr rv">All of that is true. I have checked. I want you to
+    know that I checked.</p>
     <div class="spacer-m"></div>
     <p class="big rv" style="font-style:italic">I cannot tell you what I saw that night.</p>
-    <p class="narr rv">I can only tell you that other people, in other
-    places and other winters, described something that behaved the same
-    way.</p>
+    <p class="narr rv">I can only tell you that a colonel in my county
+    wrote <em>stationary</em>, that a Welshman four centuries ago wrote
+    about a flame that walked a road, that researchers in Norway wrote
+    down fifty-three of them in a single winter —</p>
+    <p class="narr rv">— and that a boy on his back in the snow, who had
+    never read any of it, reached for the same three words.</p>
   </div>
 
   <div class="spacer-l"></div>
@@ -511,26 +780,41 @@
     <h1 id="thetitle" class="rv">WINTER<br>RUNNERS</h1>
     <div class="spacer-s"></div>
     <p class="whisper rv">Around here, that's what we called them.</p>
-    <p class="mono rv" style="margin-top:3em;font-size:11px">FINAL WORDING PROVISIONAL · PENDING ERIC'S APPROVAL</p>
+    <p class="mono rv" style="margin-top:3em;font-size:10.5px">FINAL WORDING PROVISIONAL · PENDING ERIC'S APPROVAL</p>
   </div>
 </section>
 
-<!-- FINALE -->
+<!-- ============ FINALE ============ -->
 <section id="finale" data-beat data-ch="">
   <div class="echo" id="echo-close" style="top:32%"></div>
+  <div class="vh" style="justify-content:center;text-align:center">
+    <div class="measure">
+      <p class="whisper rv">If you grew up somewhere with a hill and a treeline,
+      you already know how this ends.</p>
+      <div class="spacer-s"></div>
+      <p class="narr rv" style="font-family:var(--display);font-style:italic;font-size:clamp(22px,3vw,34px)">
+        Go outside tonight. Look at the tree line.<br>Give it ninety minutes.</p>
+    </div>
+  </div>
   <div class="vh" style="justify-content:flex-end;padding-bottom:14vh;text-align:center">
     <div class="sources">
       <p>SOURCES</p>
       <p>
-        <a href="https://pubs.usgs.gov/circ/1971/0646/report.pdf" rel="noopener">USGS Circular 646 · 1971</a><br>
-        <a href="https://gateway.okhistory.org/ark:/67531/metadc2582124/" rel="noopener">Miami News-Record · May 9 1965 · Oklahoma Historical Society</a><br>
-        <a href="https://www.loc.gov/collections/chronicling-america/" rel="noopener">The Monroe Journal · March 24 1922 · Library of Congress</a><br>
+        <a href="https://www.army.mil/article/263119/questions_remain_75_years_after_mysterious_fort_knox_ufo_incident_downed_pilot" rel="noopener">U.S. Army · Godman Field / Mantell, 7 Jan 1948</a><br>
+        <a href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">National Archives · Project Blue Book, RG 341</a><br>
+        <a href="https://pubs.usgs.gov/circ/1971/0646/report.pdf" rel="noopener">USGS Circular 646 · Brown Mountain Light, 1971</a><br>
+        <a href="https://gateway.okhistory.org/ark:/67531/metadc2582124/" rel="noopener">Miami News-Record · 9 May 1965 · Oklahoma Historical Society</a><br>
+        <a href="https://www.loc.gov/collections/chronicling-america/" rel="noopener">Library of Congress · Chronicling America</a><br>
         <a href="https://www.hessdalen.org" rel="noopener">Project Hessdalen · 1984 Final Technical Report</a><br>
-        <a href="https://www.encyclopediaofarkansas.net" rel="noopener">Encyclopedia of Arkansas · Gurdon Light</a><br>
+        <a href="https://www.usgs.gov/faqs/what-are-earthquake-lights" rel="noopener">USGS · Earthquake Lights</a><br>
+        <a href="https://www.encyclopediaofarkansas.net/entries/gurdon-light-2360/" rel="noopener">Encyclopedia of Arkansas · Gurdon Light</a><br>
         <span>Folk-Lore, vol. 5 · "Ghostly Lights" · 1894</span>
       </p>
-      <p style="margin-top:4em;opacity:.6">A documentary reconstruction. Evidence classes are labeled throughout.<br>
-      The name "Winter Runners" is this project's own.</p>
+      <p style="margin-top:3.5em;opacity:.55;line-height:2.2">
+        A documentary reconstruction. Evidence classes are labeled throughout.<br>
+        Photographic plates marked RECONSTRUCTION are generated for layout and<br>
+        are placeholders for cleared archival and family material.<br>
+        The name &ldquo;Winter Runners&rdquo; is this project's own.</p>
     </div>
   </div>
 </section>
@@ -541,131 +825,128 @@
   const isMobile = innerWidth < 640;
 
   /* =====================================================
-     THE WORLD — a living winter woods behind everything.
-     Layered treelines, drifting fog between the depth
-     planes, snow in three bands, faint stars, and the
-     light itself as a canvas-native luminous object.
+     THE WORLD — rolling Kentucky hill country.
+     Smooth sine-composite ridges (no peaks), bare winter
+     hardwoods standing on them, fog between depth planes,
+     snow in three bands, and the light living in the scene.
      ===================================================== */
   const cv=document.getElementById('world'), cx=cv.getContext('2d');
   let W,H,DPR;
-  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);
+    t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 
-  /* mouse — the woods notice the cursor */
   let mx=0,my=0,tmx=0,tmy=0;
   addEventListener('pointermove',e=>{
     tmx=(e.clientX/innerWidth)*2-1; tmy=(e.clientY/innerHeight)*2-1;
   },{passive:true});
 
-  /* fog sprite */
   const fogSprite=document.createElement('canvas');
   fogSprite.width=fogSprite.height=256;
-  (function(){
-    const g=fogSprite.getContext('2d');
+  (function(){const g=fogSprite.getContext('2d');
     const rg=g.createRadialGradient(128,128,0,128,128,128);
-    rg.addColorStop(0,'rgba(158,178,184,0.55)');
-    rg.addColorStop(.55,'rgba(158,178,184,0.16)');
-    rg.addColorStop(1,'rgba(158,178,184,0)');
-    g.fillStyle=rg; g.fillRect(0,0,256,256);
-  })();
+    rg.addColorStop(0,'rgba(150,170,178,0.5)');
+    rg.addColorStop(.55,'rgba(150,170,178,0.14)');
+    rg.addColorStop(1,'rgba(150,170,178,0)');
+    g.fillStyle=rg;g.fillRect(0,0,256,256);})();
 
-  /* treeline layers: far → near */
+  /* far -> near. amp = how tall the rolling swells are (gentle) */
   const LAYERS=[
-    {seed:11, base:.52, rough:14, spike:.10, color:'#0c161b', px:.015, mouse:5,  fog:10, fogA:.05, fogScale:1.6},
-    {seed:23, base:.60, rough:20, spike:.14, color:'#081014', px:.030, mouse:9,  fog:9,  fogA:.06, fogScale:1.3},
-    {seed:47, base:.70, rough:28, spike:.18, color:'#050b0e', px:.055, mouse:14, fog:8,  fogA:.08, fogScale:1.1},
-    {seed:71, base:.86, rough:40, spike:.22, color:'#03080a', px:.090, mouse:22, fog:0,  fogA:0,  fogScale:1}
+    {seed:11, base:.56, amp:16, treeH:9,  treeGap:16, color:'#0a1418', px:.014, mouse:5,  fog:9, fogA:.055, fogScale:1.7},
+    {seed:23, base:.65, amp:22, treeH:15, treeGap:22, color:'#071013', px:.028, mouse:9,  fog:8, fogA:.06,  fogScale:1.35},
+    {seed:47, base:.76, amp:28, treeH:24, treeGap:30, color:'#040b0e', px:.052, mouse:14, fog:7, fogA:.07,  fogScale:1.1},
+    {seed:71, base:.92, amp:34, treeH:40, treeGap:44, color:'#020608', px:.088, mouse:22, fog:0, fogA:0,    fogScale:1}
   ];
-  function buildRidge(L){
-    const rnd=mulberry32(L.seed); const pts=[]; const step=26;
-    let y=0;
-    for(let x=-step;x<=innerWidth+step*2;x+=step){
-      y+= (rnd()-.5)*L.rough*.9;
-      y=Math.max(-L.rough*1.6,Math.min(L.rough*1.6,y));
-      let peak=0;
-      if(rnd()<L.spike) peak=rnd()*L.rough*2.2;
-      pts.push({x,y:y-peak});
-    }
-    L.pts=pts;
+
+  /* rolling hills: sum of three slow sines — rounded swells, never peaks */
+  function ridgeY(L,x){
+    return Math.sin(x*L.f1+L.p1)*L.amp
+         + Math.sin(x*L.f2+L.p2)*L.amp*.45
+         + Math.sin(x*L.f3+L.p3)*L.amp*.22;
   }
-  /* fog blobs per layer */
-  function buildFog(L){
-    const rnd=mulberry32(L.seed*7+1);
+  function buildLayer(L){
+    const r=rng(L.seed);
+    L.f1=.0016+r()*.0011; L.p1=r()*6.28;
+    L.f2=.0042+r()*.0025; L.p2=r()*6.28;
+    L.f3=.0095+r()*.0050; L.p3=r()*6.28;
+    /* bare trees standing along the ridge */
+    L.trees=[];
+    const r2=rng(L.seed*13+5);
+    for(let x=-60;x<innerWidth+80;x+=L.treeGap*(.55+r2()*.9)){
+      L.trees.push({x, h:L.treeH*(.6+r2()*.85), lean:(r2()-.5)*.28, br:2+((r2()*3)|0)});
+    }
+    /* fog */
     L.blobs=[];
     const n=isMobile?Math.ceil(L.fog/2):L.fog;
-    for(let i=0;i<n;i++){
-      L.blobs.push({
-        x:rnd(), yo:(rnd()-.5)*.12,
-        s:(500+rnd()*700)*L.fogScale,
-        v:(.00002+rnd()*.00005)*(rnd()<.5?1:-1),
-        a:L.fogA*(.6+rnd()*.8)
-      });
-    }
+    const r3=rng(L.seed*7+1);
+    for(let i=0;i<n;i++) L.blobs.push({
+      x:r3(), yo:(r3()-.5)*.10, s:(520+r3()*760)*L.fogScale,
+      v:(.000018+r3()*.000048)*(r3()<.5?1:-1), a:L.fogA*(.6+r3()*.8)});
   }
-  /* stars */
+
   let stars=[];
-  (function(){ const rnd=mulberry32(5);
-    for(let i=0;i<44;i++) stars.push({x:rnd(),y:rnd()*.42,r:.5+rnd()*.9,tw:rnd()*Math.PI*2,ts:.2+rnd()*.5,a:.12+rnd()*.3});
-  })();
-  /* snow — three depth bands */
+  (function(){const r=rng(5);
+    for(let i=0;i<40;i++) stars.push({x:r(),y:r()*.40,rr:.5+r()*.9,tw:r()*6.28,ts:.2+r()*.5,a:.10+r()*.26});})();
   let flakes=[];
-  (function(){ const rnd=mulberry32(99);
-    const n=isMobile?80:170;
-    for(let i=0;i<n;i++){ const d=rnd();
-      flakes.push({x:rnd(),y:rnd(),d,
-        r:.6+d*2.1, v:.00022+d*.00062,
-        w:rnd()*Math.PI*2, ws:.3+rnd()*.9, a:.16+d*.5});
-    }
-  })();
+  (function(){const r=rng(99);const n=isMobile?80:180;
+    for(let i=0;i<n;i++){const d=r();
+      flakes.push({x:r(),y:r(),d,rr:.6+d*2.2,v:.00020+d*.00060,w:r()*6.28,ws:.3+r()*.9,a:.14+d*.5});}})();
 
   function sizeCanvas(){
     DPR=Math.min(devicePixelRatio,2);
     W=cv.width=innerWidth*DPR; H=cv.height=innerHeight*DPR;
     cv.style.width=innerWidth+'px'; cv.style.height=innerHeight+'px';
-    LAYERS.forEach(L=>{buildRidge(L);buildFog(L);});
+    LAYERS.forEach(buildLayer);
   }
   sizeCanvas(); addEventListener('resize',sizeCanvas);
 
-  /* ---- shared scroll state ---- */
+  /* draw one bare winter hardwood */
+  function drawTree(t,bx,by,scale,col){
+    const h=t.h*scale*DPR;
+    const x=bx, y=by;
+    cx.strokeStyle=col; cx.lineCap='round';
+    cx.lineWidth=Math.max(.8,h*.055);
+    cx.beginPath(); cx.moveTo(x,y);
+    const tipX=x+t.lean*h, tipY=y-h;
+    cx.quadraticCurveTo(x+t.lean*h*.3,y-h*.55,tipX,tipY); cx.stroke();
+    cx.lineWidth=Math.max(.5,h*.028);
+    for(let i=0;i<t.br;i++){
+      const f=.45+i*(.5/t.br);
+      const bxp=x+t.lean*h*f*.6, byp=y-h*f;
+      const dir=i%2?1:-1;
+      cx.beginPath(); cx.moveTo(bxp,byp);
+      cx.lineTo(bxp+dir*h*(.20+i*.05), byp-h*(.16+i*.04));
+      cx.stroke();
+    }
+  }
+
   const outer=document.getElementById('light-outer');
   const paperEra=document.getElementById('paper-era');
   const vig=document.getElementById('vignette');
-  let timeScale=1, timeTarget=1, worldAlpha=1;
-  let lightP=-1;              /* progress through the encounter, -1 = not in view */
-  let ran=false, passedEncounter=false, runStart=0;
-  let clock=0, lastT=performance.now();
-
-  /* light flicker noise (smoothed) */
-  let flick=1, flickT=1;
-  setInterval(()=>{ flickT=.86+Math.random()*.14; },140);
+  let timeScale=1,timeTarget=1,worldAlpha=1;
+  let ran=false,passedEncounter=false,runStart=0;
+  let clock=0,lastT=performance.now();
+  let flick=1,flickT=1;
+  setInterval(()=>{flickT=.84+Math.random()*.16;},130);
 
   const lines=['ll-0','ll-1','ll-2','ll-ran','ll-4'].map(id=>document.getElementById(id));
-  function show(idx){ lines.forEach((l,i)=>l.classList.toggle('vis', i===idx)); }
+  function show(i){lines.forEach((l,j)=>l.classList.toggle('vis',j===i));}
 
-  function drawWorld(now){
+  function frame(now){
     const dt=Math.min(50,now-lastT); lastT=now;
-    if(!prefersReduced){ timeScale += (timeTarget-timeScale)*.045; }
-    else timeScale=0;
+    if(!prefersReduced) timeScale+=(timeTarget-timeScale)*.045; else timeScale=0;
     clock+=dt*timeScale;
     mx+=(tmx-mx)*.03; my+=(tmy-my)*.03;
     flick+=(flickT-flick)*.12;
 
-    /* journey: push deeper into the woods through movements 1–3 */
-    const lightTop=outer.offsetTop, lightH=outer.offsetHeight;
-    const journey=Math.min(1,scrollY/(lightTop+lightH*.3));
-
-    /* world fades while the paper century owns the viewport */
+    const journey=Math.min(1,scrollY/(outer.offsetTop+outer.offsetHeight*.3));
     const pr=paperEra.getBoundingClientRect();
-    const paperOwns=pr.top<innerHeight*.4 && pr.bottom>innerHeight*.6;
+    const paperOwns=pr.top<innerHeight*.4&&pr.bottom>innerHeight*.6;
     worldAlpha+=((paperOwns?0:1)-worldAlpha)*.05;
 
-    /* encounter progress */
     const r=outer.getBoundingClientRect();
     const inView=r.top<innerHeight&&r.bottom>0;
-    let p=-1;
-    if(inView){ p=Math.min(1,Math.max(0,-r.top/(r.height-innerHeight))); }
-    lightP=p;
+    let p=inView?Math.min(1,Math.max(0,-r.top/(r.height-innerHeight))):-1;
 
-    /* encounter side-effects: text, vignette, stillness */
     let dim=0;
     if(p>=0){
       if(p<0.10) show(0);
@@ -674,268 +955,217 @@
       else if(p<0.86) show(3);
       else show(4);
       if(p>=0.40&&p<0.74){
-        const t=(p-0.40)/0.24;
-        vig.style.opacity=Math.min(1,t);
-        dim=Math.min(1,t)*.5;
+        const t=Math.min(1,(p-0.40)/0.24);
+        vig.style.opacity=t; dim=t*.55;
         if(!ran) timeTarget=Math.max(0,1-(p-0.40)/0.10);
-        windDuck(Math.min(1,t));            /* the wind dies while it watches */
+        windDuck(t);
       } else { vig.style.opacity=0; if(!ran) timeTarget=1; windDuck(0); }
-      if(ran&&p<0.58){ ran=false; }
-      if(!ran&&p>=0.74){
-        ran=true; passedEncounter=true; runStart=now;
-        timeTarget=2.4; setTimeout(()=>{timeTarget=1;},900);
-      }
+      if(ran&&p<0.58) ran=false;
+      if(!ran&&p>=0.74){ ran=true;passedEncounter=true;runStart=now;
+        timeTarget=2.4; setTimeout(()=>{timeTarget=1;},900); }
     } else { show(-1); vig.style.opacity=0; if(!ran) timeTarget=1; windDuck(0); }
 
-    /* ---------- paint ---------- */
     cx.clearRect(0,0,W,H);
-    if(worldAlpha<.01){ requestAnimationFrame(drawWorld); return; }
-    cx.save();
-    cx.globalAlpha=worldAlpha;
+    if(worldAlpha<.01){ requestAnimationFrame(frame); return; }
+    cx.save(); cx.globalAlpha=worldAlpha;
 
-    /* sky */
+    const d=1-dim*.6;
     const sky=cx.createLinearGradient(0,0,0,H);
-    const d=1-dim*.55;
-    sky.addColorStop(0,`rgb(${5*d|0},${10*d|0},${13*d|0})`);
-    sky.addColorStop(.62,`rgb(${8*d|0},${15*d|0},${19*d|0})`);
-    sky.addColorStop(1,`rgb(${11*d|0},${19*d|0},${23*d|0})`);
+    sky.addColorStop(0,`rgb(${4*d|0},${9*d|0},${12*d|0})`);
+    sky.addColorStop(.6,`rgb(${7*d|0},${14*d|0},${18*d|0})`);
+    sky.addColorStop(1,`rgb(${10*d|0},${18*d|0},${22*d|0})`);
     cx.fillStyle=sky; cx.fillRect(0,0,W,H);
 
-    /* stars — their twinkle also freezes */
     stars.forEach(s=>{
       const tw=.6+.4*Math.sin(s.tw+clock*.0004*s.ts);
-      cx.globalAlpha=worldAlpha*s.a*tw*(1-dim*.7);
-      cx.fillStyle='#cdd8da';
-      cx.beginPath();cx.arc(s.x*W,s.y*H,s.r*DPR,0,7);cx.fill();
+      cx.globalAlpha=worldAlpha*s.a*tw*(1-dim*.75);
+      cx.fillStyle='#c6d2d4';
+      cx.beginPath();cx.arc(s.x*W,s.y*H,s.rr*DPR,0,7);cx.fill();
     });
 
-    /* layers far → near, light drawn between mid and nearest */
     LAYERS.forEach((L,li)=>{
-      const rise=journey*(li+1)*.028*H;              /* the woods grow as you approach */
-      const px=scrollY*L.px*DPR;                     /* scroll parallax */
-      const mox=mx*L.mouse*DPR, moy=my*L.mouse*.35*DPR;
-      const baseY=L.base*H - rise + (px%H)*0 + moy;
+      const rise=journey*(li+1)*.026*H;
+      const mox=mx*L.mouse*DPR, moy=my*L.mouse*.3*DPR;
+      const baseY=L.base*H-rise+moy;
+      const scroll=scrollY*L.px;
 
-      /* the light — beyond the nearest trees, before them in paint order */
-      if(li===3 && p>=0.05 && !( p>=0.86 )) drawLight(p,now,baseY);
+      if(li===3&&p>=0.05&&p<0.99) drawLight(p,now,baseY);
 
       cx.globalAlpha=worldAlpha;
+      /* hill body */
       cx.fillStyle=L.color;
-      cx.beginPath();
-      cx.moveTo(-50,H+50);
-      L.pts.forEach(pt=>cx.lineTo((pt.x)*DPR+mox, baseY+pt.y*DPR));
-      cx.lineTo(W+50,H+50);
-      cx.closePath(); cx.fill();
-
-      /* fog band in front of this layer */
-      L.blobs&&L.blobs.forEach(b=>{
+      cx.beginPath(); cx.moveTo(-60,H+60);
+      for(let sx=-60;sx<=innerWidth+60;sx+=8){
+        cx.lineTo(sx*DPR+mox, baseY+ridgeY(L,sx+scroll)*DPR);
+      }
+      cx.lineTo(W+60,H+60); cx.closePath(); cx.fill();
+      /* bare trees on the ridge */
+      L.trees.forEach(t=>{
+        const tx=t.x*DPR+mox;
+        if(tx<-60||tx>W+60) return;
+        drawTree(t,tx,baseY+ridgeY(L,t.x+scroll)*DPR+1,1,L.color);
+      });
+      /* fog in front of this plane */
+      L.blobs.forEach(b=>{
         b.x+=b.v*timeScale*dt*.06;
         if(b.x>1.3)b.x=-.3; if(b.x<-.3)b.x=1.3;
-        const bx=(b.x)*W + mox*1.5, by=baseY + b.yo*H;
         cx.globalAlpha=worldAlpha*b.a*(1-dim*.6);
-        cx.drawImage(fogSprite, bx-b.s*DPR/2, by-b.s*DPR/4, b.s*DPR, b.s*DPR*.5);
+        cx.drawImage(fogSprite,(b.x)*W+mox*1.5-b.s*DPR/2,baseY+b.yo*H-b.s*DPR/4,b.s*DPR,b.s*DPR*.5);
       });
     });
 
-    /* snow — front of everything */
     cx.fillStyle='#e8e2d2';
     flakes.forEach(f=>{
       f.y+=f.v*timeScale*(dt/16.7); f.w+=.012*f.ws*timeScale*(dt/16.7);
       if(f.y>1.02){f.y=-.02;f.x=Math.random();}
-      const fx=(f.x+Math.sin(f.w)*.012)*W + mx*(6+f.d*18)*DPR;
       cx.globalAlpha=worldAlpha*f.a;
-      cx.beginPath();cx.arc(fx,f.y*H,f.r*DPR,0,7);cx.fill();
+      cx.beginPath();
+      cx.arc((f.x+Math.sin(f.w)*.012)*W+mx*(6+f.d*18)*DPR,f.y*H,f.rr*DPR,0,7);
+      cx.fill();
     });
 
     cx.restore();
-    requestAnimationFrame(drawWorld);
+    requestAnimationFrame(frame);
   }
 
-  /* the light itself */
   function drawLight(p,now,nearBase){
-    let x=.26*W, y, intensity=1, stretch=0;
-    const lowY=nearBase- .01*H;            /* just above/behind the nearest ridge */
-    const highY=.34*H;
+    let x=.26*W,y,intensity=1,stretch=0;
+    const lowY=nearBase-.012*H, highY=.32*H;
     if(p<0.40){
       const t=Math.max(0,(p-0.05)/0.35);
       y=lowY+(highY-lowY)*t;
-      intensity=Math.min(1,t*2.2)*flick;   /* organic flicker while it wakes */
+      intensity=Math.min(1,t*2.2)*flick;          /* alive while it wakes */
     } else if(p<0.74){
-      y=highY;
-      const t=(p-0.40)/0.34;
-      intensity=1+t*.25;                    /* perfectly steady. that's the wrong part. */
+      y=highY; const t=(p-0.40)/0.34;
+      intensity=1+t*.28;                           /* then unnaturally steady */
     } else {
-      /* RAN — 340ms traversal with velocity stretch */
       const t=Math.min(1,(now-runStart)/340);
-      const e=t*t*(3-2*t);
-      x=.26*W + e*.95*W; y=highY - e*.06*H;
-      intensity=1.2*(1-t*.9); stretch=34*(1-Math.abs(t-.5)*2)+6;
       if(t>=1) return;
+      const e=t*t*(3-2*t);
+      x=.26*W+e*.95*W; y=highY-e*.055*H;
+      intensity=1.25*(1-t*.9); stretch=36*(1-Math.abs(t-.5)*2)+6;
     }
-    if(prefersReduced){ intensity=p<0.74?1:0; stretch=0; }
-
-    const g=cx.createRadialGradient(x,y,0,x,y,90*DPR);
-    g.addColorStop(0,'rgba(244,236,216,'+(.9*intensity)+')');
-    g.addColorStop(.18,'rgba(232,214,180,'+(.34*intensity)+')');
-    g.addColorStop(.5,'rgba(184,121,62,'+(.12*intensity)+')');
+    if(prefersReduced){intensity=p<0.74?1:0;stretch=0;}
+    const g=cx.createRadialGradient(x,y,0,x,y,95*DPR);
+    g.addColorStop(0,'rgba(248,240,220,'+(.92*intensity)+')');
+    g.addColorStop(.16,'rgba(236,216,180,'+(.36*intensity)+')');
+    g.addColorStop(.48,'rgba(184,121,62,'+(.13*intensity)+')');
     g.addColorStop(1,'rgba(184,121,62,0)');
-    cx.globalAlpha=worldAlpha;
-    cx.fillStyle=g;
-    cx.fillRect(x-100*DPR,y-100*DPR,200*DPR,200*DPR);
-    cx.fillStyle='rgba(248,243,228,'+Math.min(1,intensity)+')';
-    cx.beginPath();
-    cx.ellipse(x,y,(2.4+stretch)*DPR,2.4*DPR,0,0,7);
-    cx.fill();
+    cx.globalAlpha=worldAlpha; cx.fillStyle=g;
+    cx.fillRect(x-105*DPR,y-105*DPR,210*DPR,210*DPR);
+    cx.fillStyle='rgba(250,246,232,'+Math.min(1,intensity)+')';
+    cx.beginPath(); cx.ellipse(x,y,(2.5+stretch)*DPR,2.5*DPR,0,0,7); cx.fill();
   }
-  requestAnimationFrame(drawWorld);
+  requestAnimationFrame(frame);
 
-  /* =====================================================
-     WIND — procedural, opt-in, ducks to silence at WATCHED
-     ===================================================== */
-  let AC=null, windGain=null, windOn=false, duck=0;
+  /* ===== wind ===== */
+  let AC=null,windGain=null,windOn=false,duck=0;
   const windBtn=document.getElementById('wind');
-  function windDuck(v){ duck=v;
-    if(windGain) windGain.gain.setTargetAtTime(windOn?(0.06*(1-duck)):0, AC.currentTime, .8);
-  }
+  function windDuck(v){duck=v;
+    if(windGain) windGain.gain.setTargetAtTime(windOn?(0.055*(1-duck)):0,AC.currentTime,.8);}
   windBtn.addEventListener('click',()=>{
     if(!AC){
       AC=new (window.AudioContext||window.webkitAudioContext)();
-      const len=AC.sampleRate*3, buf=AC.createBuffer(1,len,AC.sampleRate);
-      const ch=buf.getChannelData(0); let last=0;
-      for(let i=0;i<len;i++){ const w=Math.random()*2-1; last=(last+.02*w)/1.02; ch[i]=last*3.2; }
-      const src=AC.createBufferSource(); src.buffer=buf; src.loop=true;
-      const lp=AC.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=420; lp.Q.value=.4;
-      windGain=AC.createGain(); windGain.gain.value=0;
-      src.connect(lp).connect(windGain).connect(AC.destination); src.start();
-      /* slow gusts */
-      const lfo=AC.createOscillator(), lfoG=AC.createGain();
-      lfo.frequency.value=.07; lfoG.gain.value=140;
-      lfo.connect(lfoG).connect(lp.frequency); lfo.start();
+      const len=AC.sampleRate*3,buf=AC.createBuffer(1,len,AC.sampleRate);
+      const ch=buf.getChannelData(0);let last=0;
+      for(let i=0;i<len;i++){const w=Math.random()*2-1;last=(last+.02*w)/1.02;ch[i]=last*3.2;}
+      const src=AC.createBufferSource();src.buffer=buf;src.loop=true;
+      const lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=400;lp.Q.value=.4;
+      windGain=AC.createGain();windGain.gain.value=0;
+      src.connect(lp).connect(windGain).connect(AC.destination);src.start();
+      const lfo=AC.createOscillator(),lg=AC.createGain();
+      lfo.frequency.value=.07;lg.gain.value=140;
+      lfo.connect(lg).connect(lp.frequency);lfo.start();
     }
     windOn=!windOn;
     windBtn.textContent=windOn?'Wind · On':'Wind · Off';
-    windGain.gain.setTargetAtTime(windOn?0.06*(1-duck):0, AC.currentTime, 1.2);
+    windGain.gain.setTargetAtTime(windOn?0.055*(1-duck):0,AC.currentTime,1.2);
   });
 
-  /* =====================================================
-     loader
-     ===================================================== */
+  /* ===== loader ===== */
   const loader=document.getElementById('loader');
-  function dismiss(){ loader.classList.add('gone'); }
-  setTimeout(dismiss, prefersReduced?300:3400);
+  const dismiss=()=>loader.classList.add('gone');
+  setTimeout(dismiss,prefersReduced?300:3400);
   loader.addEventListener('click',dismiss);
   addEventListener('wheel',dismiss,{once:true,passive:true});
   addEventListener('touchstart',dismiss,{once:true,passive:true});
 
-  /* =====================================================
-     reveals, verb wall, echoes, progress, chapter mark
-     ===================================================== */
-  const io=new IntersectionObserver(es=>{
-    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });
-  },{threshold:.25});
-  document.querySelectorAll('.rv,.doc').forEach(el=>io.observe(el));
+  /* ===== reveals ===== */
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:.2});
+  document.querySelectorAll('.rv,.clip,.dossier').forEach(el=>io.observe(el));
 
   const wall=document.getElementById('verbwall');
-  const wallIO=new IntersectionObserver(es=>{
-    es.forEach(e=>{
-      if(!e.isIntersecting) return;
-      wall.classList.add('on');
-      [...wall.children].forEach((s,i)=>s.style.transitionDelay=(i*90)+'ms');
-      setTimeout(()=>{ wall.classList.add('lit');
-        [...wall.children].forEach(s=>s.style.transitionDelay='0ms');
-      }, wall.children.length*90+900);
-      wallIO.unobserve(wall);
-    });
-  },{threshold:.4});
-  wallIO.observe(wall);
+  const wIO=new IntersectionObserver(es=>{es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    wall.classList.add('on');
+    [...wall.children].forEach((s,i)=>s.style.transitionDelay=(i*88)+'ms');
+    setTimeout(()=>{wall.classList.add('lit');
+      [...wall.children].forEach(s=>s.style.transitionDelay='0ms');},wall.children.length*88+900);
+    wIO.unobserve(wall);});},{threshold:.4});
+  wIO.observe(wall);
 
-  function armEcho(id,threshold,delay){
+  function armEcho(id,th,delay){
     const el=document.getElementById(id);
-    const o=new IntersectionObserver(es=>{
-      es.forEach(e=>{
-        if(!e.isIntersecting) return;
-        setTimeout(()=>el.classList.add('go'),delay);
-        o.unobserve(e.target);
-      });
-    },{threshold});
+    const o=new IntersectionObserver(es=>{es.forEach(e=>{
+      if(!e.isIntersecting)return;setTimeout(()=>el.classList.add('go'),delay);o.unobserve(e.target);});},{threshold:th});
     o.observe(el.parentElement);
   }
-  armEcho('echo-open',.6,2600);
-  armEcho('echo-close',.5,2200);
+  armEcho('echo-open',.6,2600); armEcho('echo-close',.4,2200);
 
   const bar=document.querySelector('.progress');
   const chapEl=document.getElementById('chapter');
-  const chapSections=[...document.querySelectorAll('[data-ch]')];
+  const chapSecs=[...document.querySelectorAll('[data-ch]')];
   addEventListener('scroll',()=>{
     const h=document.documentElement;
     bar.style.height=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'vh';
     let label='';
-    chapSections.forEach(s=>{ if(s.offsetTop<=scrollY+innerHeight*.45) label=s.dataset.ch; });
-    if(label){ chapEl.textContent=label; chapEl.classList.add('vis'); }
+    chapSecs.forEach(s=>{if(s.offsetTop<=scrollY+innerHeight*.45)label=s.dataset.ch;});
+    if(label){chapEl.textContent=label;chapEl.classList.add('vis');}
     else chapEl.classList.remove('vis');
   },{passive:true});
 
-  /* =====================================================
-     constellation
-     ===================================================== */
-  const cOuter=document.getElementById('constellation-outer');
-  const cStage=document.getElementById('constellation');
-  const cstars=[0,1,2,3,4,5].map(i=>document.getElementById('st-'+i));
-  const cl0=document.getElementById('cl-0'), cl1=document.getElementById('cl-1');
-  (function constFrame(){
-    const r=cOuter.getBoundingClientRect();
-    const total=r.height-innerHeight;
-    const p=Math.min(1,Math.max(0,-r.top/total));
-    cstars.forEach((s,i)=>s.classList.toggle('on', p>0.08+i*0.11));
-    cl0.classList.toggle('vis', p>0.78);
-    cl1.classList.toggle('vis', p>0.86);
-    cStage.classList.toggle('quiet', p>0.78);
-    requestAnimationFrame(constFrame);
+  /* ===== constellation ===== */
+  const cO=document.getElementById('constellation-outer');
+  const cS=document.getElementById('constellation');
+  const cst=[0,1,2,3,4,5,6].map(i=>document.getElementById('st-'+i));
+  const cl0=document.getElementById('cl-0'),cl1=document.getElementById('cl-1');
+  (function cf(){
+    const r=cO.getBoundingClientRect();
+    const p=Math.min(1,Math.max(0,-r.top/(r.height-innerHeight)));
+    cst.forEach((s,i)=>s.classList.toggle('on',p>0.07+i*0.098));
+    cl0.classList.toggle('vis',p>0.80);
+    cl1.classList.toggle('vis',p>0.88);
+    cS.classList.toggle('quiet',p>0.80);
+    requestAnimationFrame(cf);
   })();
 
-  /* =====================================================
-     idle watcher
-     ===================================================== */
+  /* ===== idle watcher ===== */
   const watcher=document.getElementById('watcher');
-  let idleTimer=null, lastX=-1;
-  function armWatcher(){
-    if(prefersReduced) return;
-    clearTimeout(idleTimer);
-    if(watcher.classList.contains('vis')){
-      watcher.classList.add('gone');
-      watcher.classList.remove('vis');
-    }
-    idleTimer=setTimeout(()=>{
-      if(!passedEncounter) return;
-      let x; do{ x=8+Math.random()*80; }while(Math.abs(x-lastX)<15);
-      lastX=x;
-      watcher.style.left=x+'vw';
-      watcher.classList.remove('gone');
-      watcher.classList.add('vis');
+  let idle=null,lastX=-1;
+  function arm(){
+    if(prefersReduced)return;
+    clearTimeout(idle);
+    if(watcher.classList.contains('vis')){watcher.classList.add('gone');watcher.classList.remove('vis');}
+    idle=setTimeout(()=>{
+      if(!passedEncounter)return;
+      let x;do{x=8+Math.random()*80;}while(Math.abs(x-lastX)<15);
+      lastX=x;watcher.style.left=x+'vw';
+      watcher.classList.remove('gone');watcher.classList.add('vis');
     },25000);
   }
-  ['scroll','pointermove','keydown','touchstart'].forEach(ev=>
-    addEventListener(ev,armWatcher,{passive:true}));
-  armWatcher();
+  ['scroll','pointermove','keydown','touchstart'].forEach(e=>addEventListener(e,arm,{passive:true}));
+  arm();
 
-  /* =====================================================
-     presenter mode
-     ===================================================== */
+  /* ===== presenter ===== */
   const beats=[...document.querySelectorAll('[data-beat]')];
-  function currentBeat(){
-    const y=scrollY+innerHeight*0.4;
-    let idx=0;
-    beats.forEach((b,i)=>{ if(b.offsetTop<=y) idx=i; });
-    return idx;
-  }
+  function cur(){const y=scrollY+innerHeight*.4;let i=0;
+    beats.forEach((b,j)=>{if(b.offsetTop<=y)i=j;});return i;}
   addEventListener('keydown',e=>{
-    if(['ArrowDown','PageDown',' '].includes(e.key)){
-      e.preventDefault();
-      beats[Math.min(beats.length-1,currentBeat()+1)].scrollIntoView({behavior:prefersReduced?'auto':'smooth'});
-    } else if(['ArrowUp','PageUp'].includes(e.key)){
-      e.preventDefault();
-      beats[Math.max(0,currentBeat()-1)].scrollIntoView({behavior:prefersReduced?'auto':'smooth'});
-    }
+    if(['ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();
+      beats[Math.min(beats.length-1,cur()+1)].scrollIntoView({behavior:prefersReduced?'auto':'smooth'});}
+    else if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();
+      beats[Math.max(0,cur()-1)].scrollIntoView({behavior:prefersReduced?'auto':'smooth'});}
   });
 })();
 </script>

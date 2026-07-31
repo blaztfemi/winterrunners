@@ -161,6 +161,68 @@ plainly. The title — its first appearance — then:
 *"Around here, we called them Winter Runners."* End near-black on a quiet
 sources link. No call to action.
 
+## 4b. The conspiracy spine (v4) — and how it stays honest
+
+The story stopped being "a memory that rhymes with folklore" and became
+**"a memory that rhymes with a federal case file from the same county."**
+
+The hinge, all verified (see `MANIFEST.md`): Godman Army Airfield sits on
+the Fort Knox reservation **in Hardin County** — Eric's county. On 7 Jan
+1948 the base commander, **Col. Guy F. Hix**, watched an object over that
+field and reported *"It remained stationary, seemingly, for one and a half
+hours."* Capt. Thomas Mantell died climbing after it. The Air Force said
+Venus; the answer was later revised to a **classified** Skyhook balloon.
+
+Two words carry the whole site: Hix wrote **stationary**. Eric said
+**watched**. Same county, thirty-six years apart, both reaching for a word
+that doesn't exist.
+
+**The honesty rule that makes it work.** The site never asserts a cover-up
+of Eric's sighting. It asserts the documented thing: the one time a light
+over Hardin County received a top-level investigation, *the public
+explanation had to be corrected because the true one was classified.* That
+is paperwork, not theory — and it is far more unsettling than an invented
+conspiracy because the audience can go read it.
+
+`DOC-06` and `DOC-07` are **original editorial objects built from verified
+facts** — a newspaper-style clipping and a dossier card. They are
+deliberately not counterfeit scans. Never fabricate a document image.
+
+### The Three Doors (Movement 08)
+
+The site refuses to choose, and says so:
+
+- **I · THE GOVERNMENT** — restricted airspace, Godman, flares, a
+  classified answer. Verdict: *a government that classified the answer
+  once is not a government you can finish auditing.*
+- **II · THE DEAD** — corpse candles, spook lights, rules about not
+  following. Verdict: *whatever was flying in 1948, nothing was flying in
+  1694. The lights kept their appointments anyway.*
+- **III · SOMETHING ELSE** — Hessdalen instruments, USGS earthquake
+  lights. Verdict: *the most unsettling possibility is the most boring
+  one: nobody knows, and they never stopped looking.*
+
+Closing line of the section — *"Every door has a lock on the inside. Pick
+whichever one lets you sleep."* — and the site's final instruction to the
+audience: **"Go outside tonight. Look at the tree line. Give it ninety
+minutes."** (Ninety minutes is Hix's duration. Most of the room won't
+catch it. The ones who do will feel it.)
+
+## 4c. Typography (v4 — journalistic grit)
+
+| Role | Face | Why |
+|---|---|---|
+| Display / headlines / big statements | **Bodoni Moda** | High-contrast Didone — the actual DNA of newspaper headline type. Severe, elegant, period-true, never novelty-horror. |
+| Narration & body | **Newsreader** | Literary serif, calm at 19–23px |
+| Declassified documents | **Special Elite** | Distressed typewriter. Now *justified* rather than gimmick: Blue Book records were typed. Used only inside dossier objects. |
+| Captions, UI | **IBM Plex Sans** | |
+| Metadata, coordinates, evidence chips | **IBM Plex Mono** | |
+
+Grit still lives in the **paper and the plates**, never in a distressed
+display face: SVG-noise paper texture on the archive era, multiply-blended
+grain over clippings, halftone-feel photo grading (desaturate .55 /
+contrast 1.12 / brightness .72, and a `.deep` variant at .35/1.25/.5).
+
 ## 5a. The experience bar (v3 — the world engine)
 
 Reference point set by Eric: **aboutluca.com** (Luca Nardi's Awwwards
