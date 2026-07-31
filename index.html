@@ -295,6 +295,83 @@
   .sources a{color:var(--evidence);text-decoration:none;border-bottom:1px solid rgba(157,179,184,.3)}
   .sources a:hover{color:var(--ember)}
 
+  /* ===== THE FILE READER — sources open here, never away ===== */
+  #reader{position:fixed;inset:0;z-index:99;background:rgba(2,5,7,.93);
+    backdrop-filter:blur(6px);opacity:0;pointer-events:none;
+    transition:opacity .55s ease;display:flex;align-items:center;justify-content:center;padding:4vh 3vw}
+  #reader.open{opacity:1;pointer-events:auto}
+  #reader .sheet{width:min(1180px,100%);max-height:92vh;display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:0;background:#e8e1cf;color:var(--ink);
+    box-shadow:0 50px 120px rgba(0,0,0,.85);transform:translateY(46px) scale(.985);
+    transition:transform .6s cubic-bezier(.16,1,.3,1);overflow:hidden}
+  #reader.open .sheet{transform:none}
+  @media(max-width:860px){#reader .sheet{grid-template-columns:1fr;max-height:94vh}
+    #reader .facs{max-height:32vh}}
+  #reader .facs{background:#0b0f12;position:relative;overflow:hidden;min-height:220px}
+  #reader .facs img{width:100%;height:100%;object-fit:cover;filter:saturate(.35) contrast(1.15) brightness(.8)}
+  #reader .facs .cls{position:absolute;left:16px;bottom:14px;font-family:var(--news);font-weight:600;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--evidence);
+    background:rgba(3,8,10,.8);padding:6px 11px;border:1px solid rgba(157,179,184,.3)}
+  #reader .body{padding:34px 38px;overflow-y:auto}
+  @media(max-width:640px){#reader .body{padding:24px 22px}}
+  #reader .kick{font-family:var(--news);font-weight:700;font-size:11.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--blood);margin-bottom:12px}
+  #reader h2{font-family:var(--banner);font-weight:400;font-size:clamp(27px,3.6vw,42px);
+    line-height:1;text-transform:uppercase;margin-bottom:10px}
+  #reader .meta{font-family:var(--news);font-weight:500;font-size:12.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:#5e5749;padding-bottom:16px;margin-bottom:20px;
+    border-bottom:2px solid rgba(25,26,22,.5)}
+  #reader .ex{font-family:var(--col);font-size:16px;line-height:1.78;color:#2b2a23}
+  #reader .ex p{margin-bottom:14px}
+  #reader .ex .pull{font-family:var(--display);font-style:italic;font-weight:600;
+    font-size:clamp(20px,2.6vw,28px);line-height:1.34;color:#1d1e19;margin:20px 0;
+    padding-left:18px;border-left:3px solid rgba(109,43,34,.65)}
+  #reader .note{margin-top:22px;padding-top:16px;border-top:1px dashed rgba(90,84,70,.55);
+    font-family:var(--news);font-size:13.5px;line-height:1.7;color:#4d4739}
+  #reader .note b{color:var(--blood);font-weight:700}
+  #reader .out{margin-top:22px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  #reader .close{position:absolute;top:2.4vh;right:3vw;z-index:2;width:44px;height:44px;
+    background:rgba(6,13,16,.85);border:1px solid rgba(157,179,184,.35);color:var(--evidence);
+    cursor:pointer;font-size:20px;line-height:1;border-radius:2px;transition:all .3s ease}
+  #reader .close:hover{color:var(--ember);border-color:var(--ember)}
+
+  .filebtn{font-family:var(--news);font-weight:700;font-size:11.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ember);background:none;border:1px solid rgba(196,133,74,.55);
+    padding:9px 16px;cursor:pointer;border-radius:2px;transition:all .4s ease;margin-top:4px}
+  .filebtn:hover{background:rgba(196,133,74,.13);border-color:var(--ember);letter-spacing:.19em}
+  #paper-era .filebtn{color:var(--blood);border-color:rgba(109,43,34,.5)}
+  #paper-era .filebtn:hover{background:rgba(109,43,34,.09)}
+
+  /* ===== QUESTION CARDS ===== */
+  .qstack{max-width:760px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:2px}
+  .qcard{background:rgba(9,15,18,.75);border:1px solid rgba(157,179,184,.16)}
+  #paper-era .qcard{background:rgba(232,225,207,.72);border-color:rgba(90,84,70,.3)}
+  .qcard .q{width:100%;text-align:left;background:none;border:0;cursor:pointer;
+    padding:22px 26px;display:flex;align-items:center;gap:16px;
+    font-family:var(--display);font-weight:600;font-style:italic;
+    font-size:clamp(19px,2.4vw,27px);line-height:1.3;color:var(--newsprint);
+    transition:color .4s ease,background .4s ease}
+  #paper-era .qcard .q{color:var(--ink)}
+  .qcard .q:hover{color:var(--ember);background:rgba(196,133,74,.05)}
+  #paper-era .qcard .q:hover{color:var(--blood);background:rgba(109,43,34,.05)}
+  .qcard .q .mk{flex:0 0 auto;font-family:var(--news);font-weight:700;font-size:13px;
+    color:var(--evidence);transition:transform .5s cubic-bezier(.16,1,.3,1);font-style:normal}
+  .qcard.open .q .mk{transform:rotate(45deg)}
+  .qcard .a{max-height:0;overflow:hidden;transition:max-height .8s cubic-bezier(.16,1,.3,1)}
+  .qcard.open .a{max-height:760px}
+  .qcard .a-in{padding:0 26px 26px;font-size:17px;line-height:1.75;color:#c9c5bb}
+  #paper-era .qcard .a-in{color:#33322a}
+  .qcard .a-in p{margin-bottom:13px}
+  .qcard .a-in strong{color:var(--ember);font-weight:600}
+  #paper-era .qcard .a-in strong{color:var(--blood)}
+
+  /* ===== family plates with graceful fallback ===== */
+  .plate.nofile img{display:none}
+  .plate .fallback{display:none;padding:40px 26px;text-align:center;
+    border:1px dashed rgba(157,179,184,.4);background:rgba(6,12,15,.8)}
+  .plate.nofile .fallback{display:block}
+  .plate .fallback .label{font-size:11.5px;line-height:2}
+
   /* ===== reveal choreography ===== */
   .rv,[data-rv]{opacity:0;
     transition:opacity 1.5s cubic-bezier(.16,1,.3,1),transform 1.5s cubic-bezier(.16,1,.3,1),
@@ -371,6 +448,21 @@
   </button>
 </nav>
 
+<div id="reader" role="dialog" aria-modal="true" aria-label="Archive file reader">
+  <button class="close" id="readerClose" aria-label="Close file">&times;</button>
+  <div class="sheet">
+    <div class="facs"><img id="rFacs" src="" alt=""><span class="cls" id="rCls"></span></div>
+    <div class="body">
+      <div class="kick" id="rKick"></div>
+      <h2 id="rTitle"></h2>
+      <div class="meta" id="rMeta"></div>
+      <div class="ex" id="rEx"></div>
+      <div class="note" id="rNote"></div>
+      <div class="out" id="rOut"></div>
+    </div>
+  </div>
+</div>
+
 <div id="loader">
   <p>HARDIN COUNTY, KENTUCKY<br>A WINTER NIGHT<br>MID-1980s</p>
 </div>
@@ -391,55 +483,114 @@
 <section id="house" data-beat data-ch="01 · The Last House">
   <div class="measure">
     <span class="chip rv">Personal memory</span>
-    <p class="narr rv">My parents designed the house themselves and built it on
-    fifteen acres of woods, hills, and meadow — the last house in Hardin
-    County, or so we said. Beneath the concrete front porch was a cistern
-    that caught and filtered rainwater. The outbuildings held lumber,
-    tools, engine parts, and everything a boy needed to build worlds of
-    his own.</p>
+    <p class="narr rv">We called it the last house in Hardin County. It was a
+    joke, mostly. The road ran out past us into gravel and then into nothing,
+    and there was no reason for anybody to come further unless they were
+    coming to see us.</p>
+    <p class="narr rv">Nobody ever was.</p>
   </div>
 
   <div class="spacer-s"></div>
   <div class="wide">
     <figure class="plate" data-rv="blur">
-      <img src="https://gen.krea.ai/images/f40f63ea-888f-4245-ab6d-7521f75cbfef.png"
-           alt="Rolling Kentucky hills under snow at night, bare hardwood treeline along the ridge." loading="lazy">
-      <figcaption>Reconstruction · rolling hill country, Hardin County · [ REPLACE: EXACT KENTUCKY HORIZON · WR-01-01 ]</figcaption>
+      <img src="assets/family/01-house-construction.jpg"
+           alt="A two-storey house under construction, dark red siding, scaffolding, a woman and small child standing in an upstairs opening.">
+      <div class="fallback"><span class="label">[ FAMILY PHOTO · FAM-02 ]<br>
+        THE HOUSE GOING UP<br>drop file at assets/family/01-house-construction.jpg</span></div>
+      <figcaption>My parents built it themselves. That is my mother in the second-floor
+      opening, and that is me beside her, standing on scaffold plank over a floor
+      that did not exist yet. · Family archive, early 1980s</figcaption>
     </figure>
+  </div>
+
+  <div class="spacer-s"></div>
+  <div class="measure">
+    <p class="narr rv">Fifteen acres of woods, hills and meadow. A cistern under
+    the concrete porch to catch and filter the rain, because the water was ours
+    to solve. Outbuildings for lumber, tools, engine parts. My father cut the
+    paths himself and harvested the trees that heated the house.</p>
+    <p class="narr rv">If the power went, nobody was coming. If the road iced,
+    nobody was coming. We were built to not need anyone, and that is a strange
+    thing to be raised inside of.</p>
+    <div class="spacer-s"></div>
+    <p class="big" data-rv="up">It did not feel like<br>the edge of the county.</p>
+    <p class="whisper rv">It felt like the edge of everything.</p>
   </div>
 </section>
 
 <section data-beat data-ch="01 · The Last House">
-  <div class="spacer-s"></div>
-  <div class="measure">
-    <p class="narr rv">My father cleared the paths with an old Massey
-    Ferguson. He motorized the television antenna on the chimney so it
-    could turn toward whichever station he wanted. Down past the lower
-    meadow, the family kept honeybees.</p>
-    <p class="narr rv">Most days it was me, the dog, and the woods.</p>
+  <div class="spacer-m"></div>
+  <div class="wide">
+    <figure class="plate" data-rv="scale">
+      <img src="assets/family/03-dad-farmall.jpg"
+           alt="A man on a red Farmall Cub tractor with a plow, in bare winter woods.">
+      <div class="fallback"><span class="label">[ FAMILY PHOTO · FAM-03 ]<br>
+        MY FATHER · THE FARMALL CUB<br>drop file at assets/family/03-dad-farmall.jpg</span></div>
+      <figcaption>My father, cutting a path with the Cub. Everything you can see
+      behind him, he cleared. · Family archive</figcaption>
+    </figure>
   </div>
   <div class="spacer-s"></div>
-  <div class="wide">
-    <figure class="plate deep" data-rv="scale">
-      <img src="https://gen.krea.ai/images/a4511ca1-4a67-4915-b6b0-62aeff2e4ef4.png"
-           alt="A single distant farmhouse window glowing faintly across a black snowy field, seen through bare branches." loading="lazy">
-      <figcaption>Reconstruction · the house from the tree line · [ REPLACE: FAMILY HOUSE · FAM-02 ]</figcaption>
-    </figure>
+  <div class="measure">
+    <p class="narr rv">Most days it was me, the dog, and the woods. I built forts
+    out of whatever the house was finished with. I knew that treeline the way you
+    know a face.</p>
+    <p class="narr rv">Which is the only reason any of the rest of this means
+    anything. I was not a tourist out there. <strong>I knew what belonged.</strong></p>
   </div>
   <div class="spacer-s"></div>
   <div class="measure" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-    <figure class="slot" data-rv="left" data-slot="FAM-01" style="aspect-ratio:3/4">
-      <span class="label">[ FAMILY PHOTO SLOT · FAM-01 ]<br>ERIC, CHILDHOOD</span>
+    <figure class="plate" data-rv="left" style="box-shadow:0 18px 40px rgba(0,0,0,.6)">
+      <img src="assets/family/04-eric-woods.jpg" alt="A young boy sitting on a stump at the edge of cleared brush.">
+      <div class="fallback"><span class="label">[ FAMILY PHOTO · FAM-01 ]<br>ERIC<br>assets/family/04-eric-woods.jpg</span></div>
+      <figcaption>Me. Out there, most of the day, most days.</figcaption>
     </figure>
-    <figure class="slot" data-rv="right" data-slot="FAM-03" style="aspect-ratio:3/4">
-      <span class="label">[ FAMILY PHOTO SLOT · FAM-03 ]<br>MASSEY FERGUSON<br>RADIO FLYER · DOG</span>
+    <figure class="plate" data-rv="right" style="box-shadow:0 18px 40px rgba(0,0,0,.6)">
+      <img src="assets/family/05-dog-snow.jpg" alt="A child bending down in deep snow beside a large reddish dog, tractors in the background.">
+      <div class="fallback"><span class="label">[ FAMILY PHOTO · FAM-04 ]<br>THE DOG · THE YARD IN SNOW<br>assets/family/05-dog-snow.jpg</span></div>
+      <figcaption>The yard after a snow. The hill is just past the tractors.</figcaption>
     </figure>
+  </div>
+  <div class="spacer-m"></div>
+</section>
+
+<section data-beat data-ch="01 · The Last House">
+  <div class="wide">
+    <figure class="plate" data-rv="blur">
+      <img src="assets/family/02-field-tractor.jpg"
+           alt="A ploughed field with family members on a trailer behind a red tractor, treeline behind, and a small white mark in the sky at right.">
+      <div class="fallback"><span class="label">[ FAMILY PHOTO · FAM-05 ]<br>
+        THE LOWER FIELD<br>assets/family/02-field-tractor.jpg</span></div>
+      <figcaption>The lower field. My grandfather standing, the Farmall, all of us
+      on the trailer. · Look at the sky on the right-hand side.</figcaption>
+    </figure>
+  </div>
+  <div class="spacer-s"></div>
+  <div class="measure">
+    <span class="chip warn rv">Project interpretation · almost certainly a film artifact</span>
+    <p class="narr rv" style="margin-top:1.6em">There is a small white mark in the
+    sky in that photograph. I want to be completely honest with you about it: it
+    is almost certainly a scratch on the negative, or a light leak, or a fleck of
+    something on the lens. Every family album from that decade has one.</p>
+    <p class="narr rv">I only mention it because of what happened next, and
+    because of how badly I have wanted, for forty years, for it to be something.</p>
+    <p class="whisper rv">That wanting is worth watching. It is exactly how this
+    kind of story gets built — and I am going to do it to you on purpose for the
+    next few minutes.</p>
   </div>
   <div class="spacer-m"></div>
 </section>
 
 <!-- ============ 02 THE HILL ============ -->
 <section id="hill" data-beat data-ch="02 · The Hill">
+  <div class="wide">
+    <figure class="plate deep" data-rv="blur">
+      <img src="https://gen.krea.ai/images/c0eec1fc-d7d9-442b-aa19-dbc08127594b.png"
+           alt="A vast empty snow-covered hollow at last light with one impossibly small distant farmhouse." loading="lazy">
+      <figcaption>Reconstruction · what &ldquo;the last house&rdquo; actually means in winter</figcaption>
+    </figure>
+  </div>
+  <div class="spacer-m"></div>
   <div class="measure" style="text-align:center">
     <p class="narr rv">Six inches of powder had come down that afternoon.</p>
     <div class="spacer-s"></div>
@@ -472,6 +623,22 @@
   <div class="spacer-m"></div>
   <div class="measure" style="text-align:center">
     <p class="whisper rv">The kind of quiet where you can hear the cold.</p>
+  </div>
+  <div class="spacer-s"></div>
+  <div class="measure">
+    <figure class="plate deep" data-rv="scale">
+      <img src="https://gen.krea.ai/images/65a16504-3b2a-47ad-b074-6bdcc895b3f9.png"
+           alt="An empty rural mailbox at the end of a long snowed-in driveway at dusk." loading="lazy">
+      <figcaption>Reconstruction · the end of the road, and then nothing</figcaption>
+    </figure>
+  </div>
+  <div class="spacer-m"></div>
+  <div class="measure" style="text-align:center">
+    <p class="narr rv">Understand where I was. No streetlight. No neighbour's
+    window. No car that was not ours. The nearest thing that made its own light
+    was twenty miles up the road, behind a fence, and it belonged to the
+    United States Army.</p>
+    <p class="whisper rv">I did not know that yet.</p>
   </div>
   <div class="spacer-l"></div>
 </section>
@@ -508,10 +675,13 @@
     <div class="spacer-s"></div>
     <div class="measure" style="text-align:center">
       <p class="narr rv">For a long time I assumed the night belonged only to me.</p>
-      <p class="narr rv">Then I started reading. And the first thing I found
-      was not in Norway, or Texas, or some desert with a visitor center.</p>
+      <p class="narr rv">Then, decades later, I started reading. I expected
+      Norway. Texas. Some desert with a visitor center and a gift shop.</p>
+      <p class="narr rv">I did not expect the file to be about home.</p>
       <div class="spacer-s"></div>
-      <p class="big" data-rv="up">It was in my county.</p>
+      <p class="big" data-rv="up">Twenty miles<br>up the same road.</p>
+      <p class="whisper rv">Godman Army Airfield. Fort Knox. Hardin County, Kentucky.
+      The same county line I grew up inside of.</p>
     </div>
     <div class="spacer-m"></div>
 
@@ -549,8 +719,8 @@
             balloon belonging to a program that was, at the time, secret.</p>
           </div>
           <div class="foot">
-            <a class="src" href="https://www.army.mil/article/263119/questions_remain_75_years_after_mysterious_fort_knox_ufo_incident_downed_pilot" rel="noopener">U.S. Army · Official account →</a>
-            <a class="src" href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">National Archives · Blue Book →</a>
+            <button class="filebtn" data-file="hix">Open the file →</button>
+            <button class="filebtn" data-file="bluebook">The answer that changed →</button>
           </div>
         </div>
       </article>
@@ -608,7 +778,7 @@
           701 OF THEM WERE NEVER EXPLAINED. THE RECORDS ARE PUBLIC.
         </div>
         <div style="margin-top:20px">
-          <a class="src" href="https://www.archives.gov/research/military/air-force/ufos" rel="noopener">Read the files · National Archives →</a>
+          <button class="filebtn" data-file="bluebook">Open the file →</button>
         </div>
       </article>
     </div>
@@ -622,6 +792,94 @@
       Hardin County was investigated at the highest level, the public
       explanation had to be revised — and the true one had been classified.</p>
       <p class="whisper rv">That is not a theory. That is the paperwork.</p>
+    </div>
+    <div class="spacer-m"></div>
+  </section>
+
+  <!-- 04b THE PILOT -->
+  <section id="pilot" data-beat data-ch="04 · The Man They Sent Up">
+    <div class="measure" style="text-align:center">
+      <p class="narr rv">A colonel looking at something he cannot name is a
+      curiosity.</p>
+      <p class="big" data-rv="up">A dead man is a question.</p>
+    </div>
+    <div class="spacer-m"></div>
+
+    <div class="qstack">
+      <div class="qcard">
+        <button class="q"><span class="mk">+</span> Who was he?</button>
+        <div class="a"><div class="a-in">
+          <p>Captain <strong>Thomas F. Mantell Jr.</strong> Twenty-five years old.
+          Born 30 June 1922 in Franklin, Kentucky.</p>
+          <p>On D-Day he flew a C-47 named <em>Vulture's Delight</em> over Normandy
+          with the 96th Troop Carrier Squadron. He came home with the
+          <strong>Distinguished Flying Cross</strong> and the Air Medal.</p>
+          <p>He was not a crank. He was a man the Army trusted with paratroopers
+          over occupied France.</p>
+          <button class="filebtn" data-file="pilot">His service record →</button>
+        </div></div>
+      </div>
+
+      <div class="qcard">
+        <button class="q"><span class="mk">+</span> What did he see that I saw?</button>
+        <div class="a"><div class="a-in">
+          <p>We only have the words of the men on the ground, and those words are
+          in the record. The tower watched something <strong>hold absolutely
+          still</strong> above this county for roughly ninety minutes.</p>
+          <p>Thirty-six years later a boy two counties' worth of back road away
+          watched something hold still above the same treeline and could not
+          explain it either.</p>
+          <p>I am not telling you they were the same thing. I am telling you the
+          <strong>word is the same word</strong>.</p>
+          <button class="filebtn" data-file="hix">The colonel's statement →</button>
+        </div></div>
+      </div>
+
+      <div class="qcard">
+        <button class="q"><span class="mk">+</span> Why did he keep climbing?</button>
+        <div class="a"><div class="a-in">
+          <p>Mantell had <strong>2,167 hours</strong> in the air. Only 67 of them
+          were in the F-51 Mustang he was flying that day. He had no oxygen
+          aboard, and a pilot with that record knew precisely what that meant.</p>
+          <p>He climbed past it anyway.</p>
+          <p>Whatever was up there, it held the attention of a decorated combat
+          pilot past the altitude he knew would take him.</p>
+        </div></div>
+      </div>
+
+      <div class="qcard">
+        <button class="q"><span class="mk">+</span> Where did he come down?</button>
+        <div class="a"><div class="a-in">
+          <p>In a field near <strong>Franklin, Kentucky</strong>.</p>
+          <p>The town he was born in.</p>
+          <p>He became the first flight casualty in the history of the Kentucky
+          Air National Guard.</p>
+        </div></div>
+      </div>
+
+      <div class="qcard">
+        <button class="q"><span class="mk">+</span> So why was the answer changed?</button>
+        <div class="a"><div class="a-in">
+          <p>The public was first told he had been chasing <strong>the planet
+          Venus</strong>.</p>
+          <p>That explanation was later withdrawn and replaced: a Skyhook balloon,
+          from a research program that in January 1948 was
+          <strong>classified</strong>.</p>
+          <p>Both of those things cannot have been true. One of them was told to
+          the public while the other was kept. That is not speculation — it is the
+          documented sequence.</p>
+          <button class="filebtn" data-file="bluebook">Project Blue Book →</button>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="spacer-m"></div>
+    <div class="measure" style="text-align:center">
+      <p class="narr rv">I have read everything I can find about that afternoon.
+      I keep arriving at the same place.</p>
+      <p class="big" data-rv="up" style="font-style:italic">Something over this
+      county held still long enough to kill a man who had survived Normandy.</p>
+      <p class="whisper rv">And the file on it was corrected, quietly, later.</p>
     </div>
     <div class="spacer-m"></div>
   </section>
@@ -659,7 +917,7 @@
             Historical Society. Metadata card shown until cleared. ]</p>
           </div>
           <div class="foot">
-            <a class="src" href="https://gateway.okhistory.org/ark:/67531/metadc2582124/" rel="noopener">Oklahoma Historical Society →</a>
+            <button class="filebtn" data-file="spook">Open the file →</button>
           </div>
         </div>
       </article>
@@ -693,7 +951,7 @@
             kept seeing something they could not account for — for decades.</p>
           </div>
           <div class="foot">
-            <a class="src" href="https://pubs.usgs.gov/circ/1971/0646/report.pdf" rel="noopener">USGS · Read the circular →</a>
+            <button class="filebtn" data-file="usgs">Open the file →</button>
           </div>
         </div>
       </article>
@@ -763,6 +1021,11 @@
       1894. Or in Wales, three hundred years before that.</p>
       <p class="narr rv"><strong>Something was being seen before there was
       anything to see.</strong></p>
+      <div class="spacer-s"></div>
+      <p class="narr rv">Which leaves you with an unpleasant choice. Either
+      people in four centuries and three countries independently invented the
+      same behaviour — or they were all describing something.</p>
+      <button class="filebtn" data-file="folk">The rules people made →</button>
     </div>
     <div class="spacer-m"></div>
   </section>
@@ -878,6 +1141,8 @@
     claiming one.</p>
     <div class="spacer-s"></div>
     <span class="chip warn rv">Parallel, not connection</span>
+    <div class="spacer-s"></div>
+    <button class="filebtn" data-file="hess">The field report →</button>
   </div>
 
   <div class="spacer-m"></div>
@@ -912,7 +1177,12 @@
     distant light into places it should not be. A child's memory, told
     for forty years, sharpens in some places and softens in others.</p>
     <p class="narr rv">All of that is true. I have checked. I want you to
-    know that I checked.</p>
+    know that I checked, because I need you to believe the next part.</p>
+    <div class="spacer-s"></div>
+    <p class="narr rv">Not one of those explanations accounts for a decorated
+    combat pilot climbing past his own ceiling, over this county, toward
+    something a colonel watched hold still for ninety minutes — and then being
+    told two different official stories about what it was.</p>
   </div>
 </section>
 
@@ -1202,6 +1472,191 @@
     cx.beginPath(); cx.ellipse(x,y,(2.5+stretch)*DPR,2.5*DPR,0,0,7); cx.fill();
   }
   requestAnimationFrame(frame);
+
+  /* =====================================================
+     THE ARCHIVE — every source opens inside the story.
+     Facts and quotations here are verified; framing and
+     questions are the project's own and labelled as such.
+     ===================================================== */
+  const FILES={
+    hix:{
+      cls:'Primary record · U.S. Army',
+      img:'https://gen.krea.ai/images/329257b9-352b-4601-8bab-1f63bea3a152.png',
+      kick:'Godman Army Airfield · Fort Knox · Hardin County, Kentucky',
+      title:'The Commanding Officer&rsquo;s Own Words',
+      meta:'Col. Guy F. Hix · 7 January 1948 · approx. 90 minutes',
+      ex:`<p>The base commander was called to the tower to look at something
+          nobody on the field could name. He watched it through binoculars,
+          with his senior officers standing beside him, and later described
+          it in plain language.</p>
+          <p class="pull">&ldquo;It remained stationary, seemingly, for one and a half hours.&rdquo;</p>
+          <p>He described it as very white, roughly one quarter the apparent
+          size of a full moon, with a red or pink border at the bottom.</p>`,
+      note:`<b>Why this matters.</b> Not a farmer. Not a drunk on a back road.
+            The commanding officer of a United States Army airfield, in this
+            county, reporting a light that would not move — and using the one
+            word that has no ordinary explanation: <i>stationary</i>.`,
+      href:'https://www.army.mil/article/263119/questions_remain_75_years_after_mysterious_fort_knox_ufo_incident_downed_pilot',
+      hrefLabel:'U.S. Army · official account'
+    },
+    pilot:{
+      cls:'Primary record · Service history',
+      img:'https://gen.krea.ai/images/62ce1d8d-9f7b-4ab9-9b9c-e89195958931.png',
+      kick:'Capt. Thomas F. Mantell Jr. · 165th Fighter Squadron',
+      title:'The Man They Sent Up',
+      meta:'Born 30 June 1922, Franklin, Kentucky · Died 7 January 1948, near Franklin, Kentucky · Age 25',
+      ex:`<p>He was not a rookie and he was not a crank. On D-Day he flew a
+          C-47 named <i>Vulture&rsquo;s Delight</i> with the 96th Troop Carrier
+          Squadron over Normandy. He came home with the Distinguished Flying
+          Cross and the Air Medal.</p>
+          <p>He had logged 2,167 hours in the air. Only 67 of them were in the
+          F-51 Mustang he was flying that afternoon. He carried no oxygen.</p>
+          <p>He climbed anyway.</p>
+          <p class="pull">A man who survived Normandy came down in a field
+          outside the town where he was born.</p>`,
+      note:`<b>Open question.</b> A pilot with that record knew exactly what
+            altitude does to a man without oxygen. Something kept him climbing
+            past the number he had to know was his ceiling. Nobody has ever
+            explained what he was looking at when he passed it.`,
+      href:'https://www.thisdayinaviation.com/7-january-1948/',
+      hrefLabel:'Service record · flight history'
+    },
+    bluebook:{
+      cls:'Federal records · RG 341',
+      img:'https://gen.krea.ai/images/b1f3280f-ce60-442f-b9c9-fea6706971ba.png',
+      kick:'Project Sign · Project Blue Book · National Archives',
+      title:'The Answer That Changed',
+      meta:'12,618 sightings recorded · 701 never explained · file closed 1969',
+      ex:`<p>The first explanation offered to the public was the planet Venus.</p>
+          <p>That answer was later replaced. The object, they said, had been a
+          Skyhook — a high-altitude research balloon belonging to a program
+          that in January 1948 was <strong>classified</strong>.</p>
+          <p class="pull">The first answer they gave the public was wrong.
+          We know that because they are the ones who corrected it.</p>
+          <p>The files are public now. Twelve thousand six hundred and eighteen
+          reports. Seven hundred and one of them were never explained at all.</p>`,
+      note:`<b>Read this carefully.</b> This is not a claim that anything was
+            hidden from Eric. It is the documented fact that the one time a
+            light over Hardin County was investigated at the highest level,
+            the public explanation had to be revised — and the true one had
+            been secret. That is the paperwork, not a theory.`,
+      href:'https://www.archives.gov/research/military/air-force/ufos',
+      hrefLabel:'National Archives · search the files'
+    },
+    spook:{
+      cls:'Primary record · Newspaper',
+      img:'https://gen.krea.ai/images/c6acbd81-dafc-4d97-80a9-cdde31856834.png',
+      kick:'Miami News-Record · Ottawa County, Oklahoma',
+      title:'Spook Light Long a Popular Attraction',
+      meta:'Velma Nieberding · 9 May 1965 · Gateway to Oklahoma History',
+      ex:`<p>A light along the Devil&rsquo;s Promenade road near Hornet that
+          country people had been watching for generations — chased,
+          photographed, argued about, and never settled.</p>
+          <p>The headline is verified against the archive catalog record.
+          The full scan is pending rights clearance from the holding
+          institution.</p>`,
+      note:`<b>Why it belongs here.</b> By 1965 this was already an old story
+            in a local paper — not a curiosity, an <i>attraction</i>. People
+            had been driving out to look at it for decades.`,
+      href:'https://gateway.okhistory.org/ark:/67531/metadc2582124/',
+      hrefLabel:'Oklahoma Historical Society'
+    },
+    usgs:{
+      cls:'Primary record · Federal report',
+      img:'https://gen.krea.ai/images/6d097c05-cd04-4ac1-9e14-9aa843f46aff.png',
+      kick:'U.S. Geological Survey · Circular 646',
+      title:'Origin of the Brown Mountain Light',
+      meta:'George R. Mansfield · 1971 · Public domain',
+      ex:`<p>The federal government sent a geologist to North Carolina to
+          explain a light people had been reporting for over half a century.
+          The circular tests roads, railroads, fires, sight lines and terrain.</p>
+          <p>It is a careful, sober document. It is also a record of a federal
+          agency conceding that people in the hills kept seeing something they
+          could not fully account for — for decades.</p>`,
+      note:`<b>Note the pattern.</b> Governments do not commission geological
+            surveys of stories that go away.`,
+      href:'https://pubs.usgs.gov/circ/1971/0646/report.pdf',
+      hrefLabel:'USGS · read Circular 646'
+    },
+    folk:{
+      cls:'Context · Folklore journal · paraphrase',
+      img:'https://gen.krea.ai/images/68a08ddc-42a1-472b-908a-db6ffb1aed84.png',
+      kick:'Folk-Lore, vol. 5 · &ldquo;Ghostly Lights&rdquo; · 1894',
+      title:'The Rules People Made',
+      meta:'Welsh corpse candles · wandering lights · collected traditions',
+      ex:`<p>In Wales they told of corpse candles: a small flame that left a
+          sick person&rsquo;s bed and walked the road to the churchyard, along
+          the exact route the funeral would later take.</p>
+          <p>A light that hovered marked something buried. A light that kept
+          ahead of a traveler wanted following.</p>
+          <p class="pull">Do not follow it. Do not answer it.
+          Do not go out to look.</p>`,
+      note:`<b>The part that will not go away.</b> Whatever the Army was flying
+            over Fort Knox in 1948, nobody was flying anything in 1894 — or in
+            Wales three centuries before that. Something was being seen before
+            there was anything to see.`,
+      href:'https://www.loc.gov/collections/chronicling-america/',
+      hrefLabel:'Historical press archives'
+    },
+    hess:{
+      cls:'Primary record · Field report',
+      img:'https://gen.krea.ai/images/d373d704-dc9d-466b-bade-3bb33e80e82a.png',
+      kick:'Project Hessdalen · Norway',
+      title:'They Brought Instruments',
+      meta:'Field campaign 21 Jan — 26 Feb 1984 · 53 observations recorded',
+      ex:`<p>Radar. Magnetometers. Spectrum analyzers. Seismographs. Cameras with
+          diffraction gratings. Hauled into a frozen Norwegian valley because
+          the lights there came often enough to <i>wait for</i>.</p>
+          <p>Fifty-three observations in a single winter field campaign. The
+          researchers came back with data and no conclusion.</p>`,
+      note:`<b>Parallel, not connection.</b> Same decade. Same season. Same
+            behaviour in the notebooks as a boy in Kentucky was describing to
+            nobody. No link has ever been demonstrated, and this project does
+            not claim one.`,
+      href:'https://www.hessdalen.org',
+      hrefLabel:'Project Hessdalen · reports'
+    }
+  };
+
+  const reader=document.getElementById('reader');
+  let lastFocus=null;
+  function openFile(k){
+    const f=FILES[k]; if(!f) return;
+    lastFocus=document.activeElement;
+    document.getElementById('rFacs').src=f.img;
+    document.getElementById('rCls').textContent=f.cls;
+    document.getElementById('rKick').innerHTML=f.kick;
+    document.getElementById('rTitle').innerHTML=f.title;
+    document.getElementById('rMeta').textContent=f.meta;
+    document.getElementById('rEx').innerHTML=f.ex;
+    document.getElementById('rNote').innerHTML=f.note;
+    document.getElementById('rOut').innerHTML=
+      '<a class="src" href="'+f.href+'" target="_blank" rel="noopener">'+f.hrefLabel+' &rarr;</a>'+
+      '<span class="label" style="font-size:11px">Opens in a new tab &middot; the presentation stays here</span>';
+    reader.classList.add('open');
+    document.getElementById('readerClose').focus();
+  }
+  function closeFile(){ reader.classList.remove('open'); if(lastFocus)lastFocus.focus(); }
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('.filebtn');
+    if(b){ e.preventDefault(); openFile(b.dataset.file); return; }
+    if(e.target===reader) closeFile();
+  });
+  document.getElementById('readerClose').addEventListener('click',closeFile);
+  addEventListener('keydown',e=>{ if(e.key==='Escape'&&reader.classList.contains('open')){e.preventDefault();closeFile();} });
+
+  /* ===== question cards ===== */
+  document.querySelectorAll('.qcard .q').forEach(q=>{
+    q.addEventListener('click',()=>q.parentElement.classList.toggle('open'));
+  });
+
+  /* ===== family photographs: show a labelled slot if the file isn't there yet ===== */
+  document.querySelectorAll('.plate img').forEach(im=>{
+    const flag=()=>im.closest('.plate')?.classList.add('nofile');
+    im.addEventListener('error',flag);
+    /* images that already failed before this ran */
+    if(im.complete && im.naturalWidth===0) flag();
+  });
 
   /* ===== wind ===== */
   let AC=null,windGain=null,windOn=false,duck=0;
