@@ -91,12 +91,12 @@
   .measure{max-width:34em;margin:0 auto;padding:0 24px}
   h1,h2,h3,h4,.big,.triad,.surfq,.const-line,.mark-line{text-wrap:balance}
   .wide{max-width:52em;margin:0 auto;padding:0 24px}
-  .vh{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
-  p.narr{font-size:clamp(20px,2.35vw,25px);margin:1.45em 0;font-weight:300;text-shadow:0 1px 16px rgba(2,6,8,.9)}
+  .vh{min-height:76vh;display:flex;flex-direction:column;justify-content:center}
+  p.narr{font-size:clamp(20px,2.35vw,25px);margin:1.15em 0;font-weight:300;text-shadow:0 1px 16px rgba(2,6,8,.9)}
   .big{font-family:var(--display);font-size:clamp(30px,4.6vw,62px);line-height:1.12;font-weight:600;text-wrap:balance;
     letter-spacing:-0.015em;margin:.6em 0;text-shadow:0 2px 30px rgba(2,6,8,.95)}
   .whisper{font-size:clamp(18px,1.9vw,21.5px);color:var(--evidence);font-style:italic}
-  .spacer-s{height:18vh}.spacer-m{height:32vh}.spacer-l{height:48vh}
+  .spacer-s{height:12vh}.spacer-m{height:22vh}.spacer-l{height:32vh}
   .rv{opacity:0;transform:translateY(16px);transition:opacity 1.7s ease,transform 1.7s ease}
   .rv.on{opacity:1;transform:none}
 
@@ -115,9 +115,9 @@
 
   /* ===== photo plates ===== */
   .plate{position:relative;background:none;box-shadow:none}
-  .plate>img{box-shadow:0 30px 70px rgba(0,0,0,.72);display:block}
+  .plate>img{box-shadow:0 30px 70px rgba(0,0,0,.72);display:block;max-height:70vh;object-fit:cover}
   .photo{background:none;padding:0}
-  .photo>img{padding:9px;background:#141210;box-shadow:0 26px 60px rgba(0,0,0,.7)}
+  .photo>img{padding:9px;background:#141210;box-shadow:0 26px 60px rgba(0,0,0,.7);max-height:74vh;object-fit:contain}
   .plate img{width:100%;display:block;filter:saturate(.62) contrast(1.08) brightness(.9)}
   .plate.deep img{filter:saturate(.45) contrast(1.14) brightness(.74)}
   .plate figcaption{position:static;padding:14px 2px 0;background:none;font-family:var(--news);
@@ -134,7 +134,7 @@
   .slot::before{content:'';width:34px;height:1px;background:rgba(157,179,184,.42)}
 
   /* ===== the light stage ===== */
-  #light-outer{height:440vh;position:relative}
+  #light-outer{height:340vh;position:relative}
   #light-stage{position:sticky;top:0;height:100vh;overflow:hidden}
   #recon-chip{position:absolute;top:24px;right:24px;z-index:5;opacity:.8}
   .light-line{position:absolute;left:0;right:0;text-align:center;z-index:76;font-family:var(--display);
@@ -251,7 +251,7 @@
     border-top:1px solid rgba(157,179,184,.2)}
 
   /* ===== constellation ===== */
-  #constellation-outer{height:340vh;position:relative;z-index:2}
+  #constellation-outer{height:255vh;position:relative;z-index:2}
   #constellation{position:sticky;top:0;height:100vh;overflow:hidden}
   .star{position:absolute;width:6px;height:6px;border-radius:50%;background:#efe6d2;
     box-shadow:0 0 8px 2px rgba(239,230,210,.8),0 0 22px 7px rgba(196,133,74,.24);
@@ -387,7 +387,7 @@
   .plate .fallback .label{font-size:11.5px;line-height:2}
 
   /* ===== THE MARK, pinned zoom into a real family photograph ===== */
-  #mark-outer{height:360vh;position:relative;z-index:2}
+  #mark-outer{height:270vh;position:relative;z-index:2}
   #mark-stage{position:sticky;top:0;height:100vh;overflow:hidden;background:#05090b;
     display:flex;align-items:center;justify-content:center}
   #mark-frame{position:relative;width:min(96vw,calc(96vh * 1.269));
@@ -412,7 +412,7 @@
   .mark-line small{display:block;font-family:var(--news);font-weight:500;font-style:normal;
     font-size:clamp(13px,1.4vw,15.5px);letter-spacing:.13em;text-transform:uppercase;
     color:var(--evidence);margin-top:1.4em}
-  @media(max-width:640px){#mark-outer{height:280vh}#mark-frame{width:96vw}}
+  @media(max-width:640px){#mark-outer{height:220vh}#mark-frame{width:96vw}}
 
   /* real photographs get a print presence: deckle edge + warmth */
   .photo{background:#141210;padding:10px;box-shadow:0 30px 70px rgba(0,0,0,.72)}
@@ -520,8 +520,8 @@
     .vidgrid.drift .vidcard{animation:none}
   }
   @media (max-width:640px){
-    #light-outer{height:330vh}
-    #constellation-outer{height:260vh}
+    #light-outer{height:260vh}
+    #constellation-outer{height:200vh}
     .clip .inner,.dossier{padding:22px 20px}
     #nav{bottom:16px;right:16px}
     #navHint{display:none}
@@ -627,11 +627,9 @@
   </div>
   <div class="spacer-s"></div>
   <div class="measure">
-    <p class="narr rv">I am not going to tell you that is anything. There was a
-    fence gate back there with a reflector on it, and a low sun.</p>
-    <p class="whisper rv">I am only telling you that I have looked at that spot
-    in that photograph more times than I have looked at my father&rsquo;s face
-    in it.</p>
+    <p class="whisper rv">There was a gate back there with a reflector on it.
+    I am only telling you that I have looked at that spot more times than I have
+    looked at my father&rsquo;s face in the same picture.</p>
   </div>
 
   <div class="spacer-m"></div>
@@ -673,12 +671,10 @@
 <section data-beat data-ch="01 · The Mark">
   <div class="spacer-s"></div>
   <div class="measure">
-    <p class="narr rv">A light leak. A fleck on the lens. A bird, caught at the
-    wrong shutter speed. There are four ordinary explanations and I believe all
-    of them before I believe anything else.</p>
-    <p class="narr rv">I only show it to you because of how badly I have wanted,
-    for forty years, for it to be something.</p>
-    <div class="spacer-s"></div>
+    <p class="narr rv">A light leak. A fleck on the lens. A bird at the wrong
+    shutter speed. I believe every one of those before I believe anything else.
+    I show it to you only because of how badly I have wanted, for forty years,
+    for it to be something.</p>
     <p class="big" data-rv="up" style="font-style:italic">That wanting is the
     whole trick.</p>
     <p class="whisper rv">Watch what it does to you over the next few minutes.
@@ -759,13 +755,9 @@
   <div class="measure">
     <p class="narr rv">Here is the part I have never said to anyone.</p>
     <p class="big" data-rv="up">I already knew what it was called before I saw it.</p>
-    <p class="narr rv">Not from a book. Nobody out there read books about this.
-    I knew because it was ordinary. It was the kind of thing that came up at a
-    kitchen table between the weather and whose truck was in the ditch.</p>
-  </div>
-
-  <div class="spacer-s"></div>
-  <div class="measure">
+    <p class="narr rv">Not from a book. It was ordinary. It came up at a kitchen
+    table between the weather and whose truck was in the ditch.</p>
+    <div class="spacer-s"></div>
     <p class="narr rv">Somebody&rsquo;s uncle saw one hanging in the pines off
     the Sonora road. Somebody&rsquo;s grandmother watched one sit over the same
     field three nights running and then never again. A man who cut tobacco with
@@ -828,11 +820,10 @@
 
   <div class="spacer-m"></div>
   <div class="measure">
-    <p class="narr rv">Half the people who told it thought it was a sign. A death
-    coming, or one just past. A few thought it was the dead themselves. After
-    1947 a couple of the younger ones started saying it was the government or
-    something worse.</p>
-    <p class="narr rv">None of them agreed on what it was.</p>
+    <p class="narr rv">Half of them thought it was a sign. A death coming, or one
+    just past. A few thought it was the dead themselves. After 1947 the younger
+    ones started saying government, or worse. None of them agreed on what it
+    was.</p>
     <p class="big" data-rv="up">All of them agreed on what it did.</p>
   </div>
   <div class="spacer-m"></div>
@@ -943,9 +934,9 @@
     <div class="spacer-s"></div>
     <div class="measure" style="text-align:center">
       <p class="narr rv">For a long time I assumed the night belonged only to me.</p>
-      <p class="narr rv">Then, decades later, I started reading. I expected
-      Norway. Texas. Some desert with a visitor center and a gift shop.</p>
-      <p class="narr rv">I did not expect the file to be about home.</p>
+      <p class="narr rv">Decades later I started reading. I expected Norway.
+      Texas. Some desert with a gift shop. I did not expect the file to be about
+      home.</p>
       <div class="spacer-s"></div>
       <p class="big" data-rv="up">Twenty miles<br>up the same road.</p>
       <p class="whisper rv">Godman Army Airfield. Fort Knox. Hardin County, Kentucky.
@@ -998,10 +989,7 @@
   <section data-beat data-ch="04 · The County">
     <div class="spacer-m"></div>
     <div class="measure" style="text-align:center">
-      <p class="narr rv">I read the colonel's description four times before
-      I understood why my hands were cold.</p>
-    </div>
-    <div class="spacer-s"></div>
+      <div class="spacer-s"></div>
     <div class="vh" style="text-align:center">
       <blockquote class="surfq" data-rv="up">
         &ldquo;It remained stationary, seemingly,<br>for one and a half&nbsp;hours.&rdquo;
@@ -1009,12 +997,9 @@
       </blockquote>
     </div>
     <div class="measure">
-      <p class="narr rv">A United States Army colonel stood on an airfield in
-      my county and reported a light that <em>held still</em>.</p>
       <p class="narr rv">He wrote <strong>stationary</strong>. I said
-      <strong>watched</strong>. Thirty-six years apart, in the same county,
-      we were reaching for the same word and neither of us could find it.</p>
-      <div class="spacer-s"></div>
+      <strong>watched</strong>. Thirty six years apart, in the same county, we
+      were reaching for the same word and neither of us could find it.</p>
       <p class="big" data-rv="up" style="font-style:italic">A man died over that.</p>
       <p class="whisper rv">And then the explanation changed.</p>
     </div>
@@ -1054,11 +1039,10 @@
     <div class="spacer-m"></div>
     <div class="measure" style="text-align:center">
       <span class="chip warn rv">Project interpretation</span>
-      <p class="narr rv" style="margin-top:1.6em">I am not telling you the
-      Army knows what I saw.</p>
-      <p class="narr rv">I am telling you that the one time a light over
-      Hardin County was investigated at the highest level, the public
-      explanation had to be revised, and the true one had been classified.</p>
+      <p class="narr rv" style="margin-top:1.6em">I am not telling you the Army
+      knows what I saw. I am telling you that the one time a light over Hardin
+      County was investigated at the highest level, the public explanation had
+      to be revised, and the true one had been classified.</p>
       <p class="whisper rv">That is not a theory. That is the paperwork.</p>
     </div>
     <div class="spacer-m"></div>
@@ -1198,9 +1182,9 @@
       <p class="narr rv">In Wales they told of <em>corpse candles</em>, a
       small flame that left a sick person's bed and walked the road to the
       churchyard, along the exact route the funeral would later take.</p>
-      <p class="narr rv">A light that hovered over one place marked
-      something buried. A light that kept ahead of a traveler wanted
-      following. Those had names, and rules, and reasons.</p>
+      <p class="narr rv">A light that hovered marked something buried. A light
+      that kept ahead of a traveler wanted following. Those had names and rules
+      and reasons.</p>
     </div>
     <div class="spacer-s"></div>
     <div class="wide">
@@ -1216,15 +1200,13 @@
       light with somewhere to be.</p>
       <p class="whisper rv">And nobody ever gave that one a name.</p>
       <div class="spacer-s"></div>
-      <p class="narr rv">This matters more than it looks. Whatever the Army
-      was flying over Fort Knox in 1948, nobody was flying anything in
-      1894. Or in Wales, three hundred years before that.</p>
-      <p class="narr rv"><strong>Something was being seen before there was
-      anything to see.</strong></p>
-      <div class="spacer-s"></div>
-      <p class="narr rv">Which leaves you with an unpleasant choice. Either
-      people in four centuries and three countries independently invented the
-      same behavior, or they were all describing something.</p>
+      <p class="narr rv">Whatever the Army was flying over Fort Knox in 1948,
+      nobody was flying anything in 1894, or in Wales three hundred years before
+      that. <strong>Something was being seen before there was anything to
+      see.</strong></p>
+      <p class="narr rv">Which leaves an unpleasant choice. Either people in four
+      centuries and three countries invented the same behavior independently, or
+      they were all describing something.</p>
       <button class="filebtn" data-file="folk">The rules people made →</button>
     </div>
     <div class="spacer-m"></div>
@@ -1306,13 +1288,12 @@
     </article>
   </div>
 
-  <div class="spacer-m"></div>
+  <div class="spacer-s"></div>
   <div class="measure" style="text-align:center">
-    <span class="chip warn rv">Parallel, not connection</span>
-    <p class="narr rv" style="margin-top:1.8em">Every door has a lock on the
-    inside. Pick whichever one lets you sleep.</p>
+    <p class="narr rv">Every door has a lock on the inside. Pick whichever one
+    lets you sleep.</p>
   </div>
-  <div class="spacer-m"></div>
+  <div class="spacer-s"></div>
 </section>
 
 <!-- ============ 09 INSTRUMENTS ============ -->
@@ -1336,10 +1317,8 @@
     strange night to himself, researchers in a Norwegian valley were
     hauling radar, magnetometers, and cameras into the snow, because
     the lights there came often enough to wait for.</p>
-    <p class="narr rv">Same decade. Same season. Same behavior in the
-    notebooks. No connection has ever been demonstrated, and I am not
-    claiming one.</p>
-    <div class="spacer-s"></div>
+    <p class="narr rv">Same decade. Same season. Same behavior in the notebooks.
+    No connection has ever been demonstrated and I am not claiming one.</p>
     <span class="chip warn rv">Parallel, not connection</span>
     <div class="spacer-s"></div>
     <button class="filebtn" data-file="hess">The field report →</button>
@@ -1373,16 +1352,13 @@
   <div class="spacer-m"></div>
   <div class="measure">
     <p class="narr rv">An aircraft coming head on can hang motionless and then
-    seem to leap sideways when it banks. Cold air bends distant light into
-    places it should not be. A child&rsquo;s memory, told for forty years,
-    sharpens in some places and softens in others.</p>
-    <p class="narr rv">All of that is true. I have checked. I want you to know
-    that I checked, because I need you to believe the next part.</p>
-    <div class="spacer-s"></div>
-    <p class="narr rv">Not one of those explanations accounts for a decorated
-    combat pilot climbing past his own ceiling, over this county, toward
-    something a colonel watched hold still for ninety minutes, and then two
-    different official stories about what it was.</p>
+    leap sideways when it banks. Cold air bends distant light. A child&rsquo;s
+    memory sharpens in some places and softens in others. All of that is true.
+    I checked.</p>
+    <p class="narr rv">None of it accounts for a decorated combat pilot climbing
+    past his own ceiling, over this county, toward something a colonel watched
+    hold still for ninety minutes, and then two different official stories about
+    what it was.</p>
   </div>
 </section>
 
@@ -1392,16 +1368,13 @@
     <p class="big" data-rv="up">Was it a plane?</p>
     <p class="narr rv">Maybe. Twenty miles from an Army airfield, in a decade of
     night exercises, the odds are good.</p>
-    <div class="spacer-s"></div>
     <p class="big" data-rv="up">Was it a ghost?</p>
     <p class="narr rv">My grandmother would have said so without blinking. So
-    would half of Wales, four hundred years ago, about a light that walked a
-    road ahead of a funeral nobody had held yet.</p>
-    <div class="spacer-s"></div>
+    would half of Wales, four hundred years ago.</p>
     <p class="big" data-rv="up">Was it a craft?</p>
-    <p class="narr rv">Seven hundred and one files at the National Archives are
-    still sitting there with no answer written on them. I am not going to
-    pretend I know which drawer mine belongs in.</p>
+    <p class="narr rv">Seven hundred and one files are still sitting at the
+    National Archives with no answer written on them. I do not know which drawer
+    mine belongs in.</p>
   </div>
 
   <div class="spacer-m"></div>
@@ -1414,21 +1387,13 @@
   </div>
 
   <div class="spacer-m"></div>
-  <div class="wide">
-    <figure class="plate" data-rv="blur">
-      <img src="assets/plates/16-the-light.jpg" alt="A single small pale light low against a black winter treeline." loading="lazy">
-      <figcaption>The same treeline. Nothing in it now.</figcaption>
-    </figure>
-  </div>
-
-  <div class="spacer-l"></div>
-  <div class="vh" style="text-align:center">
+  <div style="min-height:70vh;display:flex;flex-direction:column;justify-content:center;text-align:center">
     <p class="triad" data-rv="up">It woke.<br>It watched.<br>It ran.</p>
   </div>
 </section>
 
 <section data-beat data-ch="">
-  <div class="vh" style="text-align:center">
+  <div style="min-height:88vh;display:flex;flex-direction:column;justify-content:center;text-align:center">
     <h1 id="thetitle" data-rv="scale">WINTER<br>RUNNERS</h1>
     <div class="spacer-s"></div>
     <p class="whisper rv">Around here, that is what we called them.</p>
