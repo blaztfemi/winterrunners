@@ -604,7 +604,7 @@
   <div class="wide">
     <figure class="plate photo" data-rv="blur">
       <img src="assets/family/01-house-construction.jpg"
-           alt="A two-storey house under construction with dark red siding, scaffolding, and a man and small child standing in a second-floor opening.">
+           alt="A two-story house under construction with dark red siding, scaffolding, and a man and small child standing in a second-floor opening.">
       <figcaption>My parents built it themselves. That is my father in the
       second floor opening, and that small red shape beside him is me, standing
       on scaffold plank over a floor that did not exist yet.
@@ -650,10 +650,10 @@
 
 <!-- ============ 01b THE MARK, pinned zoom into a real photograph ============ -->
 <div id="mark-outer" data-beat data-ch="01 · The Mark">
-  <div id="mark-stage" role="img" aria-label="A family photograph of a ploughed field is slowly magnified toward a small white mark in the sky at the right-hand side of the frame.">
+  <div id="mark-stage" role="img" aria-label="A family photograph of a plowed field is slowly magnified toward a small white mark in the sky at the right-hand side of the frame.">
     <div id="mark-frame">
       <img id="mark-img" src="assets/family/02-field-tractor.jpg"
-           alt="A ploughed field, a red Farmall tractor and trailer with family members, a treeline behind, and a small white mark in the sky at right.">
+           alt="A plowed field, a red Farmall tractor and trailer with family members, a treeline behind, and a small white mark in the sky at right.">
       <div id="mark-ret"></div>
     </div>
     <div id="mark-cap">Family archive · the lower field · early 1980s</div>
@@ -725,7 +725,7 @@
 <section data-beat data-ch="02 · The Hill">
   <div class="spacer-m"></div>
   <div class="measure" style="text-align:center">
-    <p class="narr rv">Understand where I was. No streetlight. No neighbour's
+    <p class="narr rv">Understand where I was. No streetlight. No neighbor's
     window. No car that was not ours.</p>
     <p class="narr rv">The nearest thing that made its own light was twenty miles
     up the road, behind a fence, and it belonged to the United States Army.</p>
@@ -894,7 +894,7 @@
       <img src="assets/plates/11-files.jpg" alt="" loading="lazy">
       <div class="ec"><div class="place">Hessdalen, Norway</div>
         <h5>They Brought Radar</h5>
-        <p>Researchers hauled magnetometers, spectrum analysers and cameras into
+        <p>Researchers hauled magnetometers, spectrum analyzers and cameras into
         a frozen valley for five weeks in 1984 and logged fifty three sightings.
         They came back with data and no answer.</p>
         <div class="open">Open the file</div></div>
@@ -905,7 +905,7 @@
       <div class="ec"><div class="place">Wales, and everywhere after</div>
         <h5>Corpse Candles</h5>
         <p>A flame that leaves a sick person&rsquo;s bed and walks the road the
-        funeral will take later. Same behaviour, same rule about following.
+        funeral will take later. Same behavior, same rule about following.
         Centuries before anything flew.</p>
         <div class="open">Open the file</div></div>
     </button>
@@ -1224,7 +1224,7 @@
       <div class="spacer-s"></div>
       <p class="narr rv">Which leaves you with an unpleasant choice. Either
       people in four centuries and three countries independently invented the
-      same behaviour, or they were all describing something.</p>
+      same behavior, or they were all describing something.</p>
       <button class="filebtn" data-file="folk">The rules people made →</button>
     </div>
     <div class="spacer-m"></div>
@@ -1743,7 +1743,7 @@
   /* =====================================================
      THE ARCHIVE, every source opens inside the story.
      Facts and quotations here are verified; framing and
-     questions are the project's own and labelled as such.
+     questions are the project's own and labeled as such.
      ===================================================== */
   const FILES={
     hix:{
@@ -1877,7 +1877,7 @@
           <p>Fifty-three observations in a single winter field campaign. The
           researchers came back with data and no conclusion.</p>`,
       note:`<b>Parallel, not connection.</b> Same decade. Same season. Same
-            behaviour in the notebooks as a boy in Kentucky was describing to
+            behavior in the notebooks as a boy in Kentucky was describing to
             nobody. No link has ever been demonstrated, and this project does
             not claim one.`,
       href:'https://www.hessdalen.org',
@@ -1918,9 +1918,9 @@
     q.addEventListener('click',()=>q.parentElement.classList.toggle('open'));
   });
 
-  /* ===== family photographs: show a labelled slot if the file isn't there yet ===== */
+  /* ===== family photographs: show a labeled slot if the file isn't there yet ===== */
   /* Local asset first; fall back to the remote render; only then show the
-     labelled slot. Lets the site work before assets are localised and stay
+     labeled slot. Lets the site work before assets are localized and stay
      working after, with no markup change. */
   function resolveImg(im){
     if(im.dataset.remote && im.src!==im.dataset.remote){ im.src=im.dataset.remote; return; }
