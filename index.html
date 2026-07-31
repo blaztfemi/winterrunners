@@ -7,7 +7,7 @@
 <meta name="description" content="A childhood memory from Hardin County, Kentucky — and the older record that was waiting for it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Special+Elite&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Narrow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Special+Elite&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 <style>
   :root{
     --deep:#050c0f;
@@ -20,12 +20,14 @@
     --ember:#C4854A;
     --rust:#9A5343;
     --blood:#6d2b22;
-    --banner:'Playfair Display', Georgia, serif;      /* headlines */
-    --news:'Libre Franklin', Helvetica, Arial, sans-serif; /* decks, labels, UI */
-    --col:'Libre Baskerville', Georgia, serif;        /* newspaper columns */
-    --serif:'Newsreader', Georgia, serif;             /* narration */
-    --type:'Special Elite', 'Courier New', monospace; /* declassified */
-    --mono:'IBM Plex Mono', 'Courier New', monospace; /* coordinates */
+    --banner:'Anton', 'Arial Narrow', sans-serif;
+    --display:'Fraunces', Georgia, serif;
+    --nameplate:'UnifrakturMaguntia', 'Old Standard TT', serif;
+    --news:'Archivo Narrow', 'Helvetica Neue', sans-serif;
+    --col:'Old Standard TT', Georgia, serif;
+    --serif:'Spectral', Georgia, serif;
+    --type:'Special Elite', 'Courier New', monospace;
+    --mono:'IBM Plex Mono', 'Courier New', monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{background:var(--deep);color:var(--newsprint);font-family:var(--serif);
@@ -83,10 +85,10 @@
   .measure{max-width:34em;margin:0 auto;padding:0 24px}
   .wide{max-width:52em;margin:0 auto;padding:0 24px}
   .vh{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
-  p.narr{font-size:clamp(19px,2.2vw,23px);margin:1.4em 0;text-shadow:0 1px 16px rgba(2,6,8,.9)}
-  .big{font-family:var(--banner);font-size:clamp(32px,5.8vw,78px);line-height:1.08;font-weight:700;
+  p.narr{font-size:clamp(20px,2.35vw,25px);margin:1.45em 0;font-weight:300;text-shadow:0 1px 16px rgba(2,6,8,.9)}
+  .big{font-family:var(--display);font-size:clamp(33px,5.9vw,80px);line-height:1.06;font-weight:600;
     letter-spacing:-0.015em;margin:.6em 0;text-shadow:0 2px 30px rgba(2,6,8,.95)}
-  .whisper{font-size:clamp(17px,1.8vw,20px);color:var(--evidence);font-style:italic}
+  .whisper{font-size:clamp(18px,1.9vw,21.5px);color:var(--evidence);font-style:italic}
   .spacer-s{height:30vh}.spacer-m{height:55vh}.spacer-l{height:85vh}
   .rv{opacity:0;transform:translateY(16px);transition:opacity 1.7s ease,transform 1.7s ease}
   .rv.on{opacity:1;transform:none}
@@ -121,10 +123,10 @@
   #light-outer{height:700vh;position:relative}
   #light-stage{position:sticky;top:0;height:100vh;overflow:hidden}
   #recon-chip{position:absolute;top:24px;right:24px;z-index:5;opacity:.8}
-  .light-line{position:absolute;left:0;right:0;text-align:center;z-index:76;font-family:var(--banner);
+  .light-line{position:absolute;left:0;right:0;text-align:center;z-index:76;font-family:var(--display);
     font-size:clamp(26px,4.2vw,50px);font-weight:500;opacity:0;transition:opacity 1.4s ease;
     padding:0 24px;text-shadow:0 2px 30px rgba(2,6,8,.95)}
-  .light-line.beat{font-size:clamp(46px,8.5vw,112px);font-weight:700;letter-spacing:.01em}
+  .light-line.beat{font-family:var(--banner);font-size:clamp(50px,9vw,120px);font-weight:400;letter-spacing:.02em;text-transform:uppercase}
   .light-line small{display:block;font-family:var(--serif);font-size:clamp(15px,1.7vw,19px);
     font-weight:300;font-style:italic;color:var(--evidence);margin-top:1.1em;letter-spacing:0}
   .light-line.vis{opacity:1}
@@ -157,8 +159,8 @@
   .clip>*:not(.tex){position:relative;z-index:1}
   .clip .nameplate{border-bottom:2px solid rgba(25,26,22,.75);padding:14px 22px 8px;
     display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
-  .clip .nameplate .np{font-family:var(--banner);font-weight:900;font-size:clamp(17px,2.4vw,23px);
-    letter-spacing:.02em;text-transform:uppercase}
+  .clip .nameplate .np{font-family:var(--nameplate);font-weight:400;font-size:clamp(21px,3vw,30px);
+    letter-spacing:.01em;line-height:1.1}
   .clip .nameplate .npd{font-family:var(--news);font-weight:500;font-size:10.5px;letter-spacing:.16em;
     text-transform:uppercase;color:#5c5648}
   .clip .rail{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -167,17 +169,17 @@
   .clip .inner{padding:26px 30px 30px}
   .clip .kicker{font-family:var(--news);font-weight:700;font-size:11px;letter-spacing:.2em;
     color:var(--blood);text-transform:uppercase;margin-bottom:13px}
-  .clip h3{font-family:var(--banner);font-weight:900;font-size:clamp(28px,4.6vw,46px);
-    line-height:1.02;margin-bottom:9px;letter-spacing:-.018em}
+  .clip h3{font-family:var(--banner);font-weight:400;font-size:clamp(31px,5vw,52px);
+    line-height:.98;margin-bottom:10px;letter-spacing:.005em;text-transform:uppercase}
   .clip .dek{font-family:var(--news);font-weight:400;font-style:italic;
     font-size:clamp(15px,1.9vw,18px);color:#463f33;margin-bottom:18px;line-height:1.45;
     padding-bottom:16px;border-bottom:1px solid rgba(78,72,60,.35)}
-  .clip .cols{font-family:var(--col);font-weight:400;font-size:13px;line-height:1.72;color:#2d2c25;
+  .clip .cols{font-family:var(--col);font-weight:400;font-size:15px;line-height:1.66;color:#2b2a23;
     column-count:2;column-gap:24px;column-rule:1px solid rgba(78,72,60,.22);
     text-align:justify;hyphens:auto}
   @media(max-width:580px){.clip .cols{column-count:1}}
   .clip .cols p{margin-bottom:10px}
-  .clip .cols p:first-child::first-letter{font-family:var(--banner);font-weight:900;font-size:3.1em;
+  .clip .cols p:first-child::first-letter{font-family:var(--display);font-weight:900;font-size:3.1em;
     float:left;line-height:.82;margin:.05em .09em 0 0;color:var(--ink)}
   .clip .foot{margin-top:18px;padding-top:13px;border-top:2px solid rgba(25,26,22,.55);
     display:flex;gap:18px;flex-wrap:wrap}
@@ -199,11 +201,11 @@
   .dossier .line{font-size:15.5px;line-height:2.1;letter-spacing:.01em}
   .redact{display:inline-block;background:#191a16;color:transparent;user-select:none;
     border-radius:1px;vertical-align:middle;height:1.05em;position:relative;top:-1px}
-  .dossier .quote{font-family:var(--banner);font-style:italic;font-weight:500;
+  .dossier .quote{font-family:var(--display);font-style:italic;font-weight:600;
     font-size:clamp(19px,2.7vw,27px);line-height:1.34;color:#201f1a;margin:22px 0;
     padding-left:17px;border-left:3px solid rgba(109,43,34,.6)}
 
-  .surfq{font-family:var(--banner);font-size:clamp(30px,5.2vw,70px);line-height:1.1;font-weight:700;
+  .surfq{font-family:var(--display);font-size:clamp(31px,5.3vw,72px);line-height:1.08;font-weight:600;
     font-style:italic;color:var(--ink);max-width:13em;margin:0 auto}
   .surfq .attr{display:block;font-style:normal;font-family:var(--news);font-weight:600;font-size:12px;
     letter-spacing:.15em;color:#575143;margin-top:1.7em;text-transform:uppercase;line-height:2.1}
@@ -223,14 +225,14 @@
   .door{background:#070f13;padding:36px 30px 42px;position:relative;overflow:hidden;
     transition:background 1.2s ease}
   .door:hover{background:#0c161a}
-  .door .no{font-family:var(--banner);font-size:62px;font-weight:900;color:rgba(157,179,184,.15);
+  .door .no{font-family:var(--display);font-size:66px;font-weight:900;color:rgba(157,179,184,.15);
     line-height:1;margin-bottom:16px}
-  .door h4{font-family:var(--banner);font-size:clamp(23px,2.7vw,31px);font-weight:700;
+  .door h4{font-family:var(--banner);font-size:clamp(26px,3vw,35px);font-weight:400;text-transform:uppercase;letter-spacing:.01em;
     margin-bottom:8px}
   .door .sub{font-family:var(--news);font-weight:600;font-size:11px;letter-spacing:.17em;
     color:var(--evidence);text-transform:uppercase;margin-bottom:20px}
-  .door p{font-size:16px;line-height:1.74;color:#cfcbc1;margin-bottom:15px}
-  .door .verdict{font-family:var(--banner);font-style:italic;font-weight:500;font-size:18px;
+  .door p{font-size:16.5px;line-height:1.76;color:#d3cfc5;margin-bottom:15px}
+  .door .verdict{font-family:var(--display);font-style:italic;font-weight:600;font-size:18.5px;
     color:var(--ember);line-height:1.44;margin-top:20px;padding-top:18px;
     border-top:1px solid rgba(157,179,184,.2)}
 
@@ -247,7 +249,7 @@
   .star.ky{background:#f9e0bc;box-shadow:0 0 12px 4px rgba(249,224,188,.95),0 0 32px 12px rgba(196,133,74,.48)}
   .star.ky .lbl{color:var(--ember)}
   #constellation.quiet .lbl{opacity:0}
-  .const-line{position:absolute;left:0;right:0;text-align:center;padding:0 24px;font-family:var(--banner);
+  .const-line{position:absolute;left:0;right:0;text-align:center;padding:0 24px;font-family:var(--display);
     font-size:clamp(22px,3.2vw,40px);font-weight:500;opacity:0;transition:opacity 1.6s ease;
     text-shadow:0 2px 26px rgba(2,6,8,.95)}
   .const-line.vis{opacity:1}
@@ -274,10 +276,10 @@
   #watcher.gone{transition:opacity .3s ease}
   #watcher.vis{opacity:.5}
 
-  .triad{font-family:var(--banner);font-weight:500;font-size:clamp(38px,6.5vw,90px);
-    letter-spacing:.03em;line-height:1.42;text-align:center;text-shadow:0 2px 30px rgba(2,6,8,.95)}
-  #thetitle{font-family:var(--banner);font-size:clamp(50px,12vw,182px);letter-spacing:.02em;
-    font-weight:900;text-align:center;line-height:.98;
+  .triad{font-family:var(--banner);font-weight:400;font-size:clamp(44px,7.4vw,104px);
+    letter-spacing:.04em;text-transform:uppercase;line-height:1.42;text-align:center;text-shadow:0 2px 30px rgba(2,6,8,.95)}
+  #thetitle{font-family:var(--banner);font-size:clamp(56px,13vw,200px);letter-spacing:.03em;
+    font-weight:400;text-align:center;line-height:.98;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"),linear-gradient(#F4F1E9,#b3aca0);
     background-blend-mode:multiply;-webkit-background-clip:text;background-clip:text;
     -webkit-text-fill-color:transparent;color:transparent}
@@ -293,8 +295,47 @@
   .sources a{color:var(--evidence);text-decoration:none;border-bottom:1px solid rgba(157,179,184,.3)}
   .sources a:hover{color:var(--ember)}
 
+  /* ===== reveal choreography ===== */
+  .rv,[data-rv]{opacity:0;
+    transition:opacity 1.5s cubic-bezier(.16,1,.3,1),transform 1.5s cubic-bezier(.16,1,.3,1),
+               filter 1.5s ease,clip-path 1.6s cubic-bezier(.16,1,.3,1)}
+  .rv{transform:translateY(18px)}
+  [data-rv="up"]{transform:translateY(46px)}
+  [data-rv="left"]{transform:translateX(-64px) rotate(-.4deg)}
+  [data-rv="right"]{transform:translateX(64px) rotate(.4deg)}
+  [data-rv="scale"]{transform:scale(.93)}
+  [data-rv="blur"]{filter:blur(11px);transform:scale(1.03)}
+  [data-rv="rise"]{transform:translateY(70px) scale(.97)}
+  .rv.on,[data-rv].on{opacity:1;transform:none;filter:none}
+
+  /* scroll-driven breathing: narration fades in AND out (GPU) */
+  @supports (animation-timeline: view()){
+    @media (prefers-reduced-motion: no-preference){
+      .measure > p.narr, .measure > .whisper{
+        animation:bandIn linear both, bandOut linear both;
+        animation-timeline:view(), view();
+        animation-range:entry 4% entry 60%, exit 10% exit 80%;
+      }
+      @keyframes bandIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+      @keyframes bandOut{from{opacity:1;filter:blur(0)}to{opacity:.07;filter:blur(3px)}}
+    }
+  }
+
+  /* ===== pause lift ===== */
+  .lifted{
+    color:var(--ember)!important;
+    text-shadow:0 0 18px rgba(196,133,74,.55),0 0 44px rgba(196,133,74,.2);
+    letter-spacing:.19em;transform:scale(1.07);
+    transition:color 1.1s ease,text-shadow 1.1s ease,letter-spacing 1.1s ease,
+               transform 1.1s cubic-bezier(.16,1,.3,1),border-color 1.1s ease}
+  .chip.lifted{border-color:rgba(196,133,74,.65)}
+  figcaption.lifted,.dek.lifted{transform:none;font-size:1.07em}
+  #paper-era .lifted{color:var(--blood)!important;
+    text-shadow:0 0 20px rgba(154,83,67,.32),0 0 44px rgba(154,83,67,.12)}
+
   @media (prefers-reduced-motion: reduce){
-    .rv,.clip,.dossier,.verbwall span{transition:none}
+    .rv,[data-rv],.clip,.dossier,.verbwall span{transition:none}
+    .lifted{transform:none;text-shadow:none;letter-spacing:inherit}
     #watcher{display:none}
     .echo.go{animation:none;opacity:0}
     .vidgrid.drift .vidcard{animation:none}
@@ -360,7 +401,7 @@
 
   <div class="spacer-s"></div>
   <div class="wide">
-    <figure class="plate rv">
+    <figure class="plate" data-rv="blur">
       <img src="https://gen.krea.ai/images/f40f63ea-888f-4245-ab6d-7521f75cbfef.png"
            alt="Rolling Kentucky hills under snow at night, bare hardwood treeline along the ridge." loading="lazy">
       <figcaption>Reconstruction · rolling hill country, Hardin County · [ REPLACE: EXACT KENTUCKY HORIZON · WR-01-01 ]</figcaption>
@@ -379,7 +420,7 @@
   </div>
   <div class="spacer-s"></div>
   <div class="wide">
-    <figure class="plate deep rv">
+    <figure class="plate deep" data-rv="scale">
       <img src="https://gen.krea.ai/images/a4511ca1-4a67-4915-b6b0-62aeff2e4ef4.png"
            alt="A single distant farmhouse window glowing faintly across a black snowy field, seen through bare branches." loading="lazy">
       <figcaption>Reconstruction · the house from the tree line · [ REPLACE: FAMILY HOUSE · FAM-02 ]</figcaption>
@@ -387,10 +428,10 @@
   </div>
   <div class="spacer-s"></div>
   <div class="measure" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-    <figure class="slot rv" data-slot="FAM-01" style="aspect-ratio:3/4">
+    <figure class="slot" data-rv="left" data-slot="FAM-01" style="aspect-ratio:3/4">
       <span class="label">[ FAMILY PHOTO SLOT · FAM-01 ]<br>ERIC, CHILDHOOD</span>
     </figure>
-    <figure class="slot rv" data-slot="FAM-03" style="aspect-ratio:3/4">
+    <figure class="slot" data-rv="right" data-slot="FAM-03" style="aspect-ratio:3/4">
       <span class="label">[ FAMILY PHOTO SLOT · FAM-03 ]<br>MASSEY FERGUSON<br>RADIO FLYER · DOG</span>
     </figure>
   </div>
@@ -406,7 +447,7 @@
   </div>
   <div class="spacer-m"></div>
   <div class="measure">
-    <figure class="plate deep rv">
+    <figure class="plate deep" data-rv="scale">
       <img src="https://gen.krea.ai/images/d0134b8b-fc73-455d-8965-451501b77dd1.png"
            alt="A sled left on a snowy hillside at dusk." loading="lazy">
       <figcaption>Reconstruction · [ REPLACE: RADIO FLYER · FAMILY ARCHIVE ]</figcaption>
@@ -422,7 +463,7 @@
   </div>
   <div class="spacer-s"></div>
   <div class="wide">
-    <figure class="plate deep rv">
+    <figure class="plate deep" data-rv="scale">
       <img src="https://gen.krea.ai/images/934d4a4f-971d-45ff-9b1e-339e3f279830.png"
            alt="Bare black winter branches seen from directly below against a heavy night sky." loading="lazy">
       <figcaption>Reconstruction · the view from flat on your back</figcaption>
@@ -449,7 +490,7 @@
 
 <section class="vh" data-beat data-ch="03 · The Light">
   <div class="measure" style="text-align:center">
-    <p class="big rv" style="font-style:italic">I was not terrified.<br>I simply did not know<br>what I had seen.</p>
+    <p class="big" data-rv="up" style="font-style:italic">I was not terrified.<br>I simply did not know<br>what I had seen.</p>
     <div class="spacer-s"></div>
     <p class="whisper rv">I did not tell anyone for a very long time.</p>
   </div>
@@ -470,12 +511,12 @@
       <p class="narr rv">Then I started reading. And the first thing I found
       was not in Norway, or Texas, or some desert with a visitor center.</p>
       <div class="spacer-s"></div>
-      <p class="big rv">It was in my county.</p>
+      <p class="big" data-rv="up">It was in my county.</p>
     </div>
     <div class="spacer-m"></div>
 
     <div style="padding:0 24px">
-      <article class="clip" data-slot="DOC-06">
+      <article class="clip" data-rv="left" data-slot="DOC-06">
         <div class="tex"><img src="https://gen.krea.ai/images/c6acbd81-dafc-4d97-80a9-cdde31856834.png" alt="" loading="lazy"></div>
         <div class="nameplate">
           <span class="np">The Hardin County Record</span>
@@ -524,7 +565,7 @@
     </div>
     <div class="spacer-s"></div>
     <div class="vh" style="text-align:center">
-      <blockquote class="surfq rv">
+      <blockquote class="surfq" data-rv="up">
         &ldquo;It remained stationary, seemingly,<br>for one and a half&nbsp;hours.&rdquo;
         <span class="attr">Col. Guy F. Hix · Commanding Officer<br>Godman Army Airfield · Hardin County, Kentucky · 1948</span>
       </blockquote>
@@ -536,7 +577,7 @@
       <strong>watched</strong>. Thirty-six years apart, in the same county,
       we were reaching for the same word and neither of us could find it.</p>
       <div class="spacer-s"></div>
-      <p class="big rv" style="font-style:italic">A man died over that.</p>
+      <p class="big" data-rv="up" style="font-style:italic">A man died over that.</p>
       <p class="whisper rv">And then the explanation changed.</p>
     </div>
   </section>
@@ -544,7 +585,7 @@
   <section data-beat data-ch="04 · The County">
     <div class="spacer-m"></div>
     <div style="padding:0 24px">
-      <article class="dossier" data-slot="DOC-07">
+      <article class="dossier" data-rv="right" data-slot="DOC-07">
         <div class="tex"><img src="https://gen.krea.ai/images/f92db884-740c-449b-924c-2c411e6cfb12.png" alt="" loading="lazy"></div>
         <span class="stamp">Declassified</span>
         <div class="hdr">
@@ -589,11 +630,11 @@
   <section id="witnesses" data-beat data-ch="05 · The Older Record">
     <div class="measure" style="text-align:center">
       <p class="narr rv">But here is the part that undoes the tidy version.</p>
-      <p class="big rv">The lights are older<br>than the aircraft.</p>
+      <p class="big" data-rv="up">The lights are older<br>than the aircraft.</p>
     </div>
     <div class="spacer-m"></div>
     <div style="padding:0 24px">
-      <article class="clip" data-slot="DOC-01">
+      <article class="clip" data-rv="right" data-slot="DOC-01">
         <div class="tex"><img src="https://gen.krea.ai/images/c6acbd81-dafc-4d97-80a9-cdde31856834.png" alt="" loading="lazy"></div>
         <div class="nameplate">
           <span class="np">Miami News-Record</span>
@@ -628,7 +669,7 @@
   <section data-beat data-ch="05 · The Older Record">
     <div class="spacer-m"></div>
     <div style="padding:0 24px">
-      <article class="clip" data-slot="DOC-02">
+      <article class="clip" data-rv="left" data-slot="DOC-02">
         <div class="tex"><img src="https://gen.krea.ai/images/c6acbd81-dafc-4d97-80a9-cdde31856834.png" alt="" loading="lazy"></div>
         <div class="nameplate">
           <span class="np">U.S. Geological Survey</span>
@@ -683,7 +724,7 @@
     </div>
     <div class="spacer-s"></div>
     <div class="measure" style="text-align:center">
-      <p class="big rv" style="font-style:italic">Other winters.<br>Other witnesses.<br>The same three movements.</p>
+      <p class="big" data-rv="up" style="font-style:italic">Other winters.<br>Other witnesses.<br>The same three movements.</p>
       <p class="whisper rv">My words were already in the record.<br>I just didn't know it yet.</p>
     </div>
     <div class="spacer-m"></div>
@@ -705,7 +746,7 @@
     </div>
     <div class="spacer-s"></div>
     <div class="wide">
-      <figure class="plate deep rv">
+      <figure class="plate deep" data-rv="scale">
         <img src="https://gen.krea.ai/images/68a08ddc-42a1-472b-908a-db6ffb1aed84.png"
              alt="Footprints in deep snow leading toward a dark treeline and stopping." loading="lazy">
         <figcaption>Reconstruction · the oldest rule was: do not follow</figcaption>
@@ -713,7 +754,7 @@
     </div>
     <div class="spacer-s"></div>
     <div class="measure">
-      <p class="big rv" style="font-style:italic">But a light that runs is a
+      <p class="big" data-rv="up" style="font-style:italic">But a light that runs is a
       light with somewhere to be.</p>
       <p class="whisper rv">And nobody ever gave that one a name.</p>
       <div class="spacer-s"></div>
@@ -749,14 +790,14 @@
 <section id="doors" data-beat data-ch="08 · Three Doors">
   <div class="spacer-s"></div>
   <div class="measure" style="text-align:center">
-    <p class="big rv">So what were they?</p>
+    <p class="big" data-rv="up">So what were they?</p>
     <p class="narr rv">There are only three honest answers, and I have
     stopped pretending I can choose between them.</p>
   </div>
   <div class="spacer-m"></div>
 
   <div class="doors">
-    <article class="door rv">
+    <article class="door" data-rv="rise">
       <div class="no">I</div>
       <h4>The Government</h4>
       <div class="sub">Restricted airspace · classified programs</div>
@@ -771,7 +812,7 @@
       is not a government you can finish auditing.</div>
     </article>
 
-    <article class="door rv">
+    <article class="door" data-rv="rise">
       <div class="no">II</div>
       <h4>The Dead</h4>
       <div class="sub">Corpse candles · spook lights · the old vocabulary</div>
@@ -786,7 +827,7 @@
       in 1694. The lights kept their appointments anyway.</div>
     </article>
 
-    <article class="door rv">
+    <article class="door" data-rv="rise">
       <div class="no">III</div>
       <h4>Something Else</h4>
       <div class="sub">Instruments · plasma · the unfinished file</div>
@@ -814,7 +855,7 @@
 <!-- ============ 09 INSTRUMENTS ============ -->
 <section id="instruments" data-beat data-ch="09 · Someone Brought Instruments">
   <div class="wide">
-    <figure class="plate deep rv">
+    <figure class="plate deep" data-rv="scale">
       <img src="https://gen.krea.ai/images/329257b9-352b-4601-8bab-1f63bea3a152.png"
            alt="A vintage military airfield control tower at dusk with figures watching the sky." loading="lazy">
       <figcaption>Reconstruction · watching the sky from a tower · [ REPLACE: GODMAN FIELD ARCHIVE IF CLEARED ]</figcaption>
@@ -858,7 +899,7 @@
 <!-- ============ 10 RETURN ============ -->
 <section id="return" data-beat data-ch="10 · Return to the Hill">
   <div class="wide">
-    <figure class="plate deep rv">
+    <figure class="plate deep" data-rv="scale">
       <img src="https://gen.krea.ai/images/fe75deb9-b498-4d42-aed0-693d554860a3.png"
            alt="Dense dark winter woods at night, bare trunks receding into blackness." loading="lazy">
       <figcaption>Reconstruction · the woods at the property edge · [ REPLACE: EXACT KENTUCKY TREELINE ]</figcaption>
@@ -878,7 +919,7 @@
 <section data-beat data-ch="10 · Return to the Hill">
   <div class="spacer-m"></div>
   <div class="measure">
-    <p class="big rv" style="font-style:italic">I cannot tell you what I saw that night.</p>
+    <p class="big" data-rv="up" style="font-style:italic">I cannot tell you what I saw that night.</p>
     <p class="narr rv">I can only tell you that a colonel in my county
     wrote <em>stationary</em>, that a Welshman four centuries ago wrote
     about a flame that walked a road, that researchers in Norway wrote
@@ -888,13 +929,13 @@
   </div>
   <div class="spacer-l"></div>
   <div class="vh" style="text-align:center">
-    <p class="triad rv">It woke.<br>It watched.<br>It ran.</p>
+    <p class="triad" data-rv="up">It woke.<br>It watched.<br>It ran.</p>
   </div>
 </section>
 
 <section data-beat data-ch="">
   <div class="vh" style="text-align:center">
-    <h1 id="thetitle" class="rv">WINTER<br>RUNNERS</h1>
+    <h1 id="thetitle" data-rv="scale">WINTER<br>RUNNERS</h1>
     <div class="spacer-s"></div>
     <p class="whisper rv">Around here, that's what we called them.</p>
     <p class="label rv" style="margin-top:3em;font-size:11px">Final wording provisional · pending Eric's approval</p>
@@ -909,8 +950,8 @@
       <p class="whisper rv">If you grew up somewhere with a hill and a treeline,
       you already know how this ends.</p>
       <div class="spacer-s"></div>
-      <p class="rv" style="font-family:var(--banner);font-style:italic;font-weight:500;
-        font-size:clamp(22px,3vw,34px);line-height:1.4">
+      <p class="rv" style="font-family:var(--display);font-style:italic;font-weight:600;
+        font-size:clamp(23px,3.1vw,36px);line-height:1.4">
         Go outside tonight. Look at the tree line.<br>Give it ninety minutes.</p>
     </div>
   </div>
@@ -1028,6 +1069,7 @@
   const outer=document.getElementById('light-outer');
   const paperEra=document.getElementById('paper-era');
   const vig=document.getElementById('vignette');
+  let SC=null;
   let timeScale=1,timeTarget=1,worldAlpha=1;
   let ran=false,passedEncounter=false,runStart=0;
   let clock=0,lastT=performance.now();
@@ -1039,6 +1081,7 @@
 
   function frame(now){
     const dt=Math.min(50,now-lastT); lastT=now;
+    if(SC) SC.tick();
     if(!prefersReduced) timeScale+=(timeTarget-timeScale)*.045; else timeScale=0;
     clock+=dt*timeScale;
     mx+=(tmx-mx)*.03; my+=(tmy-my)*.03;
@@ -1197,13 +1240,19 @@
   }
   setTimeout(dismiss,prefersReduced?300:3400);
   loader.addEventListener('click',dismiss);
-  addEventListener('wheel',dismiss,{once:true,passive:true});
+  addEventListener('wheel',dismiss,{once:true,passive:true,capture:true});
   addEventListener('touchstart',dismiss,{once:true,passive:true});
 
   /* ===== reveals ===== */
   const io=new IntersectionObserver(es=>{es.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:.2});
-  document.querySelectorAll('.rv,.clip,.dossier').forEach(el=>io.observe(el));
+    if(!e.isIntersecting)return;
+    const el=e.target;
+    const sibs=el.parentElement?[...el.parentElement.children].filter(c=>c.hasAttribute('data-rv')):[];
+    const idx=sibs.indexOf(el);
+    if(idx>0) el.style.transitionDelay=(idx*220)+'ms';
+    el.classList.add('on'); io.unobserve(el);
+  });},{threshold:.18});
+  document.querySelectorAll('.rv,[data-rv],.clip,.dossier').forEach(el=>io.observe(el));
 
   const wall=document.getElementById('verbwall');
   const wIO=new IntersectionObserver(es=>{es.forEach(e=>{
@@ -1224,8 +1273,43 @@
   armEcho('echo-open',.6,2600); armEcho('echo-close',.4,2200);
 
   /* =====================================================
-     PACED NAVIGATION — the story moves at its own speed
+     INERTIAL SCROLL ENGINE
+     Wheel, keys and the pace control all feed one lerped
+     position, so the whole site moves like a single object.
+     Touch keeps native scrolling; a wheel flick instantly
+     reclaims control from a cinematic glide.
      ===================================================== */
+  const isTouch = matchMedia('(hover:none)').matches || 'ontouchstart' in window;
+  const SMOOTH  = !prefersReduced && !isTouch;
+
+  SC = {
+    target:scrollY, current:scrollY, ease:0.082, active:false, self:false,
+    max(){ return Math.max(0,document.documentElement.scrollHeight-innerHeight); },
+    to(y,ease){ this.ease=ease||0.082;
+      this.target=Math.max(0,Math.min(this.max(),y)); this.active=true; },
+    by(d){ this.to(this.target+d,0.095); },
+    tick(){
+      if(!SMOOTH||!this.active) return;
+      this.current+=(this.target-this.current)*this.ease;
+      if(Math.abs(this.target-this.current)<0.45){this.current=this.target;this.active=false;}
+      this.self=true; scrollTo(0,this.current);
+    }
+  };
+
+  addEventListener('touchstart',()=>{gliding=false;},{passive:true});
+  if(SMOOTH){
+    addEventListener('wheel',e=>{
+      if(e.ctrlKey) return;
+      e.preventDefault();
+      gliding=false;                       /* reader reclaims the pace */
+      SC.by(e.deltaMode===1 ? e.deltaY*34 : e.deltaY*1.12);
+    },{passive:false});
+  }
+  addEventListener('scroll',()=>{
+    if(SC.self){SC.self=false;return;}
+    if(!SC.active){SC.current=SC.target=scrollY;}
+  },{passive:true});
+
   const beats=[...document.querySelectorAll('[data-beat]')];
   const upBtn=document.getElementById('navUp');
   const downBtn=document.getElementById('navDown');
@@ -1233,66 +1317,92 @@
   const bar=document.querySelector('.progress');
   const chapEl=document.getElementById('chapter');
   const chapSecs=[...document.querySelectorAll('[data-ch]')];
-  let animating=false, animCancel=false;
 
+  /* absolute document positions — offsetTop is relative to positioned
+     ancestors (#paper-era), which silently scrambles the ordering. */
+  let beatTops=[], chapTops=[];
+  function measure(){
+    const sy=scrollY;
+    beatTops=beats.map(b=>Math.round(b.getBoundingClientRect().top+sy));
+    chapTops=chapSecs.map(c=>Math.round(c.getBoundingClientRect().top+sy));
+  }
+  addEventListener('resize',measure);
+  addEventListener('load',measure);
+  document.querySelectorAll('img').forEach(im=>im.addEventListener('load',measure,{once:true}));
+
+  /* Explicit beat tracking: one press = exactly one scene.
+     Derived from scroll position only when the reader drives. */
+  let curBeat=0, gliding=false, glideEnd=0;
   function beatIndex(){
-    const y=scrollY+innerHeight*.42;
-    let i=0; beats.forEach((b,j)=>{if(b.offsetTop<=y)i=j;});
+    const y=(SMOOTH?SC.current:scrollY)+innerHeight*.42;
+    let i=0; beatTops.forEach((t,j)=>{if(t<=y)i=j;});
     return i;
   }
-  /* target: for tall pinned sections, land at their start */
-  function targetFor(i){
-    const b=beats[i];
-    return Math.min(b.offsetTop, document.body.scrollHeight-innerHeight);
-  }
-  function easeInOutCubic(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
-
-  function glideTo(y,dur){
-    if(prefersReduced){ scrollTo(0,y); return; }
-    animCancel=false; animating=true;
-    const start=scrollY, dist=y-start, t0=performance.now();
-    (function step(now){
-      if(animCancel){animating=false;return;}
-      const t=Math.min(1,(now-t0)/dur);
-      scrollTo(0,start+dist*easeInOutCubic(t));
-      if(t<1) requestAnimationFrame(step); else animating=false;
-    })(t0);
-  }
-  /* user takes over instantly if they touch the wheel */
-  addEventListener('wheel',()=>{if(animating)animCancel=true;},{passive:true});
-  addEventListener('touchstart',()=>{if(animating)animCancel=true;},{passive:true});
-
   function go(dir){
-    const i=beatIndex();
-    const n=Math.max(0,Math.min(beats.length-1,i+dir));
-    if(n===i&&dir>0&&i===beats.length-1) return;
-    /* distance-aware duration: longer journeys take longer, capped */
-    const y=targetFor(n);
-    const dist=Math.abs(y-scrollY);
-    const dur=Math.max(900,Math.min(2200,600+dist*.45));
-    glideTo(y,dur);
+    const n=Math.max(0,Math.min(beats.length-1,curBeat+dir));
+    if(n===curBeat && (dir>0?n===beats.length-1:n===0)) return;
+    curBeat=n;
+    const y=Math.min(beatTops[n],SC.max());
+    gliding=true; glideEnd=performance.now()+3000;
+    if(SMOOTH) SC.to(y,0.038);
+    else scrollTo({top:y,behavior:prefersReduced?'auto':'smooth'});
+    syncUI();
   }
   downBtn.addEventListener('click',()=>go(1));
   upBtn.addEventListener('click',()=>go(-1));
   addEventListener('keydown',e=>{
     if(['ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(1);}
     else if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(-1);}
+    else if(e.key==='Home'){e.preventDefault();SMOOTH?SC.to(0,0.03):scrollTo(0,0);}
   });
 
   function syncUI(){
     const h=document.documentElement;
     bar.style.height=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'vh';
-    const i=beatIndex();
-    countEl.textContent=String(i+1).padStart(2,'0');
-    upBtn.disabled=(i===0);
-    downBtn.disabled=(i===beats.length-1);
+    if(gliding && performance.now()>glideEnd) gliding=false;
+    if(!gliding) curBeat=beatIndex();
+    countEl.textContent=String(curBeat+1).padStart(2,'0');
+    upBtn.disabled=(curBeat===0); downBtn.disabled=(curBeat===beats.length-1);
     let label='';
-    chapSecs.forEach(s=>{if(s.offsetTop<=scrollY+innerHeight*.45)label=s.dataset.ch;});
+    const cy=scrollY+innerHeight*.45;
+    chapTops.forEach((t,j)=>{if(t<=cy)label=chapSecs[j].dataset.ch;});
     if(label){chapEl.textContent=label;chapEl.classList.add('vis');}
     else chapEl.classList.remove('vis');
   }
   addEventListener('scroll',syncUI,{passive:true});
-  syncUI();
+  measure(); syncUI();
+
+  /* =====================================================
+     PAUSE LIFT — when the story rests, small type grows
+     and glows so the back of the room can read it.
+     ===================================================== */
+  const LIFTABLE='.chip, .label, .coord, .plate figcaption, .surfq .attr, '+
+                 '.door .sub, .clip .kicker, .clip .dek, a.src';
+  let lifted=[], stillTimer=null, lastPos=scrollY;
+  function clearLift(){lifted.forEach(el=>el.classList.remove('lifted'));lifted=[];}
+  function settle(){
+    if(prefersReduced) return;
+    clearLift();
+    const band=innerHeight*0.40, mid=innerHeight*0.48;
+    document.querySelectorAll(LIFTABLE).forEach(el=>{
+      const r=el.getBoundingClientRect();
+      if(!r.height) return;
+      const c=r.top+r.height/2;
+      if(Math.abs(c-mid)<band && r.top<innerHeight && r.bottom>0){
+        el.classList.add('lifted'); lifted.push(el);
+      }
+    });
+  }
+  function onMove(){
+    const y=SMOOTH?SC.current:scrollY;
+    if(Math.abs(y-lastPos)>2) clearLift();
+    lastPos=y;
+    clearTimeout(stillTimer);
+    stillTimer=setTimeout(settle,760);
+  }
+  addEventListener('scroll',onMove,{passive:true});
+  onMove();
+  addEventListener('load',()=>{measure();syncUI();onMove();});
 
   /* ===== constellation ===== */
   const cO=document.getElementById('constellation-outer');

@@ -208,7 +208,64 @@ audience: **"Go outside tonight. Look at the tree line. Give it ninety
 minutes."** (Ninety minutes is Hix's duration. Most of the room won't
 catch it. The ones who do will feel it.)
 
-## 4c. Typography (v5 — actual newsprint)
+## 4c-v6. Typography — characterful, not safe
+
+v5's Playfair/Libre Franklin was *correct* but generic — the fonts every
+tasteful deck reaches for. v6 trades safety for period truth:
+
+| Role | Face | Why |
+|---|---|---|
+| Banner headlines, the triad, the title, WOKE/WATCHED/RAN | **Anton** | Heavy condensed grotesque — the actual shape of a broadsheet banner headline. Set uppercase, tight. |
+| Newspaper nameplates | **UnifrakturMaguntia** | Blackletter. Real newspapers put blackletter nameplates on their front pages; used *only* in the nameplate band, small, it reads as authentic newsprint rather than horror cliché. |
+| Big statements, pull quotes, verdicts, drop caps | **Fraunces** | Variable old-style with genuine wonk and soft axes — characterful where Playfair is polite. |
+| Letterpress column body | **Old Standard TT** | Actually looks printed in 1910. Justified, hyphenated, column-ruled. |
+| Decks, kickers, labels, UI, sources | **Archivo Narrow** | Condensed newspaper sans — more newsroom than Franklin, and legible small. |
+| Narration | **Spectral** | Screen-designed serif with real texture; easier to read than Newsreader at 20–25px. |
+| Declassified documents | **Special Elite** | Typewriter. Blue Book records were typed. |
+| Coordinates only | **IBM Plex Mono** | |
+
+Body copy raised to 20–25px, columns to 15px, whisper to 18–21.5px.
+
+## 4e. Pause lift — for the back of the room
+
+When scrolling stops for 760ms, every small-type element resting near the
+vertical centre of the viewport (`.chip`, `.label`, `.coord`, plate
+captions, quote attributions, door subtitles, clipping kickers and decks,
+source links) **scales to 1.07, opens its letter-spacing, shifts to ember,
+and gains a soft glow** — then releases the instant the reader moves
+again. On the paper century it lifts to oxblood instead of ember so it
+stays legible on light stock.
+
+The effect is aimed squarely at a presentation room: the metadata that
+carries the site's credibility becomes readable from the back wall exactly
+when the presenter pauses on it, and disappears when the story moves.
+
+## 4f. Motion architecture (v6)
+
+**Inertial scroll engine.** The jank was structural: native wheel scroll is
+discrete, and only the nav clicks were eased. Now wheel, keyboard and the
+pace control all feed a **single lerped position** (`SC`), advanced once
+per frame inside the same rAF loop that draws the world — so type, canvas,
+fog and snow move as one object. Wheel uses a 0.082 ease; nav glides drop
+to 0.038 for a slower cinematic travel. Touch devices keep native
+scrolling untouched, and any wheel flick instantly reclaims the pace from a
+glide. Reduced-motion disables the engine entirely.
+
+**Deterministic beats.** `offsetTop` is relative to positioned ancestors,
+which silently scrambled ordering inside `#paper-era`; positions are now
+measured absolutely and cached on load/resize/image-load. The current beat
+is tracked explicitly rather than probed, so **one press always equals one
+scene** — verified 01→11 with no skips or repeats.
+
+**Reveal choreography.** Elements no longer all fade up. `data-rv`
+variants: `left` / `right` (clippings arrive from alternating sides with a
+0.4° rotation settling to zero), `blur` (photo plates resolve out of
+defocus), `scale`, `rise` (the three doors, staggered 220ms apart), `up`.
+Narration additionally *breathes* — a GPU scroll-driven `view()` timeline
+fades and blurs each paragraph out as it leaves, so the page is never a
+flat wall of text.
+
+## 4c. Typography (v5 — superseded, kept for reference)
 
 Bodoni Moda was wrong: Didone reads as *fashion magazine*, not newspaper.
 American newspapers ran **Cheltenham/Century serifs for headlines and
