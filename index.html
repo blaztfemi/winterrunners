@@ -1507,13 +1507,14 @@
 <script>
 (function(){
   const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let SC=null;                     /* inertial scroll controller, built below */
 
   /* Belt and braces: layout can shift as fonts and images land, and some
      browsers re-apply a stored offset after load or when returning from the
      back/forward cache. Pin to the top through all of it. */
   function toTop(){
     window.scrollTo(0,0);
-    if(typeof SC!=='undefined'&&SC){SC.current=SC.target=0;SC.active=false;}
+    if(SC){SC.current=SC.target=0;SC.active=false;}
   }
   toTop();
   addEventListener('DOMContentLoaded',toTop);
@@ -1606,7 +1607,6 @@
   const outer=document.getElementById('light-outer');
   const paperEra=document.getElementById('paper-era');
   const vig=document.getElementById('vignette');
-  let SC=null;
   let timeScale=1,timeTarget=1,worldAlpha=1;
   let ran=false,passedEncounter=false,runStart=0;
   let clock=0,lastT=performance.now();
