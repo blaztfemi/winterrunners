@@ -96,7 +96,7 @@
   .big{font-family:var(--display);font-size:clamp(30px,4.6vw,62px);line-height:1.12;font-weight:600;text-wrap:balance;
     letter-spacing:-0.015em;margin:.6em 0;text-shadow:0 2px 30px rgba(2,6,8,.95)}
   .whisper{font-size:clamp(18px,1.9vw,21.5px);color:var(--evidence);font-style:italic}
-  .spacer-s{height:30vh}.spacer-m{height:55vh}.spacer-l{height:85vh}
+  .spacer-s{height:18vh}.spacer-m{height:32vh}.spacer-l{height:48vh}
   .rv{opacity:0;transform:translateY(16px);transition:opacity 1.7s ease,transform 1.7s ease}
   .rv.on{opacity:1;transform:none}
 
@@ -118,8 +118,8 @@
   .plate>img{box-shadow:0 30px 70px rgba(0,0,0,.72);display:block}
   .photo{background:none;padding:0}
   .photo>img{padding:9px;background:#141210;box-shadow:0 26px 60px rgba(0,0,0,.7)}
-  .plate img{width:100%;display:block;filter:saturate(.5) contrast(1.14) brightness(.7)}
-  .plate.deep img{filter:saturate(.3) contrast(1.28) brightness(.48)}
+  .plate img{width:100%;display:block;filter:saturate(.62) contrast(1.08) brightness(.9)}
+  .plate.deep img{filter:saturate(.45) contrast(1.14) brightness(.74)}
   .plate figcaption{position:static;padding:14px 2px 0;background:none;font-family:var(--news);
     font-weight:400;font-size:15px;letter-spacing:.01em;color:#b9b5ab;text-transform:none;
     line-height:1.62;max-width:46em}
@@ -134,7 +134,7 @@
   .slot::before{content:'';width:34px;height:1px;background:rgba(157,179,184,.42)}
 
   /* ===== the light stage ===== */
-  #light-outer{height:700vh;position:relative}
+  #light-outer{height:440vh;position:relative}
   #light-stage{position:sticky;top:0;height:100vh;overflow:hidden}
   #recon-chip{position:absolute;top:24px;right:24px;z-index:5;opacity:.8}
   .light-line{position:absolute;left:0;right:0;text-align:center;z-index:76;font-family:var(--display);
@@ -251,7 +251,7 @@
     border-top:1px solid rgba(157,179,184,.2)}
 
   /* ===== constellation ===== */
-  #constellation-outer{height:540vh;position:relative;z-index:2}
+  #constellation-outer{height:340vh;position:relative;z-index:2}
   #constellation{position:sticky;top:0;height:100vh;overflow:hidden}
   .star{position:absolute;width:6px;height:6px;border-radius:50%;background:#efe6d2;
     box-shadow:0 0 8px 2px rgba(239,230,210,.8),0 0 22px 7px rgba(196,133,74,.24);
@@ -297,7 +297,7 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"),linear-gradient(#F4F1E9,#b3aca0);
     background-blend-mode:multiply;-webkit-background-clip:text;background-clip:text;
     -webkit-text-fill-color:transparent;color:transparent}
-  #finale{position:relative;min-height:130vh;background:#020507;overflow:hidden;z-index:2}
+  #finale{position:relative;min-height:auto;background:#020507;overflow:hidden;z-index:2}
   .echo{position:absolute;top:32%;left:-3%;width:4px;height:4px;border-radius:50%;background:#efe6d2;
     box-shadow:0 0 7px 2px rgba(239,230,210,.8),0 0 18px 6px rgba(196,133,74,.28);opacity:0}
   .echo.go{animation:echoCross 3.2s cubic-bezier(.4,0,.6,1) 1 forwards}
@@ -322,7 +322,7 @@
   @media(max-width:860px){#reader .sheet{grid-template-columns:1fr;max-height:94vh}
     #reader .facs{max-height:32vh}}
   #reader .facs{background:#0b0f12;position:relative;overflow:hidden;min-height:220px}
-  #reader .facs img{width:100%;height:100%;object-fit:cover;filter:saturate(.35) contrast(1.15) brightness(.8)}
+  #reader .facs img{width:100%;height:100%;object-fit:cover;filter:saturate(.55) contrast(1.06) brightness(.95)}
   #reader .facs .cls{position:absolute;left:16px;bottom:14px;font-family:var(--news);font-weight:600;
     font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--evidence);
     background:rgba(3,8,10,.8);padding:6px 11px;border:1px solid rgba(157,179,184,.3)}
@@ -387,14 +387,14 @@
   .plate .fallback .label{font-size:11.5px;line-height:2}
 
   /* ===== THE MARK, pinned zoom into a real family photograph ===== */
-  #mark-outer{height:560vh;position:relative;z-index:2}
+  #mark-outer{height:360vh;position:relative;z-index:2}
   #mark-stage{position:sticky;top:0;height:100vh;overflow:hidden;background:#05090b;
     display:flex;align-items:center;justify-content:center}
   #mark-frame{position:relative;width:min(96vw,calc(96vh * 1.269));
     aspect-ratio:2112/1664;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.8)}
   #mark-img{width:100%;height:100%;object-fit:cover;display:block;
     transform-origin:80% 33%;will-change:transform;
-    filter:saturate(.72) contrast(1.06) brightness(.92)}
+    filter:saturate(.85) contrast(1.03) brightness(1)}
   #mark-ret{position:absolute;left:80%;top:33%;width:96px;height:96px;margin:-48px 0 0 -48px;
     border:1px solid rgba(196,133,74,.85);border-radius:50%;opacity:0;
     box-shadow:0 0 0 1px rgba(5,9,11,.6) inset,0 0 26px rgba(196,133,74,.32);
@@ -412,12 +412,12 @@
   .mark-line small{display:block;font-family:var(--news);font-weight:500;font-style:normal;
     font-size:clamp(13px,1.4vw,15.5px);letter-spacing:.13em;text-transform:uppercase;
     color:var(--evidence);margin-top:1.4em}
-  @media(max-width:640px){#mark-outer{height:420vh}#mark-frame{width:96vw}}
+  @media(max-width:640px){#mark-outer{height:280vh}#mark-frame{width:96vw}}
 
   /* real photographs get a print presence: deckle edge + warmth */
   .photo{background:#141210;padding:10px;box-shadow:0 30px 70px rgba(0,0,0,.72)}
-  .photo img{filter:saturate(.82) contrast(1.04) brightness(.94)}
-  .photo.dim img{filter:saturate(.6) contrast(1.1) brightness(.72)}
+  .photo img{filter:saturate(.88) contrast(1.02) brightness(.98)}
+  .photo.dim img{filter:saturate(.72) contrast(1.06) brightness(.86)}
 
   /* ===== sightings ledger ===== */
   .ledger{max-width:900px;margin:0 auto;padding:0 24px}
@@ -436,7 +436,7 @@
   .ecard{background:#080f13;border:1px solid rgba(157,179,184,.16);display:flex;flex-direction:column;
     text-align:left;padding:0;cursor:pointer;transition:border-color .5s ease,transform .6s cubic-bezier(.16,1,.3,1)}
   .ecard:hover{border-color:rgba(196,133,74,.5);transform:translateY(-4px)}
-  .ecard img{width:100%;aspect-ratio:16/10;object-fit:cover;filter:saturate(.35) contrast(1.18) brightness(.6)}
+  .ecard img{width:100%;aspect-ratio:16/10;object-fit:cover;filter:saturate(.5) contrast(1.1) brightness(.84)}
   .ecard .ec{padding:17px 19px 21px}
   .ecard .place{font-family:var(--news);font-weight:700;font-size:11px;letter-spacing:.19em;
     text-transform:uppercase;color:var(--evidence);margin-bottom:8px}
@@ -520,8 +520,8 @@
     .vidgrid.drift .vidcard{animation:none}
   }
   @media (max-width:640px){
-    #light-outer{height:480vh}
-    #constellation-outer{height:400vh}
+    #light-outer{height:330vh}
+    #constellation-outer{height:260vh}
     .clip .inner,.dossier{padding:22px 20px}
     #nav{bottom:16px;right:16px}
     #navHint{display:none}
@@ -570,11 +570,11 @@
 </div>
 
 <!-- ============ COLD OPEN ============ -->
-<section id="coldopen" class="vh" data-beat data-ch="" style="min-height:140vh;overflow:hidden">
+<section id="coldopen" class="vh" data-beat data-ch="" style="min-height:104vh;overflow:hidden">
   <div class="echo" id="echo-open" style="top:30%"></div>
   <img src="assets/plates/01-hills-night.jpg" alt="" aria-hidden="true"
        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-              opacity:.24;filter:saturate(.3) contrast(1.15) brightness(.5);z-index:-1">
+              opacity:.24;filter:saturate(.45) contrast(1.08) brightness(.7);z-index:-1">
   <div class="measure" style="text-align:center;margin-top:24vh">
     <p class="coord rv">
       OFF U.S. HIGHWAY 62<br>
@@ -1443,7 +1443,7 @@
 <!-- ============ FINALE ============ -->
 <section id="finale" data-beat data-ch="">
   <div class="echo" id="echo-close" style="top:32%"></div>
-  <div class="vh" style="justify-content:center;text-align:center">
+  <div style="min-height:82vh;display:flex;flex-direction:column;justify-content:center;text-align:center">
     <div class="measure">
       <p class="whisper rv">If you grew up somewhere with a hill and a treeline,
       you already know how this ends.</p>
@@ -1457,7 +1457,7 @@
     </div>
   </div>
 
-  <div class="vh" style="justify-content:center">
+  <div style="min-height:auto;padding:8vh 0 4vh">
     <div class="measure" style="text-align:center">
       <p class="label rv" style="margin-bottom:26px">To find out more</p>
       <div class="sources rv" style="text-align:left;max-width:30em;margin:0 auto">
@@ -1486,15 +1486,14 @@
           <span style="opacity:.6;font-size:11.5px">The file science left open.</span>
         </p>
       </div>
-      <div class="spacer-s"></div>
-      <p class="whisper rv" style="max-width:24em;margin:2em auto 0">
+      <p class="whisper rv" style="max-width:24em;margin:2.4em auto 0">
       Every quotation, date and record above is real and linked. The only thing
       here you have to take on faith is me.</p>
     </div>
   </div>
 
-  <div style="height:60vh"></div>
-  <div class="measure" style="text-align:center;padding-bottom:12vh">
+  <div style="height:14vh"></div>
+  <div class="measure" style="text-align:center;padding-bottom:8vh">
     <p class="sources" style="opacity:.4;font-size:11.5px;line-height:2.2">
       Family photographs are my own.<br>
       Historical quotations, service records and archive titles are verified and linked.<br>
