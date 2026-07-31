@@ -372,6 +372,39 @@
   .plate.nofile .fallback{display:block}
   .plate .fallback .label{font-size:11.5px;line-height:2}
 
+  /* ===== THE MARK — pinned zoom into a real family photograph ===== */
+  #mark-outer{height:560vh;position:relative;z-index:2}
+  #mark-stage{position:sticky;top:0;height:100vh;overflow:hidden;background:#05090b;
+    display:flex;align-items:center;justify-content:center}
+  #mark-frame{position:relative;width:min(96vw,calc(96vh * 1.269));
+    aspect-ratio:2112/1664;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.8)}
+  #mark-img{width:100%;height:100%;object-fit:cover;display:block;
+    transform-origin:80% 33%;will-change:transform;
+    filter:saturate(.72) contrast(1.06) brightness(.92)}
+  #mark-ret{position:absolute;left:80%;top:33%;width:96px;height:96px;margin:-48px 0 0 -48px;
+    border:1px solid rgba(196,133,74,.85);border-radius:50%;opacity:0;
+    box-shadow:0 0 0 1px rgba(5,9,11,.6) inset,0 0 26px rgba(196,133,74,.32);
+    transition:opacity 1s ease,width .9s ease,height .9s ease,margin .9s ease;pointer-events:none}
+  #mark-ret::after{content:'';position:absolute;inset:-14px;border:1px dashed rgba(196,133,74,.35);
+    border-radius:50%}
+  #mark-cap{position:absolute;left:0;right:0;bottom:26px;text-align:center;padding:0 24px;
+    font-family:var(--news);font-weight:600;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--evidence);text-shadow:0 2px 14px rgba(2,6,8,.95);
+    transition:opacity .8s ease}
+  .mark-line{position:absolute;left:0;right:0;text-align:center;padding:0 6vw;z-index:6;
+    font-family:var(--display);font-weight:600;font-size:clamp(22px,3.3vw,42px);line-height:1.25;
+    opacity:0;transition:opacity 1.2s ease;text-shadow:0 3px 34px rgba(2,6,8,.98)}
+  .mark-line.vis{opacity:1}
+  .mark-line small{display:block;font-family:var(--news);font-weight:500;font-style:normal;
+    font-size:clamp(13px,1.4vw,15.5px);letter-spacing:.13em;text-transform:uppercase;
+    color:var(--evidence);margin-top:1.4em}
+  @media(max-width:640px){#mark-outer{height:420vh}#mark-frame{width:96vw}}
+
+  /* real photographs get a print presence: deckle edge + warmth */
+  .photo{background:#141210;padding:10px;box-shadow:0 30px 70px rgba(0,0,0,.72)}
+  .photo img{filter:saturate(.82) contrast(1.04) brightness(.94)}
+  .photo.dim img{filter:saturate(.6) contrast(1.1) brightness(.72)}
+
   /* ===== reveal choreography ===== */
   .rv,[data-rv]{opacity:0;
     transition:opacity 1.5s cubic-bezier(.16,1,.3,1),transform 1.5s cubic-bezier(.16,1,.3,1),
@@ -451,7 +484,7 @@
 <div id="reader" role="dialog" aria-modal="true" aria-label="Archive file reader">
   <button class="close" id="readerClose" aria-label="Close file">&times;</button>
   <div class="sheet">
-    <div class="facs"><img id="rFacs" src="" alt=""><span class="cls" id="rCls"></span></div>
+    <div class="facs"><img id="rFacs" alt="" hidden><span class="cls" id="rCls"></span></div>
     <div class="body">
       <div class="kick" id="rKick"></div>
       <h2 id="rTitle"></h2>
@@ -470,6 +503,9 @@
 <!-- ============ COLD OPEN ============ -->
 <section id="coldopen" class="vh" data-beat data-ch="" style="min-height:140vh;overflow:hidden">
   <div class="echo" id="echo-open" style="top:30%"></div>
+  <img src="assets/plates/01-hills-night.jpg" alt="" aria-hidden="true"
+       style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+              opacity:.24;filter:saturate(.3) contrast(1.15) brightness(.5);z-index:-1">
   <div class="measure" style="text-align:center;margin-top:24vh">
     <p class="coord rv">
       OFF U.S. HIGHWAY 62<br>
@@ -482,7 +518,7 @@
 <!-- ============ 01 THE LAST HOUSE ============ -->
 <section id="house" data-beat data-ch="01 · The Last House">
   <div class="measure">
-    <span class="chip rv">Personal memory</span>
+    <span class="chip rv">Personal memory · family archive</span>
     <p class="narr rv">We called it the last house in Hardin County. It was a
     joke, mostly. The road ran out past us into gravel and then into nothing,
     and there was no reason for anybody to come further unless they were
@@ -492,42 +528,55 @@
 
   <div class="spacer-s"></div>
   <div class="wide">
-    <figure class="plate" data-rv="blur">
+    <figure class="plate photo" data-rv="blur">
       <img src="assets/family/01-house-construction.jpg"
-           alt="A two-storey house under construction, dark red siding, scaffolding, a woman and small child standing in an upstairs opening.">
-      <div class="fallback"><span class="label">[ FAMILY PHOTO · FAM-02 ]<br>
-        THE HOUSE GOING UP<br>drop file at assets/family/01-house-construction.jpg</span></div>
-      <figcaption>My parents built it themselves. That is my mother in the second-floor
-      opening, and that is me beside her, standing on scaffold plank over a floor
-      that did not exist yet. · Family archive, early 1980s</figcaption>
+           alt="A two-storey house under construction with dark red siding, scaffolding poles, a ladder, and a woman and small child standing in a second-floor opening.">
+      <figcaption>They built it themselves. That is my mother in the second-floor
+      opening — and that small red shape beside her is me, standing on scaffold
+      plank over a floor that did not exist yet. · Family archive</figcaption>
     </figure>
   </div>
 
   <div class="spacer-s"></div>
   <div class="measure">
     <p class="narr rv">Fifteen acres of woods, hills and meadow. A cistern under
-    the concrete porch to catch and filter the rain, because the water was ours
-    to solve. Outbuildings for lumber, tools, engine parts. My father cut the
-    paths himself and harvested the trees that heated the house.</p>
+    the concrete porch to catch and filter the rain, because water was ours to
+    solve. Outbuildings for lumber, tools, engine parts.</p>
     <p class="narr rv">If the power went, nobody was coming. If the road iced,
-    nobody was coming. We were built to not need anyone, and that is a strange
+    nobody was coming. We were built not to need anyone — and that is a strange
     thing to be raised inside of.</p>
     <div class="spacer-s"></div>
     <p class="big" data-rv="up">It did not feel like<br>the edge of the county.</p>
     <p class="whisper rv">It felt like the edge of everything.</p>
   </div>
+  <div class="spacer-m"></div>
 </section>
 
 <section data-beat data-ch="01 · The Last House">
-  <div class="spacer-m"></div>
   <div class="wide">
-    <figure class="plate" data-rv="scale">
+    <figure class="plate photo" data-rv="scale">
       <img src="assets/family/03-dad-farmall.jpg"
-           alt="A man on a red Farmall Cub tractor with a plow, in bare winter woods.">
-      <div class="fallback"><span class="label">[ FAMILY PHOTO · FAM-03 ]<br>
-        MY FATHER · THE FARMALL CUB<br>drop file at assets/family/03-dad-farmall.jpg</span></div>
-      <figcaption>My father, cutting a path with the Cub. Everything you can see
-      behind him, he cleared. · Family archive</figcaption>
+           alt="A man on a red Farmall Cub tractor with a plow attached, in bare winter woods.">
+      <figcaption>My father on the Farmall Cub. Every path you can see behind him,
+      he cut. · Family archive</figcaption>
+    </figure>
+  </div>
+  <div class="spacer-s"></div>
+  <div class="measure">
+    <p class="narr rv">He cleared the paths, harvested the trees that heated the
+    house, and made a way down to the lower meadow where we kept bees. The land
+    did not come like that. He made it come like that.</p>
+  </div>
+
+  <div class="spacer-m"></div>
+  <div class="measure" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <figure class="plate photo" data-rv="left" style="box-shadow:0 20px 44px rgba(0,0,0,.65)">
+      <img src="assets/family/06-eric-walk.jpg" alt="A young boy with arms crossed standing on a new concrete walk, raw dirt and cleared woods behind him.">
+      <figcaption>Standing on the new walk. The dirt is still raw.</figcaption>
+    </figure>
+    <figure class="plate photo" data-rv="right" style="box-shadow:0 20px 44px rgba(0,0,0,.65)">
+      <img src="assets/family/04-eric-woods.jpg" alt="A boy sitting on a stump at the edge of a brush pile in the woods.">
+      <figcaption>And out there, most of the day, most days.</figcaption>
     </figure>
   </div>
   <div class="spacer-s"></div>
@@ -535,48 +584,66 @@
     <p class="narr rv">Most days it was me, the dog, and the woods. I built forts
     out of whatever the house was finished with. I knew that treeline the way you
     know a face.</p>
-    <p class="narr rv">Which is the only reason any of the rest of this means
-    anything. I was not a tourist out there. <strong>I knew what belonged.</strong></p>
-  </div>
-  <div class="spacer-s"></div>
-  <div class="measure" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-    <figure class="plate" data-rv="left" style="box-shadow:0 18px 40px rgba(0,0,0,.6)">
-      <img src="assets/family/04-eric-woods.jpg" alt="A young boy sitting on a stump at the edge of cleared brush.">
-      <div class="fallback"><span class="label">[ FAMILY PHOTO · FAM-01 ]<br>ERIC<br>assets/family/04-eric-woods.jpg</span></div>
-      <figcaption>Me. Out there, most of the day, most days.</figcaption>
-    </figure>
-    <figure class="plate" data-rv="right" style="box-shadow:0 18px 40px rgba(0,0,0,.6)">
-      <img src="assets/family/05-dog-snow.jpg" alt="A child bending down in deep snow beside a large reddish dog, tractors in the background.">
-      <div class="fallback"><span class="label">[ FAMILY PHOTO · FAM-04 ]<br>THE DOG · THE YARD IN SNOW<br>assets/family/05-dog-snow.jpg</span></div>
-      <figcaption>The yard after a snow. The hill is just past the tractors.</figcaption>
-    </figure>
+    <p class="narr rv">Which is the only reason any of the rest of this matters.
+    I was not a visitor out there. <strong>I knew what belonged.</strong></p>
   </div>
   <div class="spacer-m"></div>
 </section>
 
 <section data-beat data-ch="01 · The Last House">
   <div class="wide">
-    <figure class="plate" data-rv="blur">
-      <img src="assets/family/02-field-tractor.jpg"
-           alt="A ploughed field with family members on a trailer behind a red tractor, treeline behind, and a small white mark in the sky at right.">
-      <div class="fallback"><span class="label">[ FAMILY PHOTO · FAM-05 ]<br>
-        THE LOWER FIELD<br>assets/family/02-field-tractor.jpg</span></div>
-      <figcaption>The lower field. My grandfather standing, the Farmall, all of us
-      on the trailer. · Look at the sky on the right-hand side.</figcaption>
+    <figure class="plate photo dim" data-rv="blur">
+      <img src="assets/family/05-dog-snow.jpg"
+           alt="A child bending down in deep snow beside a large reddish dog, with tractors and an outbuilding in the trees behind.">
+      <figcaption>The yard after a snow. Both tractors parked in the trees. The
+      hill starts just past them. · Family archive</figcaption>
     </figure>
   </div>
   <div class="spacer-s"></div>
   <div class="measure">
-    <span class="chip warn rv">Project interpretation · almost certainly a film artifact</span>
-    <p class="narr rv" style="margin-top:1.6em">There is a small white mark in the
-    sky in that photograph. I want to be completely honest with you about it: it
-    is almost certainly a scratch on the negative, or a light leak, or a fleck of
-    something on the lens. Every family album from that decade has one.</p>
-    <p class="narr rv">I only mention it because of what happened next, and
-    because of how badly I have wanted, for forty years, for it to be something.</p>
-    <p class="whisper rv">That wanting is worth watching. It is exactly how this
-    kind of story gets built — and I am going to do it to you on purpose for the
-    next few minutes.</p>
+    <p class="narr rv">That is the yard. That is the dog. That is the snow.</p>
+    <p class="narr rv">Everything in this story happens about forty yards past
+    the right-hand edge of that photograph.</p>
+  </div>
+  <div class="spacer-m"></div>
+</section>
+
+<!-- ============ 01b THE MARK — pinned zoom into a real photograph ============ -->
+<div id="mark-outer" data-beat data-ch="01 · The Mark">
+  <div id="mark-stage" role="img" aria-label="A family photograph of a ploughed field is slowly magnified toward a small white mark in the sky at the right-hand side of the frame.">
+    <div id="mark-frame">
+      <img id="mark-img" src="assets/family/02-field-tractor.jpg"
+           alt="A ploughed field, a red Farmall tractor and trailer with family members, a treeline behind, and a small white mark in the sky at right.">
+      <div id="mark-ret"></div>
+    </div>
+    <div id="mark-cap">Family archive · the lower field · early 1980s</div>
+    <div class="mark-line" id="mk-0" style="top:8%">Nobody in this photograph is
+      looking at anything.<small>My grandfather standing · the Cub · all of us on the trailer</small></div>
+    <div class="mark-line" id="mk-1" style="top:8%">Except there is something in
+      the sky on the right-hand side.</div>
+    <div class="mark-line" id="mk-2" style="top:8%">And I have been looking at it
+      since I was old enough to hold the photograph.</div>
+    <div class="mark-line" id="mk-3" style="top:76%">It is almost certainly a
+      scratch on the negative.<small>Project interpretation · film artifact · not evidence</small></div>
+    <div class="mark-line" id="mk-4" style="top:76%">I want to be completely honest
+      with you about that.<small>Every album from that decade has one</small></div>
+  </div>
+</div>
+
+<section data-beat data-ch="01 · The Mark">
+  <div class="spacer-s"></div>
+  <div class="measure">
+    <p class="narr rv">A light leak. A fleck on the lens. A bird, caught at the
+    wrong shutter speed. There are four ordinary explanations and I believe all
+    of them before I believe anything else.</p>
+    <p class="narr rv">I only show it to you because of how badly I have wanted,
+    for forty years, for it to be something.</p>
+    <div class="spacer-s"></div>
+    <p class="big" data-rv="up" style="font-style:italic">That wanting is the
+    whole trick.</p>
+    <p class="whisper rv">Watch what it does to you over the next few minutes.
+    I am going to do it on purpose, with real documents, and you are going to
+    feel it work.</p>
   </div>
   <div class="spacer-m"></div>
 </section>
@@ -585,9 +652,9 @@
 <section id="hill" data-beat data-ch="02 · The Hill">
   <div class="wide">
     <figure class="plate deep" data-rv="blur">
-      <img src="assets/plates/08-last-place.jpg" data-remote="https://gen.krea.ai/images/c0eec1fc-d7d9-442b-aa19-dbc08127594b.png"
+      <img src="assets/plates/08-last-place.jpg"
            alt="A vast empty snow-covered hollow at last light with one impossibly small distant farmhouse." loading="lazy">
-      <figcaption>Reconstruction · what &ldquo;the last house&rdquo; actually means in winter</figcaption>
+      <figcaption>Reconstruction · what &ldquo;the last house&rdquo; means in winter</figcaption>
     </figure>
   </div>
   <div class="spacer-m"></div>
@@ -597,25 +664,14 @@
     <p class="narr rv">One more run before supper. That was the deal.</p>
   </div>
   <div class="spacer-m"></div>
-  <div class="measure">
-    <figure class="plate deep" data-rv="scale">
-      <img src="assets/plates/02-sled-dusk.jpg" data-remote="https://gen.krea.ai/images/d0134b8b-fc73-455d-8965-451501b77dd1.png"
-           alt="A sled left on a snowy hillside at dusk." loading="lazy">
-      <figcaption>Reconstruction · [ REPLACE: RADIO FLYER · FAMILY ARCHIVE ]</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section data-beat data-ch="02 · The Hill">
-  <div class="spacer-m"></div>
   <div class="measure" style="text-align:center">
-    <p class="narr rv">The sled turned beneath me and left me on my
-    back in the snow, looking up.</p>
+    <p class="narr rv">The sled turned beneath me and left me on my back in the
+    snow, looking up.</p>
   </div>
   <div class="spacer-s"></div>
   <div class="wide">
     <figure class="plate deep" data-rv="scale">
-      <img src="assets/plates/04-branches-above.jpg" data-remote="https://gen.krea.ai/images/934d4a4f-971d-45ff-9b1e-339e3f279830.png"
+      <img src="assets/plates/04-branches-above.jpg"
            alt="Bare black winter branches seen from directly below against a heavy night sky." loading="lazy">
       <figcaption>Reconstruction · the view from flat on your back</figcaption>
     </figure>
@@ -624,20 +680,15 @@
   <div class="measure" style="text-align:center">
     <p class="whisper rv">The kind of quiet where you can hear the cold.</p>
   </div>
-  <div class="spacer-s"></div>
-  <div class="measure">
-    <figure class="plate deep" data-rv="scale">
-      <img src="assets/plates/09-mailbox.jpg" data-remote="https://gen.krea.ai/images/65a16504-3b2a-47ad-b074-6bdcc895b3f9.png"
-           alt="An empty rural mailbox at the end of a long snowed-in driveway at dusk." loading="lazy">
-      <figcaption>Reconstruction · the end of the road, and then nothing</figcaption>
-    </figure>
-  </div>
+</section>
+
+<section data-beat data-ch="02 · The Hill">
   <div class="spacer-m"></div>
   <div class="measure" style="text-align:center">
     <p class="narr rv">Understand where I was. No streetlight. No neighbour's
-    window. No car that was not ours. The nearest thing that made its own light
-    was twenty miles up the road, behind a fence, and it belonged to the
-    United States Army.</p>
+    window. No car that was not ours.</p>
+    <p class="narr rv">The nearest thing that made its own light was twenty miles
+    up the road, behind a fence, and it belonged to the United States Army.</p>
     <p class="whisper rv">I did not know that yet.</p>
   </div>
   <div class="spacer-l"></div>
@@ -1197,6 +1248,13 @@
     <p class="narr rv">— and that a boy on his back in the snow, who had
     never read any of it, reached for the same three words.</p>
   </div>
+  <div class="spacer-m"></div>
+  <div class="wide">
+    <figure class="plate deep" data-rv="blur">
+      <img src="assets/plates/16-the-light.jpg" alt="A single small pale light low against a black winter treeline." loading="lazy">
+      <figcaption>Reconstruction · the treeline, with nothing in it now</figcaption>
+    </figure>
+  </div>
   <div class="spacer-l"></div>
   <div class="vh" style="text-align:center">
     <p class="triad" data-rv="up">It woke.<br>It watched.<br>It ran.</p>
@@ -1600,7 +1658,7 @@
     },
     hess:{
       cls:'Primary record · Field report',
-      img:'assets/plates/15-hessdalen-camp.jpg',remote:'https://gen.krea.ai/images/d373d704-dc9d-466b-bade-3bb33e80e82a.png',
+      img:'assets/plates/06-tower-dusk.jpg',remote:'https://gen.krea.ai/images/d373d704-dc9d-466b-bade-3bb33e80e82a.png',
       kick:'Project Hessdalen · Norway',
       title:'They Brought Instruments',
       meta:'Field campaign 21 Jan — 26 Feb 1984 · 53 observations recorded',
@@ -1624,7 +1682,7 @@
     const f=FILES[k]; if(!f) return;
     lastFocus=document.activeElement;
     const fac=document.getElementById('rFacs');
-    fac.dataset.remote=f.remote||''; fac.src=f.img;
+    fac.dataset.remote=f.remote||''; fac.hidden=false; fac.src=f.img;
     document.getElementById('rCls').textContent=f.cls;
     document.getElementById('rKick').innerHTML=f.kick;
     document.getElementById('rTitle').innerHTML=f.title;
@@ -1667,6 +1725,51 @@
   document.getElementById('rFacs').addEventListener('error',function(){
     if(this.dataset.remote && this.src!==this.dataset.remote) this.src=this.dataset.remote;
   });
+
+  /* =====================================================
+     THE MARK — scroll drives a magnification into a real
+     family photograph, toward the white speck at 80%/33%.
+     The reticle opens, the frame closes in, and the honest
+     label lands at maximum magnification.
+     ===================================================== */
+  (function(){
+    const outer=document.getElementById('mark-outer');
+    const img=document.getElementById('mark-img');
+    const ret=document.getElementById('mark-ret');
+    const cap=document.getElementById('mark-cap');
+    if(!outer) return;
+    const mls=[0,1,2,3,4].map(n=>document.getElementById('mk-'+n));
+    const MAXZ=7.2;
+    function showM(i){mls.forEach((l,j)=>l.classList.toggle('vis',j===i));}
+    (function loop(){
+      const r=outer.getBoundingClientRect();
+      const inView=r.top<innerHeight&&r.bottom>0;
+      if(inView){
+        const p=Math.min(1,Math.max(0,-r.top/(r.height-innerHeight)));
+        /* zoom: hold, then ease in, then hold at full magnification */
+        let z=1;
+        if(p>0.16){
+          const t=Math.min(1,(p-0.16)/0.52);
+          const e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+          z=1+e*(MAXZ-1);
+        }
+        img.style.transform='scale('+z.toFixed(3)+')';
+        /* reticle: appears before the push, tightens as we close in */
+        const ro=p>0.10&&p<0.60?1:(p>=0.60?Math.max(0,1-(p-0.60)/0.14):0);
+        ret.style.opacity=ro;
+        const rs=Math.max(34,96-(z-1)*11);
+        ret.style.width=ret.style.height=rs+'px';
+        ret.style.margin=(-rs/2)+'px 0 0 '+(-rs/2)+'px';
+        cap.style.opacity=p<0.14?1:0;
+        if(p<0.10) showM(0);
+        else if(p<0.24) showM(1);
+        else if(p<0.44) showM(2);
+        else if(p<0.74) showM(3);
+        else showM(4);
+      } else { showM(-1); }
+      requestAnimationFrame(loop);
+    })();
+  })();
 
   /* ===== wind ===== */
   let AC=null,windGain=null,windOn=false,duck=0;

@@ -1,21 +1,20 @@
-# Family photographs — drop zone
+# Family photographs — installed
 
-Save Eric's scans here with these exact filenames. The site picks them up
-automatically; until a file exists, the page shows a labelled slot instead
-of a broken image.
+All six of Eric's scans are in place, converted to progressive JPEG
+(max 2400px long edge, quality 88) and wired into the site.
 
-| Filename | Photograph | Used in |
+| File | Photograph | Where it appears |
 |---|---|---|
-| `01-house-construction.jpg` | The house going up — dark red siding, scaffolding, mother and Eric in the second-floor opening | Movement 01, hero plate |
-| `02-field-tractor.jpg` | The lower field — grandfather standing, the Farmall, family on the trailer. **Contains the white mark in the sky at right** | Movement 01, the artifact beat |
-| `03-dad-farmall.jpg` | Eric's father on the Farmall Cub with a plow, bare winter woods | Movement 01 |
-| `04-eric-woods.jpg` | Eric as a boy on a stump at the edge of cleared brush | Movement 01, pair-left |
-| `05-dog-snow.jpg` | Child and the big red dog in deep snow, tractors behind | Movement 01, pair-right |
+| `01-house-construction.jpg` | The house going up — scaffolding, dark red siding, Eric's mother and Eric in the second-floor opening | Movement 01, hero plate |
+| `02-field-tractor.jpg` | The lower field — grandfather standing, the Cub, everyone on the trailer. **Contains the white mark in the sky at 80% / 33%** | Movement 01b, THE MARK pinned zoom |
+| `03-dad-farmall.jpg` | Eric's father on the Farmall Cub with the plow | Movement 01 |
+| `04-eric-woods.jpg` | Eric on a stump at the brush pile | Movement 01, right of pair |
+| `05-dog-snow.jpg` | Child and the red dog in deep snow, both tractors in the trees | Movement 01, closing plate |
+| `06-eric-walk.jpg` | Eric with arms crossed on the new concrete walk, raw dirt behind | Movement 01, left of pair |
 
-Any common web format works if you change the extension in `index.html`
-to match. Long edge of 2000px or more is ideal; the site grades them
-dark, so scan flat and unretouched.
+**Do not re-crop `02-field-tractor.jpg`.** The pinned zoom in Movement 01b
+is calibrated to the mark's position at 80% width / 33% height of the
+frame. Changing the crop moves the target.
 
-**Note on `02-field-tractor.jpg`:** the site labels the white mark in the
-sky as *almost certainly a film artifact* and uses that honesty as a
-narrative beat. Do not crop it out.
+Originals were removed from `assets/` after conversion; the source scans
+live in Eric's own archive.
